@@ -34,22 +34,76 @@ class Vector3{
     private:
         float x, y, z;
     public:
-        Vector3(float _x,float _y,float _z): x{_x}, y{_y}, z{_z}{}
+        Vector3(float _x,float _y,float _z): x{_x}, y{_y}, z{_z}{
+        //Constructor called when new Vector3 is initiated                                                      
+        }
         Vector3 operator+(Vector3 _other){
+            //Operator +
+            //Ex) Vector1 = Vector2 + Vector3
             return Vector3(x + _other.x, y + _other.y, z + _other.z);
         }
         Vector3 operator-(Vector3 _other){
+            //Operator -
+            //Ex) Vector1 = Vector2 - Vector3
             return Vector3(x - _other.x, y - _other.y, z -_other.z);
         }
         Vector3 operator +=(Vector3 _other){
+            //Operator +=
+            //Ex) Vector1 += Vector2
            x += _other.x;
            y += _other.y;
            z += _other.z;
         }
         Vector3 operator -=(Vector3 _other){
+            //Operator -=
+            //Ex) Vector1 -= Vector2
             x -= _other.x;
             y -= _other.y;
             z -= _other.z;
+        }
+        bool operator ==(Vector3 _other){
+            //Operator ==
+            //Ex) if(Vector1 == Vector2)
+            if(x == _other.x && y == _other.y && z == _other.z){
+                return true;
+            }else{
+                return false;
+            }
+            
+        }
+        bool operator !=(Vector3 _other){
+            //Operator !=
+            //Ex) if(Vector1 != Vector2)
+            if(x != _other.x || y != _other.y || z != _other.z){
+                return true;
+            }else{
+                return false;
+            }   
+        }
+        float distance(){
+            //Calculates the distance from orgin
+            if(x < 0){
+                x *= -1;
+            }
+            if(y < 0){
+                y *= -1;
+            }
+            if(z < 0){
+                z *= -1;
+            }
+            return pow((x * x) + (y * y) + (z * z),0.5);
+        }
+        float getX(){
+            //Returns x value
+            return x;
+        }
+        float getY(){
+            //Returns y value
+            return y;
+        }
+        float getZ(){
+            //Returns z value
+            return z;
         }
         
 };
