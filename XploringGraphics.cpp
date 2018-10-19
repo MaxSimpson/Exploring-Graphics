@@ -26,8 +26,8 @@ class Vector2 {
       return Vector2(x - _other.x, y - _other.y);
     }
 
-    float getX(){ return x; }
-    float getY(){ return y; }
+    float getX(){ return x;}
+    float getY(){ return y;}
 
     friend ostream& operator<<(ostream& os, const Vector2& v) {
       return os << v.x << " " << v.y;
@@ -86,6 +86,11 @@ class Vector3{
     //Ex) if(Vector1 != Vector2)
     bool operator!=(Vector3 _other) {
       return !(*this == _other);
+    }
+
+    //Operator *
+    Vector3 operator*(float f) {
+      return Vector3(x*f, y*f, z*f)
     }
 
     //Calculates the distance from orgin
@@ -185,8 +190,3 @@ int main(int argc, char** argv) {
 
   return 0;
 }
-
-/*
-
-
- */
