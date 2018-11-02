@@ -11,36 +11,10 @@
 
 using namespace std;
 
-class Vector2 {
-  private:
-    float x, y;
-  public:
-    Vector2() : x{0.f}, y{0.f} {}
-    Vector2(float _x, float _y): x{_x}, y{_y} {}
-
-    Vector2 operator+(Vector2 _other){
-      return Vector2(x + _other.x, y + _other.y);
-    }
-
-    Vector2 operator-(Vector2 _other){
-      return Vector2(x - _other.x, y - _other.y);
-    }
-
-    float getX(){ return x;}
-    float getY(){ return y;}
-
-    friend ostream& operator<<(ostream& os, const Vector2& v) {
-      return os << v.x << " " << v.y;
-    }
-
-    friend istream& operator>>(istream& is, Vector2& v) {
-      return is >> v.x >> v.y;
-    }
-};
-
 class Vector3{
   private:
     float x, y, z;
+    Vector3 hat ();
 
   public:
     Vector3() : x{0.f}, y{0.f} {}
@@ -89,11 +63,15 @@ class Vector3{
     }
 
     //Operator *
-    Vector3 operator*(float f) {
-      return Vector3(x*f, y*f, z*f)
+    Vector3 operator*(float f){
+      return Vector3(x*f, y*f, z*f);
+    }
+    //Multiplies by another vector
+    float operator*(Vector3 b){
+        return x * b.x + y * b.y + z + b.z;
     }
 
-    //Calculates the distance from orgin
+    //Calculates the distance from origin
     float distance() {
       return sqrt(x*x + y*y + z*z);
     }
@@ -104,7 +82,31 @@ class Vector3{
     float getY() { return y; }
     //Returns z value
     float getZ() { return z; }
-
+    
+    //Returns vector squared
+    float normsqr(){
+        return x * x + y * y + z * z;
+    }
+    //Returns Sqrt of vector squared
+    float norm(){
+        return sqrt(x * x + y * y + z * z);
+    }
+    Vector3 normalized(){
+        return Vector3(x / distance(), y / distance(), z / distance());
+    }
+    void nomalize(){
+        float length = distance();
+        x = x / length;
+        y = y / length;
+        z = z / length;
+    }
+    
+    Vector3 proj(Vector3 b){
+        float length = distance();
+        b.hat() = Vector3(b.x / length, b.y / length, b.z / length);
+        return Vector3(b.hat().x * x * b.hat().x, b.hat().y * y * b.hat().y, b.hat().z * z * b.hat().z);
+    }
+    
     friend ostream& operator<<(ostream& os, const Vector3& v) {
       return os << v.x << " " << v.y << " " << v.z;
     }
@@ -114,7 +116,7 @@ class Vector3{
     }
 };
 
-int main(int argc, char** argv) {
+/*int main(int argc, char** argv) {
   //p1
   // To reduce implement operator>> and operator << for vectors
   cout<<"Enter Point One: ";
@@ -189,4 +191,4 @@ int main(int argc, char** argv) {
   }
 
   return 0;
-}
+} */
