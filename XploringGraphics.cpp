@@ -11,102 +11,120 @@
 
 using namespace std;
 
-class Vector3{
+class Vector3 {
   private:
     float x, y, z;
-    Vector3 hat ();
 
   public:
-    Vector3() : x{0.f}, y{0.f} {}
+    Vector3() : x{0.f}, y{0.f}, z{0.f} {}
+
     //Constructor called when new Vector3 is initiated
-    Vector3(float _x,float _y,float _z): x{_x}, y{_y}, z{_z} {
+    Vector3(float _x, float _y, float _z): x{_x}, y{_y}, z{_z} {
     }
+
+    //Returns x value
+    float getX() const { return x; }
+    //Returns y value
+    float getY() const { return y; }
+    //Returns z value
+    float getZ() const { return z; }
 
     //Operator +
     //Ex) Vector1 = Vector2 + Vector3
-    Vector3 operator+(Vector3 _other){
+    Vector3 operator+(const Vector3& _other) const {
       return Vector3(x + _other.x, y + _other.y, z + _other.z);
     }
 
     //Operator -
     //Ex) Vector1 = Vector2 - Vector3
-    Vector3 operator-(Vector3 _other){
+    Vector3 operator-(const Vector3& _other) const {
       return Vector3(x - _other.x, y - _other.y, z -_other.z);
     }
 
     //Operator +=
     //Ex) Vector1 += Vector2
-    Vector3 operator+=(Vector3 _other){
+    Vector3& operator+=(const Vector3& _other) {
       x += _other.x;
       y += _other.y;
       z += _other.z;
+      return *this;
     }
 
     //Operator -=
     //Ex) Vector1 -= Vector2
-    Vector3 operator-=(Vector3 _other){
+    Vector3& operator-=(const Vector3& _other) {
       x -= _other.x;
       y -= _other.y;
       z -= _other.z;
+      return *this;
     }
 
     //Operator ==
     //Ex) if(Vector1 == Vector2)
-    bool operator==(Vector3 _other) {
+    bool operator==(const Vector3& _other) const {
       return x == _other.x && y == _other.y && z == _other.z;
     }
 
     //Operator !=
     //Ex) if(Vector1 != Vector2)
-    bool operator!=(Vector3 _other) {
+    bool operator!=(const Vector3& _other) const {
       return !(*this == _other);
     }
 
     //Operator *
-    Vector3 operator*(float f){
+    Vector3 operator*(float f) const {
       return Vector3(x*f, y*f, z*f);
     }
+    Vector3 operator/(float f) const {
+      return Vector3(x/f, y/f, z/f);
+    }
+    Vector3& operator*=(float f) {
+      x *= f;
+      y *= f;
+      z *= f;
+      return *this;
+    }
+    Vector3& operator/=(float f) {
+      x /= f;
+      y /= f;
+      z /= f;
+      return *this;
+    }
     //Multiplies by another vector
-    float operator*(Vector3 b){
-        return x * b.x + y * b.y + z + b.z;
+    float operator*(const Vector3& b) const {
+        return x * b.x + y * b.y + z * b.z;
     }
 
-    //Calculates the distance from origin
-    float distance() {
-      return sqrt(x*x + y*y + z*z);
-    }
-
-    //Returns x value
-    float getX() { return x; }
-    //Returns y value
-    float getY() { return y; }
-    //Returns z value
-    float getZ() { return z; }
-    
     //Returns vector squared
-    float normsqr(){
-        return x * x + y * y + z * z;
+    float normsqr() const {
+      return operator*(*this);
     }
+
     //Returns Sqrt of vector squared
-    float norm(){
-        return sqrt(x * x + y * y + z * z);
+    //Calculates the distance from origin
+    float norm() const {
+        return sqrt(normsqr());
     }
-    Vector3 normalized(){
-        return Vector3(x / distance(), y / distance(), z / distance());
+
+    Vector3 normalized() const {
+      float l = norm();
+      return operator/(l);
     }
-    void nomalize(){
-        float length = distance();
-        x = x / length;
-        y = y / length;
-        z = z / length;
+
+    Vector3& nomalize() {
+      float l = norm();
+      return operator/=(l);
     }
-    
-    Vector3 proj(Vector3 b){
-        float length = distance();
-        b.hat() = Vector3(b.x / length, b.y / length, b.z / length);
-        return Vector3(b.hat().x * x * b.hat().x, b.hat().y * y * b.hat().y, b.hat().z * z * b.hat().z);
+
+    Vector3 proj(const Vector3& b) const {
+      Vector3 hat = b.normalized();
+      return hat * (hat * (*this));
     }
-    
+
+    Vector3 orth(const Vector3& b) const {
+      return (*this) - proj(b);
+    }
+
     friend ostream& operator<<(ostream& os, const Vector3& v) {
       return os << v.x << " " << v.y << " " << v.z;
     }
@@ -116,7 +134,8 @@ class Vector3{
     }
 };
 
-/*int main(int argc, char** argv) {
+int main(int argc, char** argv) {
+  /*
   //p1
   // To reduce implement operator>> and operator << for vectors
   cout<<"Enter Point One: ";
@@ -189,6 +208,6 @@ class Vector3{
     }
     cout<<"\n";
   }
-
+  */
   return 0;
-} */
+}
