@@ -111,7 +111,7 @@ class Vector3 {
       return operator/(l);
     }
 
-    Vector3& nomalize() {
+    Vector3& normalize() {
       float l = norm();
       return operator/=(l);
     }
@@ -135,6 +135,12 @@ class Vector3 {
 };
 
 int main(int argc, char** argv) {
+    cout<<"Run \n";
+    Vector3 p1 = Vector3(1,1,1);
+    p1.normalize();
+    cout<<p1;
+  
+    
   /*
   //p1
   // To reduce implement operator>> and operator << for vectors
