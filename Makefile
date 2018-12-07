@@ -1,13 +1,16 @@
 CXX = g++ -std=c++14
 OPT = -O3
 
-OBJS = main.o
+OBJS = main.o Model.o
 LIBS = -lGL -lGLU -lglut
 
-default: main.o
+default: engine
 
-main.o: main.cpp
-	$(CXX) $(OPT) $< $(LIBS) -o $@
+engine: $(OBJS)
+	$(CXX) $(OPT) $(OBJS) $(LIBS) -o engine
+
+%.o: %.cpp
+	$(CXX) $(OPT) -c $< -o $@
 
 clean:
-	rm -f main.o
+	rm -f $(OBJS) engine

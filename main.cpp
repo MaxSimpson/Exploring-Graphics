@@ -11,20 +11,19 @@
 // Includes
 
 // STL
-#include <cmath>
 #include <chrono>
 #include <iostream>
+#include <memory>
 #include <string>
-#include <cstdio>
 #include <cstdlib>
-#include <fstream>
-#include <sstream>
-#include <vector>
-
-
 using namespace std;
+
 // GL
 #include <GL/glut.h>
+
+// My program
+#include "Model.h"
+#include "Vector.h"
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
@@ -44,6 +43,9 @@ std::chrono::high_resolution_clock::time_point g_frameTime{
   std::chrono::high_resolution_clock::now()};
 float g_delay{0.f};
 float g_framesPerSecond{0.f};
+
+// Model
+unique_ptr<Model> m; // Model*
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -90,207 +92,15 @@ timer(int _v) {
   }
   else
     exit(0);
-}class Vector3 {
-  private:
-    float x, y, z;
+}
 
-  public:
-    Vector3() : x{0.f}, y{0.f}, z{0.f} {}
-
-    //Constructor called when new Vector3 is initiated
-    Vector3(float _x, float _y, float _z): x{_x}, y{_y}, z{_z} {
-    }
-
-    //Returns x value
-    float getX() const { return x; }
-    //Returns y value
-    float getY() const { return y; }
-    //Returns z value
-    float getZ() const { return z; }
-
-    //Operator +
-    //Ex) Vector1 = Vector2 + Vector3
-    Vector3 operator+(const Vector3& _other) const {
-      return Vector3(x + _other.x, y + _other.y, z + _other.z);
-    }
-
-    //Operator -
-    //Ex) Vector1 = Vector2 - Vector3
-    Vector3 operator-(const Vector3& _other) const {
-      return Vector3(x - _other.x, y - _other.y, z -_other.z);
-    }
-
-    //Operator +=
-    //Ex) Vector1 += Vector2
-    Vector3& operator+=(const Vector3& _other) {
-      x += _other.x;
-      y += _other.y;
-      z += _other.z;
-      return *this;
-    }
-
-    //Operator -=
-    //Ex) Vector1 -= Vector2
-    Vector3& operator-=(const Vector3& _other) {
-      x -= _other.x;
-      y -= _other.y;
-      z -= _other.z;
-      return *this;
-    }
-
-    //Operator ==
-    //Ex) if(Vector1 == Vector2)
-    bool operator==(const Vector3& _other) const {
-      return x == _other.x && y == _other.y && z == _other.z;
-    }
-
-    //Operator !=
-    //Ex) if(Vector1 != Vector2)
-    bool operator!=(const Vector3& _other) const {
-      return !(*this == _other);
-    }
-
-    //Operator *
-    Vector3 operator*(float f) const {
-      return Vector3(x*f, y*f, z*f);
-    }
-    Vector3 operator/(float f) const {
-      return Vector3(x/f, y/f, z/f);
-    }
-    Vector3& operator*=(float f) {
-      x *= f;
-      y *= f;
-      z *= f;
-      return *this;
-    }
-    Vector3& operator/=(float f) {
-      x /= f;
-      y /= f;
-      z /= f;
-      return *this;
-    }
-    //Multiplies by another vector
-    float operator*(const Vector3& b) const {
-        return x * b.x + y * b.y + z * b.z;
-    }
-
-    //Returns vector squared
-    float normsqr() const {
-      return operator*(*this);
-    }
-
-    //Returns Sqrt of vector squared
-    //Calculates the distance from origin
-    float norm() const {
-        return sqrt(normsqr());
-    }
-
-    Vector3 normalized() const {
-      float l = norm();
-      return operator/(l);
-    }
-
-    Vector3& normalize() {
-      float l = norm();
-      return operator/=(l);
-    }
-
-    Vector3 proj(const Vector3& b) const {
-      Vector3 hat = b.normalized();
-      return hat * (hat * (*this));
-    }
-
-    Vector3 orth(const Vector3& b) const {
-      return (*this) - proj(b);
-    }
-
-    friend std::ostream& operator<<(std::ostream& os, const Vector3& v) {
-      return os << v.x << " " << v.y << " " << v.z;
-    }
-
-    friend std::istream& operator>>(std::istream& is, Vector3& v) {
-      return is >> v.x >> v.y >> v.z;
-    }
-};
-
-/*void print_data() const {
+void print_data() {
   cout << "Model contains:" << endl
-    << "\t" << m_points.size() << " points" << endl
-    << "\t" << m_normals.size() << " normals" << endl
-    << "\t" << m_textures.size() << " textures" << endl
-    << "\t" << m_faces.size() << " faces" << endl;
-}*/
-
-class face{
-  public:
-    int p1 [2];
-    int p2 [2];
-    int p3 [2];
-
-    face(int v1, int n1, int v2, int n2, int v3, int n3){
-        p1 [1] = v1;
-        p1 [2] = n1;
-        p2 [1] = v2;
-        p2 [2] = n2;
-        p3 [1] = v3;
-        p3 [2] = n3;
-    }
-};
-
-class Model {
-  public:
-    Model(std::string filename) {
-      //Next Line
-      std::string line;
-      //Setup Input stream
-      std::ifstream ifs{filename};
-      while(getline(ifs, line)) {
-        std::string tag;
-        std::istringstream iss{line};
-        iss >> tag;
-
-        if(tag == "v") {
-          std::cout<<"Point";
-          Vector3 v;
-          iss >> v;
-         //m_points.emplace_back(v);
-        }
-
-        else if(tag == "vt") {
-          std::cout<<"Texture";
-          Vector3 v;
-          iss >> v;
-         // m_textures.emplace_back(v);
-        }
-
-        else if(tag == "vn") {
-          std::cout<<"Normal";
-          Vector3 v;
-          iss >> v;
-         // m_normals.emplace_back(v);
-        }
-
-        else if(tag == "f") {
-          std::cout<<"Face";
-          //face f;
-          for(size_t i = 0; i < 3; ++i) {
-            //Vertex v;
-            string vert;
-            iss >> vert;
-            //std::sscanf(vert.c_str(), "%zu/%zu/%zu", &v.m_p, &v.m_t, &v.m_n);
-            //f.m_v[i] = v;
-          }
-          //m_faces.emplace_back(f);
-        }
-        else {
-        }
-      }
-    }
-    std::vector <Vector3> normals;
-    std::vector <Vector3> vertex;
-    std::vector <face> faces;
-
-};
+    << "\t" << m->m_points.size() << " points" << endl
+    << "\t" << m->m_normals.size() << " normals" << endl
+    << "\t" << m->m_textures.size() << " textures" << endl
+    << "\t" << m->m_faces.size() << " faces" << endl;
+}
 
 void
 getModel(){
@@ -298,11 +108,11 @@ getModel(){
   std::cout<<"Name of Model to import: ";
   std::string location;
   //Location of model
-  std::cin>> location;
-  Model m (location);
+  std::cin >> location;
+  m.reset(new Model(location));
   //When Making model give normal
   //then vertex
-  //m.print_data();
+  print_data();
 }
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief loads model
