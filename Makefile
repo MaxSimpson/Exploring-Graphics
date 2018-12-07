@@ -1,12 +1,13 @@
 CXX = g++ -std=c++14
-OPT = -03
+OPT = -O3
 
 OBJS = main.o
+LIBS = -lGL -lGLU -lglut
 
 default: main.o
 
 main.o: main.cpp
-	$(CXX) $(OPT) $< -o $@
+	$(CXX) $(OPT) $< $(LIBS) -o $@
 
 clean:
 	rm -f main.o

@@ -24,13 +24,7 @@
 
 using namespace std;
 // GL
-#if   defined(OSX)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-#include <GLUT/glut.h>
-#elif defined(LINUX)
 #include <GL/glut.h>
-#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
@@ -249,7 +243,7 @@ class Model {
       //Next Line
       std::string line;
       //Setup Input stream
-      std::ifstream ifs{filename}; 
+      std::ifstream ifs{filename};
       while(getline(ifs, line)) {
         std::string tag;
         std::istringstream iss{line};
@@ -294,11 +288,11 @@ class Model {
     }
     std::vector <Vector3> normals;
     std::vector <Vector3> vertex;
-    std::vector <face> faces;    
+    std::vector <face> faces;
 
 };
 
-void 
+void
 getModel(){
   std::cout<<"Loading Model\n";
   std::cout<<"Name of Model to import: ";
@@ -314,7 +308,7 @@ getModel(){
 /// @brief loads model
 
 
-void 
+void
 drawModel(){
 
 }
@@ -351,9 +345,9 @@ draw() {
   // Model
   glColor3f(0.6f, 0.f, 0.f);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-  
+
   glBegin(GL_QUADS);
-    
+
     drawModel();
 
   glEnd();
@@ -415,7 +409,7 @@ draw() {
   printf("FPS: %6.2f\n", g_framesPerSecond);
 }
 
- 
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -501,7 +495,3 @@ main(int _argc, char** _argv) {
 
   return 0;
 }
-
-#if   defined(OSX)
-#pragma clang diagnostic pop
-#endif
