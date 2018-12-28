@@ -94,31 +94,15 @@ timer(int _v) {
     exit(0);
 }
 
-void print_data() {
-  cout << "Model contains:" << endl
-    << "\t" << m->m_points.size() << " points" << endl
-    << "\t" << m->m_normals.size() << " normals" << endl
-    << "\t" << m->m_textures.size() << " textures" << endl
-    << "\t" << m->m_faces.size() << " faces" << endl;
-}
-
-void
-getModel(){
-  std::cout<<"Loading Model\n";
-  std::cout<<"Name of Model to import: ";
-  std::string location;
-  //Location of model
-  std::cin >> location;
-  m.reset(new Model(location));
-  //When Making model give normal
-  //then vertex
-  print_data();
-}
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief loads model
-
-
-
+void
+getModel(const string& _name){
+  m.reset(new Model(_name));
+  //When Making model give normal
+  //then vertex
+  m->print_data();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Draw function for single frame
@@ -150,20 +134,7 @@ draw() {
   glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
 
   // Model
-  glColor3f(0.6f, 0.f, 0.f);
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-  glBegin(GL_TRIANGLES);
-    for(int i = 0; i < m->m_faces.size(); i++){
-      for(int z = 0; z < 3; z++){
-        const Vector3& n = m->m_normals[m->m_faces[i].m_v[z].m_n];
-        glNormal3f(n.getX(), n.getY(), n.getZ());
-        const Vector3& v = m->m_points[m->m_faces[i].m_v[z].m_p];
-        glVertex3f(v.getX(), v.getY(), v.getZ());
-      }  
-    } 
-
-  glEnd();
+  m->draw();
 
   //Old Model
   /*
@@ -219,7 +190,7 @@ draw() {
   g_frameRate = duration_cast<duration<float>>(time - g_frameTime).count();
   g_frameTime = time;
   g_framesPerSecond = 1.f/(g_delay + g_frameRate);
-  printf("FPS: %6.2f\n", g_framesPerSecond);
+  //printf("FPS: %6.2f\n", g_framesPerSecond);
 }
 
 
@@ -263,7 +234,6 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
     // Unhandled
     default:
       std::cout << "Unhandled";
-      
   }
 }
 
@@ -279,10 +249,9 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
 int
 main(int _argc, char** _argv) {
   //Create single model
-  
-  //m.draw();
   //Load Model
-  getModel();
+  getModel(_argv[1]);
+
   //////////////////////////////////////////////////////////////////////////////
   // Initialize GLUT Window
   std::cout << "Initializing GLUTWindow" << std::endl;

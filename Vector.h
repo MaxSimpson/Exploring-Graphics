@@ -13,6 +13,10 @@ class Vector2 {
       return _is >> _v.m_x >> _v.m_y;
     }
 
+    friend std::ostream& operator<<(std::ostream& _os, const Vector2& _v) {
+      return _os << _v.m_x << " " << _v.m_y;
+    }
+
   private:
     float m_x, m_y;
 };
