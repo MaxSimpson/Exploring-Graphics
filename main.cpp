@@ -118,10 +118,7 @@ getModel(){
 /// @brief loads model
 
 
-void
-drawModel(){
 
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Draw function for single frame
@@ -156,9 +153,15 @@ draw() {
   glColor3f(0.6f, 0.f, 0.f);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-  glBegin(GL_QUADS);
-
-    drawModel();
+  glBegin(GL_TRIANGLES);
+    for(int i = 0; i < m->m_faces.size(); i++){
+      for(int z = 0; z < 3; z++){
+        const Vector3& n = m->m_normals[m->m_faces[i].m_v[z].m_n];
+        glNormal3f(n.getX(), n.getY(), n.getZ());
+        const Vector3& v = m->m_points[m->m_faces[i].m_v[z].m_p];
+        glVertex3f(v.getX(), v.getY(), v.getZ());
+      }  
+    } 
 
   glEnd();
 
@@ -225,8 +228,7 @@ draw() {
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Callback function for keyboard presses
 /// @param _key Key
-/// @param _x X position of mouse
-/// @param _y Y position of mouse
+/// @param _x X position of moue
 void
 keyPressed(GLubyte _key, GLint _x, GLint _y) {
   switch(_key) {
@@ -260,8 +262,8 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
       break;
     // Unhandled
     default:
-      std::cout << "Unhandled special key: " << _key << std::endl;
-      break;
+      std::cout << "Unhandled";
+      
   }
 }
 
@@ -273,8 +275,12 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
 /// @param _argc Count of command line arguments
 /// @param _argv Command line arguments
 /// @return Application success status
+
 int
 main(int _argc, char** _argv) {
+  //Create single model
+  
+  //m.draw();
   //Load Model
   getModel();
   //////////////////////////////////////////////////////////////////////////////
