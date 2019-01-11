@@ -19,7 +19,7 @@ struct Face {
 class Model {
   public:
     Model(const std::string& filename);
-    
+
     std::vector<Vector3> m_points;
     std::vector<Vector3> m_normals;
     std::vector<Vector2> m_textures;

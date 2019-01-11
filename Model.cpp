@@ -67,10 +67,10 @@ Model(const std::string& filename) {
 void
 Model::
 print_data() const {
-  
+
 cout << "Model contains: " << endl;
 cout << "\t Points: " << m_points.size() << endl;
-cout << "\t Normals: " << m_normals.size() << endl; 
+cout << "\t Normals: " << m_normals.size() << endl;
 cout << "\t Textures: " << m_textures.size() << endl;
 
   //Annoying with larger models
