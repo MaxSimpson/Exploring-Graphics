@@ -67,7 +67,14 @@ Model(const std::string& filename) {
 void
 Model::
 print_data() const {
-  cout << "Model contains:" << endl;
+  
+cout << "Model contains: " << endl;
+cout << "\t Points: " << m_points.size() << endl;
+cout << "\t Normals: " << m_normals.size() << endl; 
+cout << "\t Textures: " << m_textures.size() << endl;
+
+  //Annoying with larger models
+  /*cout << "Model contains:" << endl;
   cout << "\t" << m_points.size() << " points:" << endl;
   for(auto& p : m_points)
     cout << "\t\tPoint: " << p << endl;
@@ -77,7 +84,8 @@ print_data() const {
   cout << "\t" << m_textures.size() << " textures:" << endl;
   for(auto& t : m_textures)
     cout << "\t\tTexture: " << t << endl;
-  cout << "\t" << m_faces.size() << " faces" << endl;
+  cout << "\t" << m_faces.size() << " faces" << endl; */
+
 }
 
 void
