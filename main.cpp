@@ -24,6 +24,8 @@ using namespace std;
 // My program
 #include "Model.h"
 #include "Vector.h"
+#include "Scene.h"
+
 
 ////////////////////////////////////////////////////////////////////////////////
 // Global variables - avoid these
@@ -33,8 +35,10 @@ int g_width{1360};
 int g_height{768};
 int g_window{0};
 
+//Scene
+Scene s;
 // Camera
-float g_theta{0.f};
+//Camera c;
 
 // Frame rate
 const unsigned int FPS = 60;
@@ -116,13 +120,7 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-
-  // Camera
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-  gluLookAt(10*std::sin(g_theta), 0.f, 10*std::cos(g_theta),
-            0.f, 0.f, 0.f, 0.f, 1.f, 0.f);
-
+  //s.c.draw();
   // Single directional light
   static GLfloat lightPosition[] = { 0.5f, 1.0f, 1.5f, 0.0f };
   static GLfloat whiteLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -135,50 +133,6 @@ draw() {
 
   // Model
   m->draw();
-
-  //Old Model
-  /*
-  glBegin(GL_QUADS);
-
-  glNormal3f( 0.f, -1.f,  0.f); // top
-  glVertex3f(-1.f, -1.f, -1.f);
-  glVertex3f(-1.f, -1.f,  1.f);
-  glVertex3f( 1.f, -1.f,  1.f);
-  glVertex3f( 1.f, -1.f, -1.f);
-
-  glNormal3f( 0.f,  1.f,  0.f); // bottom
-  glVertex3f(-1.f,  1.f, -1.f);
-  glVertex3f(-1.f,  1.f,  1.f);
-  glVertex3f( 1.f,  1.f,  1.f);
-  glVertex3f( 1.f,  1.f, -1.f);
-
-  glNormal3f( 0.f,  0.f, -1.f); // back
-  glVertex3f(-1.f, -1.f, -1.f);
-  glVertex3f(-1.f,  1.f, -1.f);
-  glVertex3f( 1.f,  1.f, -1.f);
-  glVertex3f( 1.f, -1.f, -1.f);
-
-  glNormal3f( 0.f,  0.f,  1.f); // front
-  glVertex3f(-1.f, -1.f,  1.f);
-  glVertex3f(-1.f,  1.f,  1.f);
-  glVertex3f( 1.f,  1.f,  1.f);
-  glVertex3f( 1.f, -1.f,  1.f);
-
-  glNormal3f(-1.f,  0.f,  0.f); // left
-  glVertex3f(-1.f, -1.f, -1.f);
-  glVertex3f(-1.f, -1.f,  1.f);
-  glVertex3f(-1.f,  1.f,  1.f);
-  glVertex3f(-1.f,  1.f, -1.f);
-
-  glNormal3f( 1.f,  0.f,  0.f); // right
-  glVertex3f( 1.f, -1.f, -1.f);
-  glVertex3f( 1.f, -1.f,  1.f);
-  glVertex3f( 1.f,  1.f,  1.f);
-  glVertex3f( 1.f,  1.f, -1.f);
-
-  glEnd();
-
-  */
 
   //////////////////////////////////////////////////////////////////////////////
   // Show
@@ -226,14 +180,14 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
   switch(_key) {
     // Arrow keys
     case GLUT_KEY_LEFT:
-      g_theta -= 0.02;
+      //s.c.change_theta(-0.02);
       break;
     case GLUT_KEY_RIGHT:
-      g_theta += 0.02;
+      //s.c.change_theta(0.02);
       break;
     // Unhandled
     default:
-      std::cout << "Unhandled";
+      std::cout << "Unhandled Special Key" << endl;
   }
 }
 
@@ -251,7 +205,6 @@ main(int _argc, char** _argv) {
   //Create single model
   //Load Model
   getModel(_argv[1]);
-
   //////////////////////////////////////////////////////////////////////////////
   // Initialize GLUT Window
   std::cout << "Initializing GLUTWindow" << std::endl;

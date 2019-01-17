@@ -1,8 +1,13 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
-class Scene {
+#include "Camera.h"
 
+class Scene {
+	public:
+		Scene();
+		
+		Camera c;
 };
 
 #endif

@@ -1,0 +1,8 @@
+ChangeLog
+1-16-2019
+	Added Camera Class
+	Added Scene Class
+		Added Camera into Scene
+
+1-17-2019
+	
