@@ -6,7 +6,7 @@
 class Scene {
 	public:
 		Scene();
-		
+
 		Camera c;
 };
 

@@ -1,7 +1,7 @@
 CXX = g++ -std=c++14
 OPT = -O3
 
-OBJS = main.o Model.o Scene.o Camera.o Scene.o
+OBJS = main.o Model.o Scene.o Camera.o
 
 LIBS = -lGL -lGLU -lglut
 
