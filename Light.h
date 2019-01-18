@@ -4,6 +4,7 @@
 class Light{
 	public:
 		void draw();
+		Light();
 
 };
 #endif

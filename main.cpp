@@ -36,7 +36,7 @@ int g_height{768};
 int g_window{0};
 
 //Scene
-Scene s;
+Scene scene;
 // Camera
 //Camera c;
 
@@ -120,16 +120,10 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-  //s.c.draw();
+  scene.camera.draw();
   // Single directional light
-  static GLfloat lightPosition[] = { 0.5f, 1.0f, 1.5f, 0.0f };
-  static GLfloat whiteLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-  static GLfloat darkLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-  glEnable(GL_LIGHTING);
-  glEnable(GL_LIGHT0);
-  glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-  glLightfv(GL_LIGHT0, GL_AMBIENT, darkLight);
-  glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+  scene.light.draw();
+  
 
   // Model
   m->draw();
@@ -180,10 +174,10 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
   switch(_key) {
     // Arrow keys
     case GLUT_KEY_LEFT:
-      //s.c.change_theta(-0.02);
+      scene.camera.change_theta(-0.02);
       break;
     case GLUT_KEY_RIGHT:
-      //s.c.change_theta(0.02);
+      scene.camera.change_theta(0.02);
       break;
     // Unhandled
     default:
@@ -213,7 +207,7 @@ main(int _argc, char** _argv) {
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutInitWindowPosition(50, 100);
   glutInitWindowSize(g_width, g_height); // HD size
-  g_window = glutCreateWindow("Linux > Windows");
+  g_window = glutCreateWindow("Max Wuz Here");
 
   // GL
   initialize();
