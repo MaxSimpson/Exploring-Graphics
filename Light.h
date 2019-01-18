@@ -3,7 +3,7 @@
 
 class Light{
 	public:
-		void draw();
+		void Draw();
 		Light();
 
 };

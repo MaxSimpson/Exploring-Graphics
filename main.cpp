@@ -36,9 +36,7 @@ int g_height{768};
 int g_window{0};
 
 //Scene
-Scene scene;
-// Camera
-//Camera c;
+unique_ptr<Scene> scene;
 
 // Frame rate
 const unsigned int FPS = 60;
@@ -47,9 +45,6 @@ std::chrono::high_resolution_clock::time_point g_frameTime{
   std::chrono::high_resolution_clock::now()};
 float g_delay{0.f};
 float g_framesPerSecond{0.f};
-
-// Model
-unique_ptr<Model> m; // Model*
 
 ////////////////////////////////////////////////////////////////////////////////
 // Functions
@@ -99,16 +94,6 @@ timer(int _v) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-/// @brief loads model
-void
-getModel(const string& _name){
-  m.reset(new Model(_name));
-  //When Making model give normal
-  //then vertex
-  m->print_data();
-}
-
-////////////////////////////////////////////////////////////////////////////////
 /// @brief Draw function for single frame
 void
 draw() {
@@ -120,13 +105,7 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-  scene.camera.draw();
-  // Single directional light
-  scene.light.draw();
-  
-
-  // Model
-  m->draw();
+  scene->Draw();
 
   //////////////////////////////////////////////////////////////////////////////
   // Show
@@ -140,9 +119,6 @@ draw() {
   g_framesPerSecond = 1.f/(g_delay + g_frameRate);
   //printf("FPS: %6.2f\n", g_framesPerSecond);
 }
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Callback function for keyboard presses
@@ -171,18 +147,10 @@ keyPressed(GLubyte _key, GLint _x, GLint _y) {
 /// @param _y Y position of mouse
 void
 specialKeyPressed(GLint _key, GLint _x, GLint _y) {
-  switch(_key) {
-    // Arrow keys
-    case GLUT_KEY_LEFT:
-      scene.camera.change_theta(-0.02);
-      break;
-    case GLUT_KEY_RIGHT:
-      scene.camera.change_theta(0.02);
-      break;
-    // Unhandled
-    default:
-      std::cout << "Unhandled Special Key" << endl;
-  }
+  if(scene->specialKeyPressed(_key, _x, _y))
+    return;
+  
+  std::cout << "Unhandled Special Key: " << _key << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -193,12 +161,11 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
 /// @param _argc Count of command line arguments
 /// @param _argv Command line arguments
 /// @return Application success status
-
 int
 main(int _argc, char** _argv) {
   //Create single model
-  //Load Model
-  getModel(_argv[1]);
+  //Load Scene
+  scene = make_unique<Scene>(_argv[1]);
   //////////////////////////////////////////////////////////////////////////////
   // Initialize GLUT Window
   std::cout << "Initializing GLUTWindow" << std::endl;

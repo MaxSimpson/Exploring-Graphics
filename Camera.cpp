@@ -10,7 +10,7 @@ Camera(){
 
 void
 Camera::
-draw(){
+Draw(){
 	glMatrixMode(GL_MODELVIEW);
   	glLoadIdentity();
   	gluLookAt(10*sin(g_theta), 0.f, 10*cos(g_theta),
@@ -21,4 +21,21 @@ void
 Camera::
 change_theta(float change){
 	g_theta += change;
+}
+
+bool
+Camera::
+specialKeyPressed(GLint _key, GLint _x, GLint _y) {
+  switch(_key) {
+    // Arrow keys
+    case GLUT_KEY_LEFT:
+      g_theta -= 0.02f;
+      return true;
+    case GLUT_KEY_RIGHT:
+      g_theta += 0.02f;
+      return true;
+    // Unhandled
+    default:
+      return false;
+  }
 }

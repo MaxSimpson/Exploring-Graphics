@@ -6,7 +6,7 @@ Light(){}
 
 void
 Light:: 
-draw(){
+Draw(){
 	static GLfloat lightPosition[] = { 0.5f, 1.0f, 1.5f, 0.0f };
   	static GLfloat whiteLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
   	static GLfloat darkLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
