@@ -25,8 +25,8 @@ class Model {
     std::vector<Vector2> m_textures;
     std::vector<Face> m_faces;
 
-    void print_data() const;
-    void draw() const;
+    void Print_Data() const;
+    void Draw() const;
 };
 
 #endif

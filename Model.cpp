@@ -66,7 +66,7 @@ Model(const std::string& filename) {
 
 void
 Model::
-print_data() const {
+Print_Data() const {
 
 cout << "Model contains: " << endl;
 cout << "\t Points: " << m_points.size() << endl;
@@ -90,7 +90,7 @@ cout << "\t Textures: " << m_textures.size() << endl;
 
 void
 Model::
-draw() const {
+Draw() const {
   glColor3f(0.6f, 0.f, 0.f);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
