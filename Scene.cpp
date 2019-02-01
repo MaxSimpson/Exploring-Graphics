@@ -1,13 +1,31 @@
 #include "Scene.h"
 
+#include <fstream>
+#include <sstream>
 using namespace std;
 
 Scene::
 Scene(const string& location){
-	//Create Model NOTE: MAKE INTO VECTOR LATER
-    //models = std::vector<make_unique<WorldModel>>;
+	ifstream ifs(location);
+	while(ifs) {
+		string line;
+		getline(ifs, line);
 
-	Add_Model(location);
+		istringstream iss(line);
+		string tag;
+		iss >> tag;
+		if(tag == "start_object") {
+			cout << "Reading object" << endl;
+			models.emplace_back(make_unique<WorldModel>(ifs));
+		}
+		else if (tag == "") {
+			// ignore
+		}
+		else {
+			cerr << "Unknown tag from creating Scene: '" << tag << "'" << endl;
+			exit(1);
+		}
+	}
 
 	//Make for loop print data
 	for(int i = 0; i < models.size(); i++){
@@ -31,10 +49,4 @@ bool
 Scene::
 specialKeyPressed(GLint _key, GLint _x, GLint _y) {
     return camera.specialKeyPressed(_key, _x, _y);
-}
-
-void
-Scene::
-Add_Model(const string& location){
-	models.emplace_back(make_unique<WorldModel>(location));
 }

@@ -91,7 +91,6 @@ cout << "\t Textures: " << m_textures.size() << endl;
 void
 Model::
 Draw() const {
-  glColor3f(0.6f, 0.f, 0.f);
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
   glBegin(GL_TRIANGLES);

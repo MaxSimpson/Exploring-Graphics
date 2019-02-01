@@ -20,14 +20,9 @@ class Scene {
 		// Event handlers
 		bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
 
-		//Add Model
-		void Add_Model(const std::string& location);
-
 	private:
 		Camera camera;
 		Light light;
-		//Actual Model
-		std::unique_ptr<Model> model; 
 		
 		//Testing World Models
 		std::vector<std::unique_ptr<WorldModel>> models;

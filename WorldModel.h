@@ -9,13 +9,15 @@
 
 class WorldModel{
 	public:
-		WorldModel(const std::string& location);
+		WorldModel(std::ifstream& ifs);
 		void Draw();	
 		void Print_Data();
 	private:
-		Vector3 Translation();
-		Vector3 Scale();
-		Vector3 Rotation();
+		Vector3 translation;
+		Vector3 scale;
+		float rotation_angle;
+		Vector3 rotation_axis;
+		Vector3 color;
 		std::unique_ptr<Model> model; 
 };
 
