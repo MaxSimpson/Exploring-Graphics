@@ -17,11 +17,16 @@ Scene(const string& location){
 		if(tag == "start_object") {
 			cout << "Reading object" << endl;
 			models.emplace_back(make_unique<WorldModel>(ifs));
-		}
-		else if (tag == "") {
-			// ignore
-		}
-		else {
+		}else if(tag == "background_rgb"){
+				cout << "Assigning Background rgb" << endl;
+				//background color
+				iss >> background_color;
+				background_color /= 255;
+		}else if (tag == "") {
+			//Ignore
+		}else if (tag[0] == '#'){
+			//Ignore
+		}else {
 			cerr << "Unknown tag from creating Scene: '" << tag << "'" << endl;
 			exit(1);
 		}
@@ -37,12 +42,17 @@ Scene(const string& location){
 void
 Scene::
 Draw(){
+	//Camera
     camera.Draw();
+    //Light
     light.Draw();
-
+    //Models
     for(int i = 0; i < models.size(); i++){
     		models[i]->Draw();
     }
+    //Background
+	glClearColor(background_color.getX(), background_color.getY(), background_color.getZ(), 0.0f);
+
 }
 
 bool

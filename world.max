@@ -1,0 +1,22 @@
+#background
+
+background_rgb 53 81 130
+
+#Base Cube
+start_object
+	#Comments work inside aswell!
+    file_location cube.obj
+    world_location 0 0 0
+    color_rgb 255 255 0
+    world_scale 1 1 1
+    world_rotation 90 1 1 0
+end_object
+
+#Map
+start_object
+	file_location map.obj
+	world_location 0 0 0
+	color_rgb 0 100 0
+	world_scale 1 1 1
+	world_rotation 0 1 0 0
+end_object

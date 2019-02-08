@@ -8,6 +8,7 @@
 #include "Camera.h"
 #include "Light.h"
 #include "WorldModel.h"
+#include "Vector.h"
 
 class Scene {
 	public:
@@ -21,12 +22,14 @@ class Scene {
 		bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
 
 	private:
+		//Camera
 		Camera camera;
+		//Light
 		Light light;
-		
-		//Testing World Models
+		//World Models
 		std::vector<std::unique_ptr<WorldModel>> models;
-		
+		//Background color
+		Vector3 background_color;
 };
 
 #endif
