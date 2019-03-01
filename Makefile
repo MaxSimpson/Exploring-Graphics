@@ -11,7 +11,11 @@ engine: $(OBJS)
 	$(CXX) $(OPT) $(OBJS) $(LIBS) -o engine
 
 %.o: %.cpp
-	$(CXX) $(OPT) -c $< -o $@
+	$(CXX) $(OPT) -MMD -c $< -o $@
+	cat $*.d >> Dependencies
+	rm -f $*.d
 
 clean:
-	rm -f $(OBJS) engine
+	rm -f Dependencies $(OBJS) engine
+
+-include Dependencies
