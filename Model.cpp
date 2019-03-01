@@ -64,6 +64,8 @@ Model(const std::string& filename) {
   }
 }
 
+constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
+
 void
 Model::
 Print_Data() const {
@@ -105,4 +107,18 @@ Draw() const {
     }
 
   glEnd();
+}
+
+void Initialize(){
+  #ifdef GL_WITHOUT_SHADERS
+    glGenBuffers(1, &m_vertextBuffer);
+    glEnableClientState(GL_VERTEX_ARRAY);
+    glVertexPointer(3, GL_FLOAT, sizeof(Vertex),bufferOffset(0));
+
+    glEnableClientState(GL_NORMAL_ARRAY);
+    glNormalPointer(GL_FLOAT, sizeof(Vertex), bufferOffset(12));
+
+    glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+    glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), bufferOffset(24));
+  #endif
 }

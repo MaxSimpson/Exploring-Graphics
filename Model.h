@@ -18,6 +18,14 @@ struct Face {
 
 class Model {
   public:
+    
+    
+    #ifndef GL_WITHOUT_SHADERS
+      void draw();
+    #elif defined (GL_WITH_SHADERS)
+      void draw(GLuint _program);
+    #endif
+    
     Model(const std::string& filename);
 
     std::vector<Vector3> m_points;
@@ -25,8 +33,11 @@ class Model {
     std::vector<Vector2> m_textures;
     std::vector<Face> m_faces;
 
+    
+
     void Print_Data() const;
     void Draw() const;
+    void Initialize();
 };
 
 #endif
