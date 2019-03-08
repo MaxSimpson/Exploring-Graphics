@@ -10,6 +10,8 @@
 class WorldModel{
 	public:
 		WorldModel(std::ifstream& ifs);
+
+		void Initialize();
 		void Draw();	
 		void Print_Data();
 		float getAngle() const;

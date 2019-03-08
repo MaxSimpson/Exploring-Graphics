@@ -41,40 +41,75 @@ Print_Data() const {
 
 }
 
+constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
+
 void
 Model::
 Draw() const {
-  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+  /*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
   glBegin(GL_TRIANGLES);
 
     for(auto& face : m_faces) {
       for(auto& vertex : face.m_v) {
-        const Vector3& n = m_normals[vertex.m_n];
+        const Vector3& n = m_normals[get<1>(vertex)];
         glNormal3f(n.getX(), n.getY(), n.getZ());
-        const Vector3& v = m_points[vertex.m_p];
+        const Vector3& v = m_points[get<0>(vertex)];
         glVertex3f(v.getX(), v.getY(), v.getZ());
       }
     }
 
-  glEnd();
-}
+  glEnd();*/
 
-constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
+  glEnable(GL_NORMALIZE);
 
-void
-Model::
-Initialize() {
-  glGenBuffers(1, &m_vertexBuffer);
+  // VBO
+  glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
 
   glEnableClientState(GL_VERTEX_ARRAY);
-  glVertexPointer(3, GL_FLOAT, sizeof(Vertex),bufferOffset(0));
+  glVertexPointer(3, GL_FLOAT, sizeof(Vertex), bufferOffset(0));
 
   glEnableClientState(GL_NORMAL_ARRAY);
   glNormalPointer(GL_FLOAT, sizeof(Vertex), bufferOffset(12));
 
   glEnableClientState(GL_TEXTURE_COORD_ARRAY);
   glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), bufferOffset(24));
+
+  // EBO + draw
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
+
+  glDrawRangeElements(GL_TRIANGLES, 0, GLuint(m_vertices.size()), 
+    GLsizei(m_indices.size()), GL_UNSIGNED_INT, bufferOffset(0));
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+  glDisableClientState(GL_NORMAL_ARRAY);
+  glDisableClientState(GL_VERTEX_ARRAY);
+
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+  glDisable(GL_NORMALIZE);
+}
+
+
+void
+Model::
+Initialize() {
+  // Create VBO on the GPU and send CPU data to the GPU for vertices
+  glGenBuffers(1, &m_vertexBuffer);        // Create VBO name on the GPU
+  glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Make our new VBO the active ARRAY_BUFFER
+  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*m_vertices.size(), 
+    m_vertices.data(), GL_STATIC_DRAW);    // Send vertex data to VBO on the GPU
+
+
+  // Create EBO on the GPU and send CPU data to the GPU for triangle indices
+  glGenBuffers(1, &m_elementBuffer);               // Create EBO name on the GPU
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer); // Make our new EBO the active ELEMENT_ARRAY_BUFFER
+  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*m_indices.size(), 
+    m_indices.data(), GL_STATIC_DRAW);             // Send index data to EBO on the GPU
+
+  cout << "VBO EBO setup" << endl;
 }
 
 void
@@ -113,11 +148,11 @@ Parse(const std::string& filename) {
         ObjVertex v;
         string vert;
         iss >> vert;
-        if(std::sscanf(vert.c_str(), "%zu/%zu/%zu", &v.m_p, &v.m_t, &v.m_n) == 3) {
-          --v.m_p; --v.m_t; --v.m_n;
+        if(std::sscanf(vert.c_str(), "%zu/%zu/%zu", &get<0>(v), &get<2>(v), &get<1>(v)) == 3) {
+          --get<0>(v); --get<2>(v); --get<1>(v);
         }
-        else if(std::sscanf(vert.c_str(), "%zu//%zu", &v.m_p, &v.m_n) == 2) {
-          --v.m_p; --v.m_n;
+        else if(std::sscanf(vert.c_str(), "%zu//%zu", &get<0>(v), &get<1>(v)) == 2) {
+          --get<0>(v); --get<1>(v);
         }
         else {
           cerr << "Error: Unknown face format with OBJ." << endl;
@@ -137,15 +172,23 @@ void
 Model::
 ConstructVBOData() {
   // for each ObjFace do
-  for(int i = 0; i < m_faces.size(); i++){
+  for(auto& oface : m_faces) {
     //   for each ObjVertex v of ObjFace do
-    for(int j = 0; j < 3; j++){
+    for(auto& overtex : oface.m_v) {
       //     if v does not exist in vertexMap then   {Use count method}
-      if(m_vertexMap.count(m_faces.at(i).m_v[j]) > 0){
+      if(m_vertexMap.count(overtex) == 0){
         //       add v to VBO data and the vertexMap   {Use emplace_back and emplace}
+        m_vertices.emplace_back(m_points[get<0>(overtex)], m_normals[get<1>(overtex)], m_textures[get<2>(overtex)]);
+        cout << "Vertex: " << m_vertices.back().m_point << endl;
+        m_vertexMap.emplace(overtex, m_vertices.size() - 1);
       }
       //     add v to EBO data                       {Use emplace_back}
+      
+      m_indices.emplace_back(m_vertexMap[overtex]);
+      cout << "Index: " << m_indices.back() << endl;
     }
   }
-  
+
+  cout << "Vertex size: " << m_vertices.size() << endl;
+  cout << "Element size: " << m_indices.size() << endl;
 }

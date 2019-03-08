@@ -15,6 +15,9 @@ class Scene {
 		//Constructor
 		Scene(const std::string& location);
 
+		// Initialize
+		void Initialize();
+		
 		// Drawing methods
 		void Draw();
 

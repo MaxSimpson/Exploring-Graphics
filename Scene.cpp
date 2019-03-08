@@ -41,6 +41,13 @@ Scene(const string& location){
 
 void
 Scene::
+Initialize() {
+	for(auto& model : models)
+	  model->Initialize();
+}
+
+void
+Scene::
 Draw(){
 	//Camera
     camera.Draw();

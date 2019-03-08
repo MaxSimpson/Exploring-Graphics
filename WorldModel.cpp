@@ -66,18 +66,28 @@ WorldModel(std::ifstream& ifs){
 
 void
 WorldModel::
+Initialize() {
+	model->Initialize();
+}
+
+void
+WorldModel::
 Draw(){
 
 	//Start
 	glPushMatrix();
 	//Color
 	glColor3f(color.getX(), color.getY(), color.getZ());
-	//Scale
-	glScalef(scale.getX(), scale.getY(), scale.getZ());
-	//Rotate
-	glRotatef(getAngle(), rotation_axis.getX(), rotation_axis.getY(), rotation_axis.getZ());
+
 	//Translate
 	glTranslatef(translation.getX(), translation.getY(), translation.getZ());
+
+    //Rotate
+	//glRotatef(getAngle(), rotation_axis.getX(), rotation_axis.getY(), rotation_axis.getZ());
+
+	//Scale
+	glScalef(scale.getX(), scale.getY(), scale.getZ());
+	
 	model->Draw();
 	//End
 	glPopMatrix();

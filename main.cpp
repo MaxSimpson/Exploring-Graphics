@@ -56,6 +56,8 @@ initialize() {
   glClearColor(0.f, 0.f, 0.4f, 0.f);
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_DEPTH_TEST);
+
+  scene->Initialize();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
