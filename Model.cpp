@@ -137,8 +137,15 @@ void
 Model::
 ConstructVBOData() {
   // for each ObjFace do
-  //   for each ObjVertex v of ObjFace do
-  //     if v does not exist in vertexMap then   {Use count method}
-  //       add v to VBO data and the vertexMap   {Use emplace_back and emplace}
-  //     add v to EBO data                       {Use emplace_back}
+  for(int i = 0; i < m_faces.size(); i++){
+    //   for each ObjVertex v of ObjFace do
+    for(int j = 0; j < 3; j++){
+      //     if v does not exist in vertexMap then   {Use count method}
+      if(m_vertexMap.count(m_faces.at(i).m_v[j]) > 0){
+        //       add v to VBO data and the vertexMap   {Use emplace_back and emplace}
+      }
+      //     add v to EBO data                       {Use emplace_back}
+    }
+  }
+  
 }
