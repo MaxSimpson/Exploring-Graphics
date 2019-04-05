@@ -124,7 +124,8 @@ draw() {
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Callback function for keyboard presses
 /// @param _key Key
-/// @param _x X position of moue
+/// @param _x X position of mouse
+/// @param _y Y position of mouse
 void
 keyPressed(GLubyte _key, GLint _x, GLint _y) {
   switch(_key) {
@@ -150,7 +151,7 @@ void
 specialKeyPressed(GLint _key, GLint _x, GLint _y) {
   if(scene->specialKeyPressed(_key, _x, _y))
     return;
-  
+
   std::cout << "Unhandled Special Key: " << _key << endl;
 }
 

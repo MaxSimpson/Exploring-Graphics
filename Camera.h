@@ -4,12 +4,16 @@
 #include <GL/glut.h>
 class Camera {
 	private:
-		float g_theta{0.f};
+		float theta{0.f};
+    float phi{0.f};
+    float radius{10.f};
+
 	public:
-		void Draw();
-		void change_theta(float change);
 		Camera();
-		bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
+
+    void Draw();
+
+    bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
 };
 
 #endif

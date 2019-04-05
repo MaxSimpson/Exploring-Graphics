@@ -35,8 +35,8 @@ Scene(const string& location){
 	//Make for loop print data
 	for(int i = 0; i < models.size(); i++){
 		models[i]->Print_Data();
-	}		
-    
+	}
+
 }
 
 void
