@@ -2,6 +2,8 @@
 #define _Camera_H_
 
 #include <GL/glut.h>
+#include <memory>
+
 class Camera {
 	private:
 		float theta{0.f};
@@ -11,9 +13,16 @@ class Camera {
 	public:
 		Camera();
 
+    //Drawing
     void Draw();
 
+    //Camera Creation
+    void setup(std::ifstream& ifs);
+
+    // Event Handlers
     bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
+    bool keyPressed (GLubyte _key, GLint _x, GLint _y);
+
 };
 
 #endif

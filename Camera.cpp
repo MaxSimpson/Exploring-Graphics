@@ -1,8 +1,19 @@
+// Header
 #include "Camera.h"
+
+// Stuff
 #include <cmath>
 #include <limits>
+
+// Glut
 #include <GL/glut.h>
+
+// Streams
 #include <iostream>
+#include <fstream>
+#include <sstream>
+
+using namespace std;
 
 const float pi = 3.1415926535f;
 
@@ -50,5 +61,50 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
     // Unhandled
     default:
       return false;
+  }  
+}
+
+bool 
+Camera::
+keyPressed(GLubyte _key, GLint _x, GLint _y){
+  switch(_key){
+    // W key pressed
+    case 119:
+      if(radius > 1.1f)
+        radius -= 0.1f;
+      return true;
+
+    // S key pressed
+    case 115:
+      if(radius < 49.9f)
+        radius += 0.1f;
+      return true;
+    // Unhandled
+    default:
+      std::cout << "Unhandled key" << std::endl;
+      return false;
+    }    
+  }
+
+void
+Camera::
+setup(ifstream& ifs){
+  while(ifs) {
+		string line;
+		getline(ifs, line);
+		istringstream iss(line);
+		string tag;
+		iss >> tag;
+    if(tag[0] == '#'){
+      // Comment  
+    }else if (tag == "theta_value"){
+        iss >> theta;
+    }else if (tag == "phi_value"){
+      iss >> phi;
+    }else if (tag == " "){
+      // Blank  
+    }else if (tag == "end_camera"){
+      break;
+    }
   }
 }

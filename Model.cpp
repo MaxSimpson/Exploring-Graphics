@@ -179,13 +179,13 @@ ConstructVBOData() {
       if(m_vertexMap.count(overtex) == 0){
         //       add v to VBO data and the vertexMap   {Use emplace_back and emplace}
         m_vertices.emplace_back(m_points[get<0>(overtex)], m_normals[get<1>(overtex)], m_textures[get<2>(overtex)]);
-        cout << "Vertex: " << m_vertices.back().m_point << endl;
+        //cout << "Vertex: " << m_vertices.back().m_point << endl;
         m_vertexMap.emplace(overtex, m_vertices.size() - 1);
       }
       //     add v to EBO data                       {Use emplace_back}
       
       m_indices.emplace_back(m_vertexMap[overtex]);
-      cout << "Index: " << m_indices.back() << endl;
+      //cout << "Index: " << m_indices.back() << endl;
     }
   }
 

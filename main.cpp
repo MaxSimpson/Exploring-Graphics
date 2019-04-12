@@ -135,10 +135,9 @@ keyPressed(GLubyte _key, GLint _x, GLint _y) {
       glutDestroyWindow(g_window);
       g_window = 0;
       break;
-    // Unhandled
     default:
-      std::cout << "Unhandled key: " << (int)(_key) << std::endl;
-      break;
+      if(scene->keyPressed(_key, _x, _y))
+        return;
   }
 }
 
@@ -165,8 +164,7 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
 /// @return Application success status
 int
 main(int _argc, char** _argv) {
-  //Create single model
-  //Load Scene
+  // Load Scene
   scene = make_unique<Scene>(_argv[1]);
   //////////////////////////////////////////////////////////////////////////////
   // Initialize GLUT Window

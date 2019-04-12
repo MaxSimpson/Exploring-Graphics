@@ -8,9 +8,9 @@ using namespace std;
 // GL
 #include <GL/glut.h>
 
-//Contstructer
+// Contstructer
 WorldModel::
-WorldModel(std::ifstream& ifs){
+WorldModel(ifstream& ifs){
 	cout << "Constructor" << endl;
 	int important_data = 0;
 	while(ifs) {
@@ -48,7 +48,7 @@ WorldModel(std::ifstream& ifs){
 			cout << "Rotation Axis: " << rotation_axis << endl;
 			important_data += 1;
 		}else if (tag[0] == '#'){
-
+			// Comment
 		}else if(tag == "end_object") {
 			if(important_data < 3){
 				cout << important_data << endl;

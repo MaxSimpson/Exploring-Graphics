@@ -12,7 +12,7 @@
 
 class Scene {
 	public:
-		//Constructor
+		// Constructor
 		Scene(const std::string& location);
 
 		// Initialize
@@ -23,16 +23,20 @@ class Scene {
 
 		// Event handlers
 		bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
+		bool keyPressed(GLubyte _key, GLint _x, GLint _y);
+
 
 	private:
-		//Camera
+		// Camera
 		Camera camera;
-		//Light
+		// Light
 		Light light;
-		//World Models
+		// World Models
 		std::vector<std::unique_ptr<WorldModel>> models;
-		//Background color
+		// Background color
 		Vector3 background_color;
+		// Lights
+		//std::vector<std::unique_ptr<Light> lights;
 };
 
 #endif
