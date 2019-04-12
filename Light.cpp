@@ -19,7 +19,7 @@ Light(ifstream& ifs){
 		string tag;
 		iss >> tag;
     	if(tag[0] == '#'){
-      		// Comment  
+      		// Comment
     	}else if (tag == "position"){
         	iss >> position;
     	}else if (tag == "direction"){
@@ -31,7 +31,7 @@ Light(ifstream& ifs){
 		}else if (tag == "positional_light"){
 			iss >> positional;
    		}else if (tag == " "){
-      		// Blank  
+      		// Blank
     	}else if (tag == "end_light"){
      		break;
     	}
@@ -39,7 +39,7 @@ Light(ifstream& ifs){
 }
 
 void
-Light:: 
+Light::
 Draw(){
 	static GLfloat lightPosition[] = { 0.5f, 1.0f, 1.5f, 0.0f };
   	static GLfloat whiteLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
@@ -50,34 +50,3 @@ Draw(){
   	glLightfv(GL_LIGHT0, GL_AMBIENT, darkLight);
   	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
 }
-
-/*
-void
-Light::
-Setup(ifstream& ifs){
-	while(ifs) {
-		string line;
-		getline(ifs, line);
-		istringstream iss(line);
-		string tag;
-		iss >> tag;
-    	if(tag[0] == '#'){
-      		// Comment  
-    	}else if (tag == "position"){
-        	iss >> position;
-    	}else if (tag == "direction"){
-      	iss >> direction;
-	  	// Is this correct?
-	 	 direction.normalize();
-		}else if (tag == "color_rgb"){
-			iss >> color;
-		}else if (tag == "positional_light"){
-			iss >> positional;
-   		}else if (tag == " "){
-      		// Blank  
-    	}else if (tag == "end_light"){
-     		break;
-    	}
-	}
-}
-*/

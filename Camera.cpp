@@ -61,10 +61,10 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
     // Unhandled
     default:
       return false;
-  }  
+  }
 }
 
-bool 
+bool
 Camera::
 keyPressed(GLubyte _key, GLint _x, GLint _y){
   switch(_key){
@@ -83,7 +83,7 @@ keyPressed(GLubyte _key, GLint _x, GLint _y){
     default:
       std::cout << "Unhandled key" << std::endl;
       return false;
-    }    
+    }
   }
 
 void
@@ -96,13 +96,15 @@ setup(ifstream& ifs){
 		string tag;
 		iss >> tag;
     if(tag[0] == '#'){
-      // Comment  
+      // Comment
     }else if (tag == "theta_value"){
-        iss >> theta;
+      iss >> theta;
+      theta *= (pi / 180);
     }else if (tag == "phi_value"){
       iss >> phi;
+      phi *= (pi / 180);
     }else if (tag == " "){
-      // Blank  
+      // Blank
     }else if (tag == "end_camera"){
       break;
     }

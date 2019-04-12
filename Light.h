@@ -7,14 +7,11 @@
 class Light{
 	public:
 		// Constructer
-		Light(ifstream& ifs);
+		Light(std::ifstream& ifs);
 
 		// Draw light
 		void Draw();
 
-		// Setup
-		void Setup(std::ifstream& ifs);
-	
 	private:
 		// Type of light
 		bool positional;
@@ -24,6 +21,6 @@ class Light{
 		Vector3 direction;
 		// RGB float values
 		Vector3 color;
-		
+
 };
 #endif

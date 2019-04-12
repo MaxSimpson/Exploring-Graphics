@@ -31,6 +31,7 @@ Scene(const string& location){
 			// Ignore
 		}else if (tag == "start_light"){
 			// Creat new light
+      lights.emplace_back(make_unique<Light>(ifs));
 		}else {
 			cerr << "Unknown tag from creating Scene: '" << tag << "'" << endl;
 			exit(1);
@@ -57,7 +58,8 @@ Draw(){
 	// Camera
     camera.Draw();
     // Light
-    light.Draw();
+    for(auto& l : lights)
+      l->Draw();
     // Models
     for(int i = 0; i < models.size(); i++){
     		models[i]->Draw();

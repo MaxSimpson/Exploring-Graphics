@@ -1,6 +1,6 @@
 #Camera
 start_camera
-    theta_value 0
+    theta_value 90
     phi_value 0
 end_camera
 

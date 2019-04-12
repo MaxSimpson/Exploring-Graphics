@@ -17,7 +17,7 @@ class Scene {
 
 		// Initialize
 		void Initialize();
-		
+
 		// Drawing methods
 		void Draw();
 
@@ -29,14 +29,12 @@ class Scene {
 	private:
 		// Camera
 		Camera camera;
-		// Light
-		Light light;
+		// Lights
+		std::vector<std::unique_ptr<Light>> lights;
 		// World Models
 		std::vector<std::unique_ptr<WorldModel>> models;
 		// Background color
 		Vector3 background_color;
-		// Lights
-		//std::vector<std::unique_ptr<Light> lights;
 };
 
 #endif
