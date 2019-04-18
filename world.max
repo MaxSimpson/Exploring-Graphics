@@ -1,0 +1,45 @@
+#Camera
+start_camera
+    theta_value 90
+    phi_value 0
+end_camera
+
+#Background
+background_rgb 53 81 130
+
+#Base Cube
+start_object
+	#Comments work inside aswell!
+    file_location ModelFiles/cube.obj
+    world_location 0 0 0
+    color_rgb 255 255 0
+    world_scale 1 1 1
+    world_rotation 90 1 1 0
+end_object
+
+#Base Cube
+start_object
+	#Comments work inside aswell!
+    file_location ModelFiles/cube.obj
+    world_location 2 2 2
+    color_rgb 255 0 255
+    world_scale 1 1 1
+    world_rotation 90 1 1 0
+end_object
+
+#Map
+#start_object
+#	file_location ModelFiles/map.obj
+#	world_location 0 0 0
+#	color_rgb 0 100 0
+#	world_scale 1 1 1
+#	world_rotation 0 1 0 0
+#end_object
+
+#Light
+start_light
+    position 0 10 0
+    direction 0 0 0
+    color_rgb 255 255 251
+    positional_light true
+end_light
