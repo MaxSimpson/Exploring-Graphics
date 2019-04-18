@@ -1,8 +1,8 @@
 #ifndef _LIGHT_H_
 #define _LIGHT_H_
 
-//GLM
-#include <glm/glm.hpp>
+// My libraries
+#include "Vector.h"
 
 class Light{
 	public:
@@ -16,11 +16,11 @@ class Light{
 		// Type of light
 		bool positional;
 		// Location in space
-		glm::vec3 position;
+		Vector3 position;
 		// Unit vector for direction facing
-		glm::vec3 direction;
+		Vector3 direction;
 		// RGB float values
-		glm::vec3 color;
+		Vector3 color;
 
 };
 #endif

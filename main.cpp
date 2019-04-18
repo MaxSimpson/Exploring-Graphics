@@ -23,6 +23,7 @@ using namespace std;
 
 // My program
 #include "Model.h"
+#include "Vector.h"
 #include "Scene.h"
 
 

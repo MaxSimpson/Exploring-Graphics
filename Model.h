@@ -4,13 +4,13 @@
 // STL
 #include <unordered_map>
 #include <vector>
-using namespace std;
+//using namespace std;
+
+// My program
+#include "Vector.h"
 
 // GL
 #include "GLInclude.h"
-
-// GLM
-#include <glm/glm.hpp>
 
 // Boost
 #include <boost/functional/hash.hpp>
@@ -23,11 +23,11 @@ struct ObjFace {
 };
 
 struct Vertex {
-  glm::vec3 m_point;
-  glm::vec3 m_normal;
-  glm::vec2 m_texture;
+  Vector3 m_point;
+  Vector3 m_normal;
+  Vector2 m_texture;
 
-  Vertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& t) : m_point{p}, m_normal{n}, m_texture{t} {}
+  Vertex(const Vector3& p, const Vector3& n, const Vector2& t) : m_point{p}, m_normal{n}, m_texture{t} {}
 };
 
 class Model {
@@ -44,9 +44,9 @@ class Model {
     void Parse(const std::string& filename);
     void ConstructVBOData();
 
-    std::vector<glm::vec3> m_points;   // Obj point data
-    std::vector<glm::vec3> m_normals;  // Obj normal data
-    std::vector<glm::vec2> m_textures; // Obj texture coordinate data
+    std::vector<Vector3> m_points;   // Obj point data
+    std::vector<Vector3> m_normals;  // Obj normal data
+    std::vector<Vector2> m_textures; // Obj texture coordinate data
     std::vector<ObjFace> m_faces;    // Obj face data
 
     std::vector<Vertex> m_vertices; // VBO data

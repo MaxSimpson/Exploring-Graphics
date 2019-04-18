@@ -5,16 +5,11 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include <iostream>
-
 using namespace std;
 
 // GL
 #define GL_EXT_PROTOTYPES
 #include <GL/glut.h>
-
-//GLM
-#include <glm/glm.hpp>
 
 Model::
 Model(const std::string& filename) {
@@ -51,6 +46,20 @@ constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
 void
 Model::
 Draw() const {
+  /*glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+  glBegin(GL_TRIANGLES);
+
+    for(auto& face : m_faces) {
+      for(auto& vertex : face.m_v) {
+        const Vector3& n = m_normals[get<1>(vertex)];
+        glNormal3f(n.getX(), n.getY(), n.getZ());
+        const Vector3& v = m_points[get<0>(vertex)];
+        glVertex3f(v.getX(), v.getY(), v.getZ());
+      }
+    }
+
+  glEnd();*/
 
   glEnable(GL_NORMALIZE);
 
@@ -116,25 +125,20 @@ Parse(const std::string& filename) {
     iss >> tag;
 
     if(tag == "v") {
-      glm::vec3 v;
-      iss >> v.x;
-      iss >> v.y;
-      iss >> v.z;
+      Vector3 v;
+      iss >> v;
       m_points.emplace_back(v);
     }
 
     else if(tag == "vt") {
-      glm::vec2 v;
-      iss >> v.x;
-      iss >> v.y;
+      Vector2 v;
+      iss >> v;
       m_textures.emplace_back(v);
     }
 
     else if(tag == "vn") {
-      glm::vec3 v;
-      iss >> v.x;
-      iss >> v.y;
-      iss >> v.z;
+      Vector3 v;
+      iss >> v;
       m_normals.emplace_back(v);
     }
 

@@ -1,14 +1,11 @@
 #include "Scene.h"
 
-// STL
 #include <fstream>
 #include <sstream>
-#include <iostream>
 using namespace std;
 
 Scene::
 Scene(const string& location){
-
 	ifstream ifs(location);
 	while(ifs) {
 		string line;
@@ -21,12 +18,10 @@ Scene(const string& location){
 			cout << "Reading object" << endl;
 			models.emplace_back(make_unique<WorldModel>(ifs));
 		}else if(tag == "background_rgb"){
-			cout << "Assigning Background rgb" << endl;
-			// Background color
-			iss >> background_color.x;
-			iss >> background_color.y;
-			iss >> background_color.z;
-			background_color /= 255;
+				cout << "Assigning Background rgb" << endl;
+				// Background color
+				iss >> background_color;
+				background_color /= 255;
 		}else if (tag == "start_camera"){
 			cout << "Assigning camera" << endl;
 			camera.setup(ifs);
@@ -70,7 +65,7 @@ Draw(){
     		models[i]->Draw();
     }
     // Background
-	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
+	glClearColor(background_color.getX(), background_color.getY(), background_color.getZ(), 0.0f);
 
 }
 

@@ -1,18 +1,14 @@
 #ifndef _SCENE_H_
 #define _SCENE_H_
 
-// CPP files
 #include <memory>
 #include <vector>
 #include <GL/glut.h>
 
-// My files
 #include "Camera.h"
 #include "Light.h"
 #include "WorldModel.h"
-
-// GLM
-#include <glm/glm.hpp>
+#include "Vector.h"
 
 class Scene {
 	public:
@@ -38,7 +34,7 @@ class Scene {
 		// World Models
 		std::vector<std::unique_ptr<WorldModel>> models;
 		// Background color
-		glm::vec3 background_color;
+		Vector3 background_color;
 };
 
 #endif
