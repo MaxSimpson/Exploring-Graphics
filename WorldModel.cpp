@@ -29,23 +29,33 @@ WorldModel(ifstream& ifs){
 		}
 		else if(tag == "world_location") {
 			cout << "Reading World Location" << endl;
-			iss >> translation;
+			iss >> translation.x;
+			iss >> translation.y;
+			iss >> translation.z;
+		
 		}
 		else if(tag == "color_rgb") {
 			cout << "Reading Color RBG" << endl;
-			iss >> color;
+			iss >> color.x;
+			iss >> color.y;
+			iss >> color.z;
 			color /= 255;
 		}else if (tag == "world_scale"){
 			cout << "Reading Scale" << endl;
-			iss >> scale;
+			iss >> scale.x;
+			iss >> scale.y;
+			iss >> scale.z;
 			important_data += 1;
 		}else if (tag == "world_rotation"){
 			cout << "Reading rotation" << endl;
 			iss >> angle;
 			cout << "Angle: " << angle << endl;
-			iss >> rotation_axis;
-			rotation_axis = rotation_axis.normalize();
-			cout << "Rotation Axis: " << rotation_axis << endl;
+			iss >> rotation_axis.x;
+			iss >> rotation_axis.y;
+			iss >> rotation_axis.z;
+			glm::normalize(rotation_axis); 
+			cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y 
+				 								<< " " << rotation_axis.z << endl;
 			important_data += 1;
 		}else if (tag[0] == '#'){
 			// Comment
@@ -77,16 +87,16 @@ Draw(){
 	//Start
 	glPushMatrix();
 	//Color
-	glColor3f(color.getX(), color.getY(), color.getZ());
+	glColor3f(color.x, color.y, color.z);
 
 	//Translate
-	glTranslatef(translation.getX(), translation.getY(), translation.getZ());
+	glTranslatef(translation.x, translation.y, translation.z);
 
     //Rotate
 	//glRotatef(getAngle(), rotation_axis.getX(), rotation_axis.getY(), rotation_axis.getZ());
 
 	//Scale
-	glScalef(scale.getX(), scale.getY(), scale.getZ());
+	glScalef(scale.z, scale.y, scale.z);
 	
 	model->Draw();
 	//End

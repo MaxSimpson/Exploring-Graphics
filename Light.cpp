@@ -4,7 +4,7 @@
 #include <GL/glut.h>
 
 // Streams
-#include <iostream>
+// #include <iostream>
 #include <fstream>
 #include <sstream>
 
@@ -21,15 +21,20 @@ Light(ifstream& ifs){
     	if(tag[0] == '#'){
       		// Comment
     	}else if (tag == "position"){
-        	iss >> position;
+        	iss >> position.x;
+			iss >> position.y;
+			iss >> position.z;
     	}else if (tag == "direction"){
-      	iss >> direction;
-	  	// Is this correct?
-	 	 direction.normalize();
+      		iss >> direction.x;
+			iss >> direction.y;
+			iss >> direction.z;
+	 		glm::normalize(direction);
 		}else if (tag == "color_rgb"){
-			iss >> color;
+			iss >> color.x;
+			iss >> color.y;
+			iss >> color.z;
 		}else if (tag == "positional_light"){
-			iss >> positional;
+			iss >> positional; 
    		}else if (tag == " "){
       		// Blank
     	}else if (tag == "end_light"){

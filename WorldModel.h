@@ -1,11 +1,13 @@
 #ifndef _WorldModel_H_
 #define _WorldModel_H_
 
-//Includes
-#include "Vector.h"
+// My libraries
 #include "Model.h"
 
 #include <memory>
+
+// GLM
+#include <glm/glm.hpp>
 
 class WorldModel{
 	public:
@@ -16,11 +18,11 @@ class WorldModel{
 		void Print_Data();
 		float getAngle() const;
 	private:
-		Vector3 translation;
-		Vector3 scale;
+		glm::vec3 translation;
+		glm::vec3 scale;
 		float angle;
-		Vector3 rotation_axis;
-		Vector3 color;
+		glm::vec3 rotation_axis;
+		glm::vec3 color;
 		std::unique_ptr<Model> model; 
 };
 
