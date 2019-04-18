@@ -4,6 +4,9 @@
 //GLM
 #include <glm/glm.hpp>
 
+#include <fstream>
+#include <sstream>
+
 class Light{
 	public:
 		// Constructer

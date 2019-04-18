@@ -5,6 +5,8 @@
 #include <sstream>
 using namespace std;
 
+#include <iostream>
+
 // GL
 #include <GL/glut.h>
 
