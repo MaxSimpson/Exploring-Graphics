@@ -54,6 +54,9 @@ class Model {
       m_vertexMap;                  // Vertex to Index mapping
     std::vector<GLuint> m_indices;  // EBO data
 
+#ifdef GL_WITH_SHADERS
+    GLuint m_vertexArrayObject; // VAO
+#endif
     GLuint m_vertexBuffer;  // VBO object
     GLuint m_elementBuffer; // EBO object
 };

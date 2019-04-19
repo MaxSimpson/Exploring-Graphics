@@ -19,9 +19,11 @@
 using namespace std;
 
 // GL
-#include <GL/glut.h>
+#include "GLInclude.h"
+#include <GL/freeglut.h>
 
 // My program
+#include "CompileShaders.h"
 #include "Model.h"
 #include "Scene.h"
 
@@ -55,6 +57,9 @@ initialize() {
   glClearColor(0.f, 0.f, 0.4f, 0.f);
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_DEPTH_TEST);
+
+  GLuint program = compileProgram("Shaders/PassThrough.vert",
+                                  "Shaders/SingleColor.frag");
 
   scene->Initialize();
 }
@@ -170,6 +175,10 @@ main(int _argc, char** _argv) {
   std::cout << "Initializing GLUTWindow" << std::endl;
   // GLUT
   glutInit(&_argc, _argv);
+#ifdef GL_WITH_SHADERS
+  glutInitContextVersion(4, 0);
+  glutInitContextProfile(GLUT_CORE_PROFILE);
+#endif
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutInitWindowPosition(50, 100);
   glutInitWindowSize(g_width, g_height); // HD size
