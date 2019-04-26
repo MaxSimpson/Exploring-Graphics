@@ -110,3 +110,13 @@ setup(ifstream& ifs){
     }
   }
 }
+
+glm::mat4 
+Camera::
+getViewMatrix() const {
+  float u = radius * cos(phi);
+  float x = u*cos(theta);
+  float y = radius * sin(phi);
+  float z = u*sin(theta);
+  return glm::lookAt(glm::vec3(x, y, z), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+}

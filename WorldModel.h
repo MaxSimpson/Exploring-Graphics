@@ -14,7 +14,11 @@ class WorldModel{
 		WorldModel(std::ifstream& ifs);
 
 		void Initialize();
+#ifdef GL_WITH_SHADERS
+		void Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
+#elif defined(GL_WITHOUT_SHADERS)
 		void Draw();	
+#endif
 		void Print_Data();
 		float getAngle() const;
 	private:

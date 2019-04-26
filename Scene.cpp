@@ -57,6 +57,23 @@ Initialize() {
 	  model->Initialize();
 }
 
+#ifdef GL_WITH_SHADERS
+void
+Scene::
+Draw(GLuint _program){
+	// Camera
+  glm::mat4 view = camera.getViewMatrix();
+    // Light
+    for(auto& l : lights)
+      l->Draw();
+    // Models
+    for(int i = 0; i < models.size(); i++){
+    		models[i]->Draw(_program, projection, view);
+    }
+    // Background
+	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
+}
+#elif defined(GL_WITHOUT_SHADERS)
 void
 Scene::
 Draw(){
@@ -71,8 +88,8 @@ Draw(){
     }
     // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
-
 }
+#endif
 
 bool
 Scene::

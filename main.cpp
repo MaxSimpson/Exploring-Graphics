@@ -37,6 +37,7 @@ int g_height{768};
 int g_window{0};
 
 //Scene
+GLuint program;
 unique_ptr<Scene> scene;
 
 // Frame rate
@@ -58,8 +59,8 @@ initialize() {
   glEnable(GL_COLOR_MATERIAL);
   glEnable(GL_DEPTH_TEST);
 
-  GLuint program = compileProgram("Shaders/PassThrough.vert",
-                                  "Shaders/SingleColor.frag");
+  program = compileProgram("Shaders/MVPShader.vert",
+                           "Shaders/SingleColor.frag");
 
   scene->Initialize();
 }
@@ -77,9 +78,14 @@ resize(GLint _w, GLint _h) {
   glViewport(0, 0, g_width, g_height);
 
   // Projection
+#ifdef GL_WITH_SHADERS
+  glm::mat4 proj = glm::perspective(45.f, GLfloat(g_width)/g_height, 0.01f, 100.f);
+  scene->SetProjection(proj);
+#elif defined(GL_WITHOUT_SHADERS)
   glMatrixMode(GL_PROJECTION);
   glLoadIdentity();
   gluPerspective(45.f, GLfloat(g_width)/g_height, 0.01f, 100.f);
+#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -111,7 +117,7 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-  scene->Draw();
+  scene->Draw(program);
   //////////////////////////////////////////////////////////////////////////////
   // Show
   glutSwapBuffers();

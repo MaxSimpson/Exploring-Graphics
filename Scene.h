@@ -23,14 +23,21 @@ class Scene {
 		void Initialize();
 
 		// Drawing methods
+		#ifdef GL_WITH_SHADERS
+		void Draw(GLuint _program);
+		#elif defined(GL_WITHOUT_SHADERS)
 		void Draw();
+		#endif
 
 		// Event handlers
 		bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
 		bool keyPressed(GLubyte _key, GLint _x, GLint _y);
 
+		void SetProjection(const glm::mat4& _p) {projection = _p;}
 
 	private:
+		// Projection
+		glm::mat4 projection;
 		// Camera
 		Camera camera;
 		// Lights

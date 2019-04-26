@@ -1,8 +1,9 @@
 #ifndef _Camera_H_
 #define _Camera_H_
 
-#include <GL/glut.h>
 #include <memory>
+
+#include "GLInclude.h"
 
 class Camera {
 	private:
@@ -23,6 +24,7 @@ class Camera {
     bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
     bool keyPressed (GLubyte _key, GLint _x, GLint _y);
 
+    glm::mat4 getViewMatrix() const;
 };
 
 #endif

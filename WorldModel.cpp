@@ -8,7 +8,7 @@ using namespace std;
 #include <iostream>
 
 // GL
-#include <GL/glut.h>
+#include "GLInclude.h"
 
 // Contstructer
 WorldModel::
@@ -82,6 +82,27 @@ Initialize() {
 	model->Initialize();
 }
 
+#ifdef GL_WITH_SHADERS
+
+void 
+WorldModel::
+Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
+
+	glm::mat4 t = glm::translate(glm::mat4(1.f), translation);
+	glm::mat4 r = glm::rotate(glm::mat4(1.f), angle, rotation_axis);
+	glm::mat4 s = glm::scale(glm::mat4(1.f), scale);
+	glm::mat4 m = t*r*s;
+
+	glm::mat4 mvp = _projection * _view * m;
+
+	GLuint mvpIndex = glGetUniformLocation(_program, "mvp");                         
+    glUniformMatrix4fv(mvpIndex, 1, GL_FALSE, &mvp[0][0]);
+
+	model->Draw();
+}
+
+#elif defined(GL_WITHOUT_SHADERS)
+
 void
 WorldModel::
 Draw(){
@@ -104,6 +125,8 @@ Draw(){
 	//End
 	glPopMatrix();
 }
+
+#endif
 
 float 
 WorldModel::
