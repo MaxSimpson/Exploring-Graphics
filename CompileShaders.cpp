@@ -17,10 +17,12 @@ parseShader(const string& _shader) {
 GLuint
 compileProgram(const string& _vertexShader,
                const string& _fragmentShader) {
+
   int success;
   char infoLog[512];
 
   // Compile the vertex shader
+  cout << "Compiling vertex shader" << endl;
   string vertexShaderFromFile = parseShader(_vertexShader);
   const char* prog = vertexShaderFromFile.c_str();
 
@@ -37,6 +39,7 @@ compileProgram(const string& _vertexShader,
   }
 
   // Compile the fragment shader
+  cout << "Compiling fragment shader" << endl;
   string fragmentShaderFromFile = parseShader(_fragmentShader);
   prog = fragmentShaderFromFile.c_str();
 
