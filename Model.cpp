@@ -117,9 +117,9 @@ Initialize() {
   glEnableVertexAttribArray(0);
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
                         sizeof(Vertex), bufferOffset(0));
-  //glEnableVertexAttribArray(1);
-  //glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
-  //                      sizeof(Vertex), bufferOffset(sizeof(glm::vec3)));
+  glEnableVertexAttribArray(1);
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
+                        sizeof(Vertex), bufferOffset(sizeof(glm::vec3)));
   //glEnableVertexAttribArray(2);
   //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
   //                      sizeof(Vertex), bufferOffset(2*sizeof(glm::vec3)));

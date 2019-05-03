@@ -60,7 +60,7 @@ initialize() {
   glEnable(GL_DEPTH_TEST);
 
   program = compileProgram("Shaders/MVPShader.vert",
-                           "Shaders/SingleColor.frag");
+                           "Shaders/AmbientDiffuse.frag");
 
   scene->Initialize();
 }
@@ -117,7 +117,11 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
+#ifdef GL_WITH_SHADERS
   scene->Draw(program);
+#elif defined(GL_WITHOUT_SHADERS)
+  scene->Draw();
+#endif
   //////////////////////////////////////////////////////////////////////////////
   // Show
   glutSwapBuffers();

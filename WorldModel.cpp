@@ -34,7 +34,7 @@ WorldModel(ifstream& ifs){
 			iss >> translation.x;
 			iss >> translation.y;
 			iss >> translation.z;
-		
+
 		}
 		else if(tag == "color_rgb") {
 			cout << "Reading Color RBG" << endl;
@@ -55,8 +55,8 @@ WorldModel(ifstream& ifs){
 			iss >> rotation_axis.x;
 			iss >> rotation_axis.y;
 			iss >> rotation_axis.z;
-			glm::normalize(rotation_axis); 
-			cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y 
+			glm::normalize(rotation_axis);
+			cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y
 				 								<< " " << rotation_axis.z << endl;
 			important_data += 1;
 		}else if (tag[0] == '#'){
@@ -84,7 +84,7 @@ Initialize() {
 
 #ifdef GL_WITH_SHADERS
 
-void 
+void
 WorldModel::
 Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 
@@ -95,7 +95,7 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 
 	glm::mat4 mvp = _projection * _view * m;
 
-	GLuint mvpIndex = glGetUniformLocation(_program, "mvp");                         
+	GLuint mvpIndex = glGetUniformLocation(_program, "mvp");
     glUniformMatrix4fv(mvpIndex, 1, GL_FALSE, &mvp[0][0]);
 
 	model->Draw();
@@ -120,7 +120,7 @@ Draw(){
 
 	//Scale
 	glScalef(scale.z, scale.y, scale.z);
-	
+
 	model->Draw();
 	//End
 	glPopMatrix();
@@ -128,7 +128,7 @@ Draw(){
 
 #endif
 
-float 
+float
 WorldModel::
 getAngle()const { return angle;}
 
