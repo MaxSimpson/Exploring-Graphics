@@ -4,7 +4,6 @@
 // CPP files
 #include <memory>
 #include <vector>
-#include <GL/glut.h>
 
 // My files
 #include "Camera.h"

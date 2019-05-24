@@ -93,10 +93,21 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 	glm::mat4 s = glm::scale(glm::mat4(1.f), scale);
 	glm::mat4 m = t*r*s;
 
-	glm::mat4 mvp = _projection * _view * m;
+	glm::mat4 mv = _view * m;
+	glm::mat4 itmv = glm::transpose(glm::inverse(mv));
+	glm::mat4 mvp = _projection * mv;
+
+	GLuint mvIndex = glGetUniformLocation(_program, "mv");
+    glUniformMatrix4fv(mvIndex, 1, GL_FALSE, &mv[0][0]);
+
+	GLuint itmvIndex = glGetUniformLocation(_program, "itmv");
+    glUniformMatrix4fv(itmvIndex, 1, GL_FALSE, &itmv[0][0]);
 
 	GLuint mvpIndex = glGetUniformLocation(_program, "mvp");
     glUniformMatrix4fv(mvpIndex, 1, GL_FALSE, &mvp[0][0]);
+
+	GLuint colorIndex = glGetUniformLocation(_program, "color");
+    glUniform3fv(colorIndex, 1, &color[0]);
 
 	model->Draw();
 }

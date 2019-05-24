@@ -32,11 +32,11 @@ start_object
     file_location ModelFiles/sphere.obj
     world_location 0 0 0
     color_rgb 255 0 255
-    world_scale 0.05 0.05 0.05
-    world_rotation 0 1 0 0
+    world_scale 0.25 0.05 0.05
+    world_rotation 0 0 1 0
 end_object
 
-#Base Cube
+#Base Dragon
 #start_object
 #    file_location ModelFiles/dragon.obj
 #    world_location 0 0 0

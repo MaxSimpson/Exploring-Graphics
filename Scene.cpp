@@ -6,6 +6,8 @@
 #include <iostream>
 using namespace std;
 
+#include "GLInclude.h"
+
 Scene::
 Scene(const string& location){
 
@@ -63,6 +65,10 @@ Scene::
 Draw(GLuint _program){
 	// Camera
   glm::mat4 view = camera.getViewMatrix();
+
+	GLuint viewIndex = glGetUniformLocation(_program, "view");
+  glUniformMatrix4fv(viewIndex, 1, GL_FALSE, &view[0][0]);
+
     // Light
     for(auto& l : lights)
       l->Draw();
