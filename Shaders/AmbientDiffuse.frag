@@ -2,6 +2,7 @@
 
 in vec4 position;
 in vec3 normal;
+in vec3 color;
 
 out vec4 fragColor; // Fragment color
 
@@ -17,13 +18,14 @@ main() {
     // Light direction
     vec3 L = -vec3(-1, -1, -1);
 
+    //Color Value
+    vec4 alphaColor = (color, 1);
+
     float N_L = dot(normalize(L), normal);
 
     if(N_L < 0)
         fragColor = I_a;
     else{
-        fragColor = I_d * N_L + I_a;
+        fragColor = (I_d * N_L + I_a) * alphaColor;
     }
-
-    //fragColor = ;
 }
