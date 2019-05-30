@@ -4,7 +4,7 @@
 #include "GLInclude.h"
 
 // Streams
-// #include <iostream>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 
@@ -46,6 +46,10 @@ Light(ifstream& ifs){
    		}else if (tag == " "){
       		// Blank
     	}else if (tag == "end_light"){
+			ambientColor /= 255;
+			//cout << "Ambient: " << ambientColor.x << ambientColor.y << ambientColor.z << endl;
+			diffuseColor /=255;
+			specularColor /= 255;
      		break;
     	}
 	}
@@ -57,4 +61,12 @@ Draw(GLuint _program){
 	GLuint lightIndex = glGetUniformLocation(_program, "light");
 	glm::vec4 positionData = glm::vec4(position, positional);
 	glUniform4fv(lightIndex, 1, &positionData[0]);
+	
+	GLuint diffuseIndex = glGetUniformLocation(_program, "diffuse");
+	glUniform3fv(diffuseIndex, 1, &diffuseColor[0]);
+	GLuint ambientIndex = glGetUniformLocation(_program, "ambient");
+	glUniform3fv(ambientIndex, 1, &ambientColor[0]);
+	GLuint specularIndex = glGetUniformLocation(_program, "specular");
+	glUniform3fv(specularIndex, 1, &specularColor[0]);
+
 }

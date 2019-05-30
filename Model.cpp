@@ -160,6 +160,7 @@ Parse(const std::string& filename) {
     iss >> tag;
 
     if(tag == "v") {
+      //cout << "Reading Point" << endl;
       glm::vec3 v;
       iss >> v.x;
       iss >> v.y;
@@ -168,6 +169,7 @@ Parse(const std::string& filename) {
     }
 
     else if(tag == "vt") {
+      //cout << "Reading Texture" << endl;      
       glm::vec2 v;
       iss >> v.x;
       iss >> v.y;
@@ -175,6 +177,7 @@ Parse(const std::string& filename) {
     }
 
     else if(tag == "vn") {
+      //cout << "Reading Normal" << endl;
       glm::vec3 v;
       iss >> v.x;
       iss >> v.y;
@@ -183,6 +186,7 @@ Parse(const std::string& filename) {
     }
 
     else if(tag == "f") {
+      //cout << "Reading Face" << endl;
       ObjFace f;
       for(size_t i = 0; i < 3; ++i) {
         ObjVertex v;
