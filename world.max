@@ -58,6 +58,8 @@ end_object
 start_light
     position 0 10 0
     direction 0 0 0
-    color_rgb 255 255 251
-    positional_light true
+    ambient_color 0 0 0
+    diffuse_color 0 0 0
+    specular_color 0 0 0
+    positional_light false
 end_light

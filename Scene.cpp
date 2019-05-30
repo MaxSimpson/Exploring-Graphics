@@ -71,7 +71,7 @@ Draw(GLuint _program){
 
     // Light
     for(auto& l : lights)
-      l->Draw();
+      l->Draw(_program);
     // Models
     for(int i = 0; i < models.size(); i++){
     		models[i]->Draw(_program, projection, view);

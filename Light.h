@@ -2,7 +2,7 @@
 #define _LIGHT_H_
 
 //GLM
-#include <glm/glm.hpp>
+#include "GLInclude.h"
 
 #include <fstream>
 #include <sstream>
@@ -13,17 +13,21 @@ class Light{
 		Light(std::ifstream& ifs);
 
 		// Draw light
-		void Draw();
+		void Draw(GLuint _program);
 
 	private:
-		// Type of light
+		// Type of light 1 = position 0 = directional
 		bool positional;
 		// Location in space
 		glm::vec3 position;
 		// Unit vector for direction facing
 		glm::vec3 direction;
-		// RGB float values
-		glm::vec3 color;
+		// Base Color
+		glm::vec3 ambientColor;
+		//Diffuse Color
+		glm::vec3 diffuseColor;
+		//Specular Color
+		glm::vec3 specularColor;
 
 };
 #endif

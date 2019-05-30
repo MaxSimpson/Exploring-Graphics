@@ -1,7 +1,7 @@
 #include "Light.h"
 
 // GL
-#include <GL/glut.h>
+#include "GLInclude.h"
 
 // Streams
 // #include <iostream>
@@ -29,10 +29,18 @@ Light(ifstream& ifs){
 			iss >> direction.y;
 			iss >> direction.z;
 	 		glm::normalize(direction);
-		}else if (tag == "color_rgb"){
-			iss >> color.x;
-			iss >> color.y;
-			iss >> color.z;
+		}else if (tag == "ambient_color"){
+			iss >> ambientColor.x;
+			iss >> ambientColor.y;
+			iss >> ambientColor.z;
+		}else if (tag == "diffuse_color"){
+			iss >> diffuseColor.x;
+			iss >> diffuseColor.y;
+			iss >> diffuseColor.z;
+		}else if (tag == "specular_color"){
+			iss >> specularColor.x;
+			iss >> specularColor.y;
+			iss >> specularColor.z;		
 		}else if (tag == "positional_light"){
 			iss >> positional; 
    		}else if (tag == " "){
@@ -45,13 +53,8 @@ Light(ifstream& ifs){
 
 void
 Light::
-Draw(){
-	static GLfloat lightPosition[] = { 0.5f, 1.0f, 1.5f, 0.0f };
-  	static GLfloat whiteLight[] = { 0.8f, 0.8f, 0.8f, 1.0f };
-  	static GLfloat darkLight[] = { 0.2f, 0.2f, 0.2f, 1.0f };
-  	glEnable(GL_LIGHTING);
-  	glEnable(GL_LIGHT0);
-  	glLightfv(GL_LIGHT0, GL_POSITION, lightPosition);
-  	glLightfv(GL_LIGHT0, GL_AMBIENT, darkLight);
-  	glLightfv(GL_LIGHT0, GL_DIFFUSE, whiteLight);
+Draw(GLuint _program){
+	GLuint lightIndex = glGetUniformLocation(_program, "light");
+	glm::vec4 positionData = glm::vec4(position, positional);
+	glUniform4fv(lightIndex, 1, &positionData[0]);
 }

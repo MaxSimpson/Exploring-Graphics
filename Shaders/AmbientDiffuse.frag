@@ -2,6 +2,7 @@
 
 uniform mat4 view;
 uniform vec3 color;
+uniform vec4 light;
 
 in vec4 position;
 in vec3 normal;
