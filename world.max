@@ -12,17 +12,17 @@ start_object
     file_location ModelFiles/sphere.obj
     world_location 0 0 0
     color_rgb 255 0 255
-    world_scale 0.25 0.05 0.05
+    world_scale 0.05 0.05 0.05
     world_rotation 0 0 1 0
 end_object
 
 
 #Light
 start_light
-    position 0 -1 0
+    position 0 4 0
     direction 0 0 0
     ambient_color 30 30 30
     diffuse_color 200 200 200
-    specular_color 50 50 50
-    positional_light false
+    specular_color 200 200 200
+    positional_light true
 end_light

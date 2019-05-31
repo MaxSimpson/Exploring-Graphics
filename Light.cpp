@@ -42,7 +42,10 @@ Light(ifstream& ifs){
 			iss >> specularColor.y;
 			iss >> specularColor.z;		
 		}else if (tag == "positional_light"){
-			iss >> positional; 
+			string x;
+			iss >> x;
+			positional = x == "true" ? true : false;
+			cout << "Position: " << positional << endl;
    		}else if (tag == " "){
       		// Blank
     	}else if (tag == "end_light"){

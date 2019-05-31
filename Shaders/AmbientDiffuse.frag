@@ -28,7 +28,13 @@ main() {
     //vec4 I_d = vec4(0.8, 0.8, 0.8, 0.8); 
 
     // Light direction
-    vec3 L = -(view * light).xyz;
+    vec4 lightTransformed = view * light;
+    vec3 L;
+    if(light.w == 0.f) 
+      L = -normalize(lightTransformed).xyz;
+    else {
+      L = normalize(lightTransformed - position).xyz;
+    } 
     //vec3 L = -(view * vec4(-1, -1, -1, 0)).xyz;
 
     //Color Value
