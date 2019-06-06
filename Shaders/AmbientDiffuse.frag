@@ -2,14 +2,19 @@
 
 uniform mat4 view;
 
-//Model Color
+// Model Color
 uniform vec3 color;
 
-//Light Data
+// Light Data
 uniform vec4 light;
 uniform vec3 diffuse;
 uniform vec3 ambient;
 uniform vec3 specular;
+
+// Material Data
+uniform vec3 ka;
+uniform vec3 kd;
+uniform vec3 ks;
 
 in vec4 position;
 in vec3 normal;
@@ -21,11 +26,13 @@ main() {
 
     // Ambient intensity
     vec4 I_a = vec4(ambient, 1);
-    //vec4 I_a = vec4(0.2, 0.2, 0.2, 0.2);
+    // Ambient material
+    I_a = I_a * vec4(ka, 1);
 
     // Diffuse intensity
     vec4 I_d = vec4(diffuse, 1);
-    //vec4 I_d = vec4(0.8, 0.8, 0.8, 0.8); 
+    // Diffuse material
+    I_d = I_d * vec4(kd, 1);
 
     // Light direction
     vec4 lightTransformed = view * light;
@@ -43,11 +50,14 @@ main() {
     float N_L = dot(normalize(L), normal);
 
     if(N_L < 0)
-        fragColor = I_a;
+      // Away from light
+      fragColor = I_a;
     else{
-        fragColor = (I_d * N_L + I_a);
+      // Facing light
+      fragColor = (I_d * N_L + I_a);
     }
 
+    // Object color
     fragColor *= alphaColor;
-    //fragColor = light;
+
 }

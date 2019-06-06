@@ -36,9 +36,15 @@ Scene(const string& location){
 			// Ignore
 		}else if (tag[0] == '#'){
 			// Ignore
+		}else if (tag == "physics"){
+			iss >> physics_Toggle;
+		}else if (tag == "start_material"){
+			// New material
+			cout << "Reading material" << endl;
+			materials.emplace_back(make_unique<Material>(ifs));
 		}else if (tag == "start_light"){
-			// Creat new light
-      lights.emplace_back(make_unique<Light>(ifs));
+			// Create new light
+      		lights.emplace_back(make_unique<Light>(ifs));
 		}else {
 			cerr << "Unknown tag from creating Scene: '" << tag << "'" << endl;
 			exit(1);
@@ -68,7 +74,9 @@ Draw(GLuint _program){
 
 	GLuint viewIndex = glGetUniformLocation(_program, "view");
   glUniformMatrix4fv(viewIndex, 1, GL_FALSE, &view[0][0]);
-
+	// Materials
+	for (auto& m : materials)
+		m->Draw(_program);
     // Light
     for(auto& l : lights)
       l->Draw(_program);
@@ -76,6 +84,8 @@ Draw(GLuint _program){
     for(int i = 0; i < models.size(); i++){
     		models[i]->Draw(_program, projection, view);
     }
+		
+
     // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
 }

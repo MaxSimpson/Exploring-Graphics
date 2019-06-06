@@ -3,7 +3,7 @@ OPT = -O3
 DEF = -DGL_WITH_SHADERS
 #DEF = -DGL_WITHOUT_SHADERS
 
-OBJS = main.o Model.o Scene.o Camera.o Light.o WorldModel.o CompileShaders.o
+OBJS = main.o Model.o Scene.o Camera.o Light.o WorldModel.o CompileShaders.o Material.o
 
 LIBS = -lGL -lGLU -lglut
 

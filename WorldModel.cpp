@@ -15,6 +15,7 @@ WorldModel::
 WorldModel(ifstream& ifs){
 	cout << "Constructor" << endl;
 	int important_data = 0;
+	int material = 0;
 	while(ifs) {
 		string line;
 		getline(ifs, line);
@@ -28,15 +29,13 @@ WorldModel(ifstream& ifs){
 			iss >> location;
 			model = std::make_unique<Model>(location);
 			important_data = important_data + 1;
-		}
-		else if(tag == "world_location") {
+		}else if(tag == "world_location") {
 			cout << "Reading World Location" << endl;
 			iss >> translation.x;
 			iss >> translation.y;
 			iss >> translation.z;
 
-		}
-		else if(tag == "color_rgb") {
+		}else if(tag == "color_rgb") {
 			cout << "Reading Color RBG" << endl;
 			iss >> color.x;
 			iss >> color.y;
@@ -61,6 +60,14 @@ WorldModel(ifstream& ifs){
 			important_data += 1;
 		}else if (tag[0] == '#'){
 			// Comment
+		}else if (tag == "material"){
+			if(material == 0){
+			iss >> mat_used;
+			material = 1;
+			}else{
+				cout << "Two materials, ERROR" << endl;
+				exit(1);
+			}
 		}else if(tag == "end_object") {
 			if(important_data < 3){
 				cout << important_data << endl;
@@ -147,4 +154,14 @@ void
 WorldModel::
 Print_Data(){
 	model->Print_Data();
+}
+
+void 
+WorldModel::
+Physics(bool physics_Toggle){
+	// If physics on
+		// If physics exempt (ex: level floor)
+			// If hit
+				//Add acceleration
+			// Calculate movement
 }

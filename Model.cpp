@@ -14,7 +14,7 @@ using namespace std;
 #include <GL/glut.h>
 
 //GLM
-#include <glm/glm.hpp>
+#include "GLInclude.h"
 
 Model::
 Model(const std::string& filename) {

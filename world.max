@@ -7,15 +7,15 @@ end_camera
 #Background
 background_rgb 53 81 130
 
-#Base Cube
+#Circle 1
 start_object
     file_location ModelFiles/sphere.obj
     world_location 0 0 0
     color_rgb 255 0 255
     world_scale 0.05 0.05 0.05
     world_rotation 0 0 1 0
+    material mat1;
 end_object
-
 
 #Light
 start_light
@@ -26,3 +26,8 @@ start_light
     specular_color 200 200 200
     positional_light true
 end_light
+
+#Material
+start_material
+    file_location ModelFiles/mat1.mtl
+end_material

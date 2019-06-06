@@ -9,6 +9,7 @@
 #include "Camera.h"
 #include "Light.h"
 #include "WorldModel.h"
+#include "Material.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -45,6 +46,11 @@ class Scene {
 		std::vector<std::unique_ptr<WorldModel>> models;
 		// Background color
 		glm::vec3 background_color;
+		// Physics enabled
+		bool physics_Toggle;
+		// Materials
+		std::vector<std::unique_ptr<Material>> materials;
+		
 };
 
 #endif
