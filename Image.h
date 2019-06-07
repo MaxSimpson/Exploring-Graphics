@@ -1,0 +1,56 @@
+////////////////////////////////////////////////////////////////////////////////
+/// @file
+/// @brief Contains wrapper class for Qt image to hide Qt includes/methods.
+////////////////////////////////////////////////////////////////////////////////
+
+#ifndef _IMAGE_H_
+#define _IMAGE_H_
+
+// STL
+#include <memory>
+#include <string>
+
+// GLM
+// Avoiding GLInclude.h because of Qt/opengl include issue.
+#include <glm/vec2.hpp>
+#include <glm/vec4.hpp>
+
+// Qt
+class QImage;
+
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Wrapper class for Qt image to hide includes and methods.
+////////////////////////////////////////////////////////////////////////////////
+class Image {
+
+  public:
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Constructor
+    /// @param _filename Filename for image.
+    explicit Image(const std::string& _filename);
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Destructor
+    ~Image();
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Deleted copy constructor
+    /// @param _image Image
+    Image(const Image& _image) = delete;
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Deleted copy assignment
+    /// @param _image Image
+    Image& operator=(const Image& _image) = delete;
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Initialization
+    /// @return Texture name for open gl.
+    ///
+    /// Note cannot use GLuint here because of Qt + open GL include error.
+    unsigned int initialize();
+
+  private:
+    QImage* m_textureData;   ///< Texture array data
+};
+
+#endif
