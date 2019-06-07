@@ -6,12 +6,17 @@
 
 #include <fstream>
 #include <sstream>
+#include <memory>
+
+#include "Image.h"
 
 class Material{
 
     public:
     // Constructor
     Material(std::ifstream& ifs);
+    // Initialization
+    void Initialize();
     // Send material data
     void Draw(GLuint _program);
 
@@ -24,6 +29,9 @@ class Material{
     glm::vec3 kd;
     // Material name
     std::string mat_name;
+    // Texture information
+    std::unique_ptr<Image> image;
+    GLuint texture{0};
     // Parse data
     void Parse (const std::string& location);
 };

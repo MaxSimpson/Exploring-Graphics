@@ -8,11 +8,20 @@ end_camera
 background_rgb 53 81 130
 
 #Circle 1
+#start_object
+#    file_location ModelFiles/sphere.obj
+#    world_location 0 0 0
+#    color_rgb 255 0 255
+#    world_scale 0.05 0.05 0.05
+#    world_rotation 0 0 1 0
+#    material mat1;
+#end_object
+#Dragon
 start_object
-    file_location ModelFiles/sphere.obj
+    file_location ModelFiles/dragon.obj
     world_location 0 0 0
-    color_rgb 255 0 255
-    world_scale 0.05 0.05 0.05
+    color_rgb 255 255 255
+    world_scale 0.5 0.5 0.5
     world_rotation 0 0 1 0
     material mat1;
 end_object
@@ -28,6 +37,9 @@ start_light
 end_light
 
 #Material
+#start_material
+#    file_location ModelFiles/mat1.mtl
+#end_material
 start_material
-    file_location ModelFiles/mat1.mtl
+    file_location ModelFiles/dragon.mtl
 end_material

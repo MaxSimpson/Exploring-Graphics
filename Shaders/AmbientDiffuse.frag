@@ -1,5 +1,16 @@
 #version 330 core
 
+// struct MyStruct {
+//   vec4 stuff;
+//   int x;
+// };
+
+// const int MAX_MY_STRUCTS
+// uniform MyStruct myStructs[MAX_MY_STRUCTS];
+
+// myStructs[0].x;
+
+
 uniform mat4 view;
 
 // Model Color
@@ -16,8 +27,11 @@ uniform vec3 ka;
 uniform vec3 kd;
 uniform vec3 ks;
 
+uniform sampler2D textureSampler;
+
 in vec4 position;
 in vec3 normal;
+in vec2 textureCoord;
 
 out vec4 fragColor; // Fragment color
 
@@ -37,11 +51,11 @@ main() {
     // Light direction
     vec4 lightTransformed = view * light;
     vec3 L;
-    if(light.w == 0.f) 
+    if(light.w == 0.f)
       L = -normalize(lightTransformed).xyz;
     else {
       L = normalize(lightTransformed - position).xyz;
-    } 
+    }
     //vec3 L = -(view * vec4(-1, -1, -1, 0)).xyz;
 
     //Color Value
@@ -59,5 +73,5 @@ main() {
 
     // Object color
     fragColor *= alphaColor;
-
+    fragColor *= texture(textureSampler, textureCoord);
 }

@@ -63,6 +63,8 @@ Scene::
 Initialize() {
 	for(auto& model : models)
 	  model->Initialize();
+	for(auto& material : materials)
+		material->Initialize();
 }
 
 #ifdef GL_WITH_SHADERS
@@ -77,14 +79,14 @@ Draw(GLuint _program){
 	// Materials
 	for (auto& m : materials)
 		m->Draw(_program);
-    // Light
-    for(auto& l : lights)
-      l->Draw(_program);
-    // Models
-    for(int i = 0; i < models.size(); i++){
-    		models[i]->Draw(_program, projection, view);
-    }
-		
+	// Light
+	for(auto& l : lights)
+		l->Draw(_program);
+	// Models
+	for(int i = 0; i < models.size(); i++){
+			models[i]->Draw(_program, projection, view);
+	}
+
 
     // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);

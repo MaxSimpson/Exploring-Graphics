@@ -120,9 +120,9 @@ Initialize() {
   glEnableVertexAttribArray(1);
   glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE,
                         sizeof(Vertex), bufferOffset(sizeof(glm::vec3)));
-  //glEnableVertexAttribArray(2);
-  //glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
-  //                      sizeof(Vertex), bufferOffset(2*sizeof(glm::vec3)));
+  glEnableVertexAttribArray(2);
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE,
+                       sizeof(Vertex), bufferOffset(2*sizeof(glm::vec3)));
 
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -169,7 +169,7 @@ Parse(const std::string& filename) {
     }
 
     else if(tag == "vt") {
-      //cout << "Reading Texture" << endl;      
+      //cout << "Reading Texture" << endl;
       glm::vec2 v;
       iss >> v.x;
       iss >> v.y;

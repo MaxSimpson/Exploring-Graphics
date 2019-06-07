@@ -1,19 +1,50 @@
+################################################################################
+## GCC
+################################################################################
 CXX = g++ -std=c++14
 OPT = -O3
-DEF = -DGL_WITH_SHADERS
-#DEF = -DGL_WITHOUT_SHADERS
 
-OBJS = main.o Model.o Scene.o Camera.o Light.o WorldModel.o CompileShaders.o Material.o
+################################################################################
+# Open gl
+################################################################################
+#DEFS += -DGL_WITHOUT_SHADERS
+GL_DEFS += -DGL_WITH_SHADERS
+GL_LIBS = -lGL -lGLU -lglut
 
-LIBS = -lGL -lGLU -lglut
+################################################################################
+# Qt
+################################################################################
+QT_DIR = /usr/include/x86_64-linux-gnu/qt5
+QT_DEFS = -fPIC
+QT_INCL = -I$(QT_DIR)
+QT_LIBS = -lQt5Core -lQt5Gui -lQt5OpenGL
+
+################################################################################
+## Rules
+################################################################################
+DEFS = $(GL_DEFS) $(QT_DEFS)
+INCL = $(QT_INCL)
+LIBS = $(GL_LIBS) $(QT_LIBS)
+
+OBJS = \
+			 Camera.o \
+			 CompileShaders.o \
+			 GLUtility.o \
+			 Image.o \
+			 Light.o \
+			 Material.o \
+			 Model.o \
+			 Scene.o \
+			 WorldModel.o \
+			 main.o
 
 default: engine
 
 engine: $(OBJS)
-	$(CXX) $(OPT) $(DEF) $(OBJS) $(LIBS) -o engine
+	$(CXX) $(OPT) $(DEFS) $(OBJS) $(LIBS) -o engine
 
 %.o: %.cpp
-	$(CXX) $(OPT) $(DEF) -MMD -c $< -o $@
+	$(CXX) $(OPT) $(DEFS) $(INCL) -MMD -c $< -o $@
 	cat $*.d >> Dependencies
 	rm -f $*.d
 

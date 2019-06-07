@@ -178,6 +178,12 @@ specialKeyPressed(GLint _key, GLint _x, GLint _y) {
 /// @return Application success status
 int
 main(int _argc, char** _argv) {
+  if(_argc != 2) {
+    cerr << "Error: Must provide a single command line argument which describes"
+      << " the scene." << endl;
+    exit(1);
+  }
+
   // Load Scene
   scene = make_unique<Scene>(_argv[1]);
   //////////////////////////////////////////////////////////////////////////////

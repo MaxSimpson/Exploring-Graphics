@@ -33,13 +33,20 @@ Material(ifstream& ifs){
             // End material
             return;
         }
-        
     }
 }
 
 void
 Material::
+Initialize() {
+  if(image != nullptr)
+    texture = image->initialize();
+}
+
+void
+Material::
 Draw(GLuint _program){
+    //"materials[" + id + "].ka"
     // Ambient
     GLuint kaIndex = glGetUniformLocation(_program, "ka");
     glUniform3fv(kaIndex, 1, &ka[0]);
@@ -49,11 +56,22 @@ Draw(GLuint _program){
     // Specular
     GLuint ksIndex = glGetUniformLocation(_program, "ks");
     glUniform3fv(ksIndex, 1, &ks[0]);
+
+    if(image != nullptr) {
+      GLuint samplerIndex =
+        glGetUniformLocation(_program, "textureSampler");
+      //glUniform1f(samplerIndex, m_sampler);
+      glUniform1i(samplerIndex, 0);
+
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, texture);
+    }
 }
 
 void
 Material::
 Parse(const string& location){
+    string dir = location.substr(0, location.rfind('/'));
     std::string line;
     //Setup Input stream
     std::ifstream ifs{location};
@@ -61,25 +79,30 @@ Parse(const string& location){
         std::string tag;
         std::istringstream iss{line};
         iss >> tag;
-        if((tag[0] == '#') || (tag == " ")){
+        if((tag[0] == '#') || (tag == " ")) {
             // Do nothing
-        }else if (tag == "Ka"){
+        } else if (tag == "Ka") {
             // Ambient
             iss >> ka.x;
             iss >> ka.y;
             iss >> ka.z;
-        }else if (tag == "Kd"){
+        } else if (tag == "Kd") {
             // Diffuse
             iss >> kd.x;
             iss >> kd.y;
             iss >> kd.z;
             cout << kd.x << " " << kd.y << " " << kd.z << endl;
-        }else if (tag == "Ks"){
+        } else if (tag == "Ks") {
             // Specular
             iss >> ks.x;
             iss >> ks.y;
             iss >> ks.z;
-        }else{
+        } else if (tag == "map_Kd") {
+            string filename;
+            iss >> filename;
+            image = make_unique<Image>(dir + "/" + filename);
+
+        } else{
 
         }
 
