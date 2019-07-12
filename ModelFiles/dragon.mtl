@@ -1,5 +1,17 @@
-# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 28.09.2012 11:51:44
+
+newmtl Gaurdian_Skin
+	Ns 16.0000
+	Ni 1.5000
+	d 1.0000
+	Tr 0.0000
+	Tf 1.0000 1.0000 1.0000
+	illum 2
+	Ka 0.2071 0.1929 0.1647
+	Kd 0.6902 0.6431 0.5490
+	Ks 0.0380 0.0354 0.0302
+	Ks 0.80 0.54 0.302
+	Ke 0.0000 0.0000 0.0000
+  map_Kd dragon.jpg
 
 newmtl Gaurdian_Gums
 	Ns 16.0000
@@ -48,20 +60,6 @@ newmtl Gaurdian_Nails
 	Kd 0.4549 0.4510 0.3961
 	Ks 0.1501 0.1488 0.1307
 	Ke 0.0000 0.0000 0.0000
-
-newmtl Gaurdian_Skin
-	Ns 16.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000
-	illum 2
-	Ka 0.2071 0.1929 0.1647
-	Kd 0.6902 0.6431 0.5490
-#	Ks 0.0380 0.0354 0.0302
-	Ks 0.80 0.54 0.302
-	Ke 0.0000 0.0000 0.0000
-  map_Kd dragon.jpg
 
 newmtl Gaurdian_Tounge
 	Ns 16.0000

@@ -61,7 +61,7 @@ compileProgram(const string& _vertexShader,
   glAttachShader(shaderProgram, fragmentShader);
   glLinkProgram(shaderProgram);
 
-  glGetProgramiv(shaderProgram, GL_COMPILE_STATUS, &success);
+  glGetProgramiv(shaderProgram, GL_LINK_STATUS, &success);
   if(!success) {
     glGetProgramInfoLog(shaderProgram, 512, NULL, infoLog);
     cerr << "Error linking programs '" << _vertexShader

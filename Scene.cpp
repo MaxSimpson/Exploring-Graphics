@@ -12,6 +12,7 @@ Scene::
 Scene(const string& location){
 
 	ifstream ifs(location);
+	// Counter for materials
 	while(ifs) {
 		string line;
 		getline(ifs, line);
@@ -39,9 +40,18 @@ Scene(const string& location){
 		}else if (tag == "physics"){
 			iss >> physics_Toggle;
 		}else if (tag == "start_material"){
-			// New material
+			// Materials
 			cout << "Reading material" << endl;
-			materials.emplace_back(make_unique<Material>(ifs));
+			getline(ifs, line);
+			istringstream iss(line);
+			iss >> tag;
+			if(tag == "file_location"){
+				// Read location
+				string mat_location;
+				iss >> mat_location;
+				cout << "Found file location: " << mat_location << endl;
+				MakeMaterials(mat_location, tag);
+			}
 		}else if (tag == "start_light"){
 			// Create new light
       		lights.emplace_back(make_unique<Light>(ifs));
@@ -60,9 +70,71 @@ Scene(const string& location){
 
 void
 Scene::
+MakeMaterials(string mat_location, string tag){
+	string image_tag;
+  // Open location
+	ifstream mat_ifs (mat_location);
+	// Parse material
+	cout << "Parsing materials" << endl;
+	// unique_ptr<Image> image;
+	// Material Data pre-contsruction
+	int mat_counter = 0;
+	string mat_name;
+	glm::vec3 kd;
+	glm::vec3 ka;
+	glm::vec3 ks;
+	while(mat_ifs){							
+		string mat_line;
+		getline(mat_ifs, mat_line);
+		istringstream mat_iss(mat_line);
+		string mat_tag = "";
+		mat_iss >> mat_tag;
+		
+		if(mat_tag == "newmtl"){
+			if(mat_counter != 0){
+				materials.emplace_back(make_unique<Material>(mat_counter, mat_name, kd, ka, ks, image_tag));
+			}
+			mat_iss >> mat_name;
+			mat_counter += 1;
+		}else if(mat_tag == "Ka"){
+			mat_iss >> ka.x;
+			mat_iss >> ka.y;
+			mat_iss >> ka.z;
+      // cout << "Ka: " << ka.x << " " << ka.y << " " << ka.z << endl;      
+		}else if(mat_tag == "Kd"){
+			mat_iss >> kd.x;
+			mat_iss >> kd.y;
+			mat_iss >> kd.z;
+      // cout << "Kd: " << kd.x << " " << kd.y << " " << kd.z << endl;
+		}else if (mat_tag == "Ks"){
+			mat_iss >> ks.x;
+			mat_iss >> ks.y;
+			mat_iss >> ks.z; 
+      // cout << "Ks: " << ks.x << " " << ks.y << " " << ks.z << endl;
+		}else if (mat_tag == "map_Kd") {
+      string filename;
+      mat_iss >> filename;
+      string dir = "ModelFiles";
+      // image = make_unique<Image>(dir + "/" + filename);
+      image_tag = dir + "/" + filename;
+      cout << "New image: " << image_tag << endl;
+
+    }else if ((mat_tag == "")||(mat_tag == "#")){
+			//Ignore
+    }else{
+			// cout << "Unknown tag: " << mat_tag << endl;
+		}
+		// cout << "Material parsing complete. " << mat_counter << " materials have been created." << endl;
+	  //materials.emplace_back(make_unique<Material>(ifs, materials_count));
+  }
+  materials.emplace_back(make_unique<Material>(mat_counter, mat_name, kd, ka, ks, image_tag));
+}
+
+void
+Scene::
 Initialize() {
 	for(auto& model : models)
-	  model->Initialize();
+		model->Initialize();
 	for(auto& material : materials)
 		material->Initialize();
 }
@@ -77,11 +149,18 @@ Draw(GLuint _program){
 	GLuint viewIndex = glGetUniformLocation(_program, "view");
   glUniformMatrix4fv(viewIndex, 1, GL_FALSE, &view[0][0]);
 	// Materials
-	for (auto& m : materials)
+	int i = 0;
+	for (auto& m : materials){
 		m->Draw(_program);
+		i++;
+	}
 	// Light
 	for(auto& l : lights)
 		l->Draw(_program);
+  // Materials
+  for(int i = 0; i < materials.size() - 1; ++i){
+    materials[i]->Draw(_program);
+  }  
 	// Models
 	for(int i = 0; i < models.size(); i++){
 			models[i]->Draw(_program, projection, view);
@@ -100,6 +179,7 @@ Draw(){
     // Light
     for(auto& l : lights)
       l->Draw();
+
     // Models
     for(int i = 0; i < models.size(); i++){
     		models[i]->Draw();
@@ -120,3 +200,4 @@ Scene::
 keyPressed(GLubyte _key, GLint _x, GLint _y){
 	return camera.keyPressed(_key, _x, _y);
 }
+

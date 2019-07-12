@@ -26,7 +26,6 @@ struct Vertex {
   glm::vec3 m_point;
   glm::vec3 m_normal;
   glm::vec2 m_texture;
-
   Vertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& t) : m_point{p}, m_normal{n}, m_texture{t} {}
 };
 

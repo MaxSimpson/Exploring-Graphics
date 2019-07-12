@@ -35,6 +35,9 @@ class Scene {
 
 		void SetProjection(const glm::mat4& _p) {projection = _p;}
 
+		// Make multiple materials
+		void MakeMaterials(string mat_location, string tag);
+
 	private:
 		// Projection
 		glm::mat4 projection;

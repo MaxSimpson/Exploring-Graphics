@@ -12,28 +12,15 @@ using namespace std;
 
 
 Material::
-Material(ifstream& ifs){
-	while(ifs) {
-        string line;
-		getline(ifs, line);
-		istringstream iss(line);
-		string tag;
-		iss >> tag;
-    	if(tag[0] == '#'){
-      		// Comment
-        }else if (tag == ""){
-            // Ignore
-        }else if (tag == "file_location"){
-            cout << "" << endl;
-            // File location
-            string location;
-			iss >> location;
-            Parse(location);
-        }else if (tag == "end_material"){
-            // End material
-            return;
-        }
-    }
+Material(int _counter, string _name, 
+         glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, string image_tag){
+    
+    mat_place = _counter;
+    mat_name = _name;
+    kd = _kd;
+    ka = _ka;
+    ks = _ks;
+    image = make_unique<Image>(image_tag);
 }
 
 void
@@ -50,6 +37,7 @@ Draw(GLuint _program){
     // Ambient
     GLuint kaIndex = glGetUniformLocation(_program, "ka");
     glUniform3fv(kaIndex, 1, &ka[0]);
+    
     // Diffuse
     GLuint kdIndex = glGetUniformLocation(_program, "kd");
     glUniform3fv(kdIndex, 1, &kd[0]);
@@ -59,12 +47,12 @@ Draw(GLuint _program){
 
     if(image != nullptr) {
       GLuint samplerIndex =
-        glGetUniformLocation(_program, "textureSampler");
+        glGetUniformLocation(_program, ("materials[" + ::to_string(mat_place) + "].tex").c_str());
       //glUniform1f(samplerIndex, m_sampler);
       glUniform1i(samplerIndex, 0);
 
       glActiveTexture(GL_TEXTURE0);
-      glBindTexture(GL_TEXTURE_2D, texture);
+      glBindTexture(GL_TEXTURE_2D, texture); 
     }
 }
 
@@ -91,7 +79,7 @@ Parse(const string& location){
             iss >> kd.x;
             iss >> kd.y;
             iss >> kd.z;
-            cout << kd.x << " " << kd.y << " " << kd.z << endl;
+            //cout << kd.x << " " << kd.y << " " << kd.z << endl;
         } else if (tag == "Ks") {
             // Specular
             iss >> ks.x;
@@ -100,10 +88,11 @@ Parse(const string& location){
         } else if (tag == "map_Kd") {
             string filename;
             iss >> filename;
+            cout << "New image: " << filename << endl;
             image = make_unique<Image>(dir + "/" + filename);
 
         } else{
-
+          cout << "Tag: " << tag << endl;
         }
 
 
