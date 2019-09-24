@@ -25,6 +25,14 @@ start_object
     world_rotation 180 0 1 0
     material mat1;
 end_object
+start_object
+    file_location ModelFiles/plane.obj
+    world_location 0 0 0
+    color_rgb 255 255 255
+    world_scale 0.5 0.5 0.5
+    world_rotation 180 0 1 0
+    material mat1;
+end_object
 
 #Light
 start_light

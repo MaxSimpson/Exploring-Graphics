@@ -209,6 +209,8 @@ Parse(const std::string& filename) {
     else {
     }
   }
+  if(m_textures.empty())
+    m_textures.emplace_back(0, 0);
 }
 
 
