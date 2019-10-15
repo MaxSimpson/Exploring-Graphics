@@ -39,17 +39,22 @@ OBJS = \
 			 WorldModel.o \
 			 main.o
 
-default: engine
+DEPS = ${OBJS:%.o=%.d}
 
-engine: $(OBJS)
-	$(CXX) $(OPT) $(DEFS) $(OBJS) $(LIBS) -o engine
+APP = engine
+
+default: $(APP)
+
+$(APP): $(OBJS)
+	@echo Linking $@
+	@$(CXX) $(OPT) $(OBJS) $(LIBS) -o $@
 
 %.o: %.cpp
-	$(CXX) $(OPT) $(DEFS) $(INCL) -MMD -c $< -o $@
-	cat $*.d >> Dependencies
-	rm -f $*.d
+	@echo Compiling $<
+	@$(CXX) $(OPT) $(DEFS) $(INCL) -MMD -c $< -o $@
 
 clean:
-	rm -f Dependencies $(OBJS) engine
+	@echo Cleaning objects, dependencies, and application
+	@rm -f $(OBJS) $(DEPS) $(APP)
 
--include Dependencies
+-include ${DEPS}
