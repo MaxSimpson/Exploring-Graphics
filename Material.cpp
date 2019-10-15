@@ -10,11 +10,10 @@
 
 using namespace std;
 
-
 Material::
 Material(int _counter, string _name, 
          glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, string image_tag){
-    
+    cout << "Counter for material is: " << _counter << endl;
     mat_place = _counter;
     mat_name = _name;
     kd = _kd;
@@ -46,10 +45,12 @@ Draw(GLuint _program){
     glUniform3fv(ksIndex, 1, &ks[0]);
 
     if(image != nullptr) {
+      // cout << "Uniform Locations: materials[" + ::to_string(mat_place) + "].tex"<< endl;
       GLuint samplerIndex =
-        glGetUniformLocation(_program, ("materials[" + ::to_string(mat_place) + "].tex").c_str());
-      //glUniform1f(samplerIndex, m_sampler);
+      glGetUniformLocation(_program, ("materials[" + ::to_string(mat_place) + "].tex").c_str());
       glUniform1i(samplerIndex, 0);
+      //glUniform1f(samplerIndex, m_sampler);
+
 
       glActiveTexture(GL_TEXTURE0);
       glBindTexture(GL_TEXTURE_2D, texture); 

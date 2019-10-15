@@ -31,12 +31,11 @@ struct Vertex {
 
 class Model {
   public:
+    Model(const std::string& filename); // Constructor
 
-    Model(const std::string& filename);
-
-    void Print_Data() const;
-    void Draw() const;
-    void Initialize();
+    void Print_Data() const; // Debug file info
+    void Draw() const; // Draw
+    void Initialize(); // Setup
 
   private:
 

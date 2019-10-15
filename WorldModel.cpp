@@ -13,7 +13,7 @@ using namespace std;
 // Contstructer
 WorldModel::
 WorldModel(ifstream& ifs){
-	cout << "Constructor" << endl;
+	// cout << "Constructor" << endl;
 	int important_data = 0;
 	int material = 0;
 	while(ifs) {
@@ -24,39 +24,39 @@ WorldModel(ifstream& ifs){
 		string tag;
 		iss >> tag;
 		if(tag ==  "file_location") {
-			cout << "Reading File Location" << endl;
+			// cout << "Reading File Location" << endl;
 			string location;
 			iss >> location;
 			model = std::make_unique<Model>(location);
 			important_data = important_data + 1;
 		}else if(tag == "world_location") {
-			cout << "Reading World Location" << endl;
+			// cout << "Reading World Location" << endl;
 			iss >> translation.x;
 			iss >> translation.y;
 			iss >> translation.z;
 
 		}else if(tag == "color_rgb") {
-			cout << "Reading Color RBG" << endl;
+			// cout << "Reading Color RBG" << endl;
 			iss >> color.x;
 			iss >> color.y;
 			iss >> color.z;
 			color /= 255;
 		}else if (tag == "world_scale"){
-			cout << "Reading Scale" << endl;
+			// cout << "Reading Scale" << endl;
 			iss >> scale.x;
 			iss >> scale.y;
 			iss >> scale.z;
 			important_data += 1;
 		}else if (tag == "world_rotation"){
-			cout << "Reading rotation" << endl;
+			// cout << "Reading rotation" << endl;
 			iss >> angle;
-			cout << "Angle: " << angle << endl;
+			// cout << "Angle: " << angle << endl;
 			iss >> rotation_axis.x;
 			iss >> rotation_axis.y;
 			iss >> rotation_axis.z;
 			glm::normalize(rotation_axis);
-			cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y
-				 								<< " " << rotation_axis.z << endl;
+			// cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y
+				 								// << " " << rotation_axis.z << endl;
 			important_data += 1;
 		}else if (tag[0] == '#'){
 			// Comment
@@ -65,7 +65,7 @@ WorldModel(ifstream& ifs){
 			iss >> mat_used;
 			material = 1;
 			}else{
-				cout << "Two materials, ERROR" << endl;
+				cerr << "Two materials, ERROR" << endl;
 				exit(1);
 			}
 		}else if(tag == "end_object") {

@@ -128,10 +128,10 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Record frame time
-  high_resolution_clock::time_point time = high_resolution_clock::now();
-  g_frameRate = duration_cast<duration<float>>(time - g_frameTime).count();
-  g_frameTime = time;
-  g_framesPerSecond = 1.f/(g_delay + g_frameRate);
+  // high_resolution_clock::time_point time = high_resolution_clock::now();
+  // g_frameRate = duration_cast<duration<float>>(time - g_frameTime).count();
+  // g_frameTime = time;
+  // g_framesPerSecond = 1.f/(g_delay + g_frameRate);
   //printf("FPS: %6.2f\n", g_framesPerSecond);
 }
 

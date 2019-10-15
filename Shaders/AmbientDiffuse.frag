@@ -1,26 +1,12 @@
 #version 330 core
 
-// struct MyStruct {
-//   vec4 stuff;
-//   int x;
-// };
-
-// const int MAX_MY_STRUCTS
-// uniform MyStruct myStructs[MAX_MY_STRUCTS];
-
-// myStructs[0].x;
-
-//Material struct
+// Material Data
 struct material {
   sampler2D tex;
   vec3 ks;
 };
 
-//Max number of materials
-const int MAX_MATERIALS = 50;
-
-// Material Data
-uniform material materials[MAX_MATERIALS];
+uniform material materials[50];
 
 //View model
 uniform mat4 view;
@@ -37,6 +23,8 @@ uniform vec3 specular;
 in vec4 position;
 in vec3 normal;
 in vec2 textureCoord;
+
+in int textureNumber;
 
 out vec4 fragColor; // Fragment color
 
@@ -68,13 +56,15 @@ main() {
 
     float N_L = max(dot(normalize(L), normal), 0.f);
 
-    vec4 ka, kd;
-    ka = kd = texture(materials[0].tex, textureCoord);
+    // vec4 ka;
+    vec3 texColor = vec3(texture(materials[1].tex, textureCoord.xy));
 
-    fragColor = I_a * ka + I_d * N_L * kd;
+    //fragColor = I_a * ka + I_d * N_L;
 
     // Object color
-    fragColor *= alphaColor;
+    //fragColor *= alphaColor;
+
+    fragColor = vec4(texColor, 1.0f);
 
     // fragColor = vec4(255, 0, 0, 0);
 }

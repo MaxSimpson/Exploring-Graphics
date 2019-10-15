@@ -7,10 +7,12 @@ uniform mat4 mvp;
 in vec3 vPosition;
 in vec3 vNormal;
 in vec2 vTexture;
+in int textureNumberin;
 
 out vec4 position;
 out vec3 normal;
 out vec2 textureCoord;
+out int textureNumber;
 
 void
 main() {

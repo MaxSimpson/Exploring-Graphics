@@ -16,11 +16,12 @@
 
 class Scene {
 	public:
-		// Constructor
-		Scene(const std::string& location);
 
 		// Initialize
 		void Initialize();
+
+		// Constructor
+		Scene(const std::string& location);
 
 		// Drawing methods
 		#ifdef GL_WITH_SHADERS
@@ -36,7 +37,7 @@ class Scene {
 		void SetProjection(const glm::mat4& _p) {projection = _p;}
 
 		// Make multiple materials
-		void MakeMaterials(string mat_location, string tag);
+		void MakeMaterials(string mat_location, string tag, string mat_name, int _counter);
 
 	private:
 		// Projection
@@ -53,7 +54,7 @@ class Scene {
 		bool physics_Toggle;
 		// Materials
 		std::vector<std::unique_ptr<Material>> materials;
-		
+
 };
 
 #endif

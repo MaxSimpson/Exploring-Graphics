@@ -42,7 +42,8 @@ Print_Data() const {
     cout << "\t" << m_textures.size() << " textures:" << endl;
     for(auto& t : m_textures)
     cout << "\t\tTexture: " << t << endl;
-    cout << "\t" << m_faces.size() << " faces" << endl; */
+    cout << "\t" << m_faces.size() << " faces" << endl; 
+  */
 
 }
 
@@ -166,26 +167,20 @@ Parse(const std::string& filename) {
       iss >> v.y;
       iss >> v.z;
       m_points.emplace_back(v);
-    }
-
-    else if(tag == "vt") {
+    } else if(tag == "vt") {
       //cout << "Reading Texture" << endl;
       glm::vec2 v;
       iss >> v.x;
       iss >> v.y;
       m_textures.emplace_back(v);
-    }
-
-    else if(tag == "vn") {
+    } else if(tag == "vn") {
       //cout << "Reading Normal" << endl;
       glm::vec3 v;
       iss >> v.x;
       iss >> v.y;
       iss >> v.z;
       m_normals.emplace_back(v);
-    }
-
-    else if(tag == "f") {
+    } else if(tag == "f") {
       //cout << "Reading Face" << endl;
       ObjFace f;
       for(size_t i = 0; i < 3; ++i) {
@@ -197,11 +192,10 @@ Parse(const std::string& filename) {
         }
         else if(std::sscanf(vert.c_str(), "%zu//%zu", &get<0>(v), &get<1>(v)) == 2) {
           --get<0>(v); --get<1>(v);
-        }
-        else {
-          cerr << "Error: Unknown face format with OBJ." << endl;
-          exit(1);
-        }
+    } else {
+      cerr << "Error: Unknown face format with OBJ." << endl;
+      exit(1);
+    }
         f.m_v[i] = v;
       }
       m_faces.emplace_back(f);
@@ -211,7 +205,7 @@ Parse(const std::string& filename) {
   }
   if(m_textures.empty())
     m_textures.emplace_back(0, 0);
-}
+  }
 
 
 void
