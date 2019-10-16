@@ -24,7 +24,7 @@ in vec4 position;
 in vec3 normal;
 in vec2 textureCoord;
 
-in int textureNumber;
+flat in int textureNumber;
 
 out vec4 fragColor; // Fragment color
 
@@ -57,7 +57,7 @@ main() {
     float N_L = max(dot(normalize(L), normal), 0.f);
 
     // vec4 ka;
-    vec3 texColor = vec3(texture(materials[1].tex, textureCoord.xy));
+    vec3 texColor = vec3(texture(materials[1].tex, textureCoord));
 
     //fragColor = I_a * ka + I_d * N_L;
 

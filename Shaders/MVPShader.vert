@@ -12,7 +12,7 @@ in int textureNumberin;
 out vec4 position;
 out vec3 normal;
 out vec2 textureCoord;
-out int textureNumber;
+flat out int textureNumber;
 
 void
 main() {
