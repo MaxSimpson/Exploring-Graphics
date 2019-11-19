@@ -34,6 +34,7 @@ OBJS = \
 			 Image.o \
 			 Light.o \
 			 Material.o \
+			 MatManager.o \
 			 Model.o \
 			 Scene.o \
 			 WorldModel.o \

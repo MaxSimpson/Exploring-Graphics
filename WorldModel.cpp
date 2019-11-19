@@ -27,7 +27,6 @@ WorldModel(ifstream& ifs){
 			// cout << "Reading File Location" << endl;
 			string location;
 			iss >> location;
-			model = std::make_unique<Model>(location);
 			important_data = important_data + 1;
 		}else if(tag == "world_location") {
 			// cout << "Reading World Location" << endl;
@@ -83,17 +82,11 @@ WorldModel(ifstream& ifs){
 	}
 }
 
-void
-WorldModel::
-Initialize() {
-	model->Initialize();
-}
-
 #ifdef GL_WITH_SHADERS
 
 void
 WorldModel::
-Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
+meshDraw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 
 	glm::mat4 t = glm::translate(glm::mat4(1.f), translation);
 	glm::mat4 r = glm::rotate(glm::mat4(1.f), angle, rotation_axis);
@@ -116,14 +109,13 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 	GLuint colorIndex = glGetUniformLocation(_program, "color");
     glUniform3fv(colorIndex, 1, &color[0]);
 
-	model->Draw();
 }
 
 #elif defined(GL_WITHOUT_SHADERS)
 
 void
 WorldModel::
-Draw(){
+meshDraw(){
 
 	//Start
 	glPushMatrix();
@@ -153,12 +145,11 @@ getAngle()const { return angle;}
 void
 WorldModel::
 Print_Data(){
-	model->Print_Data();
 }
 
 void 
 WorldModel::
-Physics(bool physics_Toggle){
+Physics(){
 	// If physics on
 		// If physics exempt (ex: level floor)
 			// If hit

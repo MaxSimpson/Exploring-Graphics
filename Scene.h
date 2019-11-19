@@ -10,6 +10,7 @@
 #include "Light.h"
 #include "WorldModel.h"
 #include "Material.h"
+#include "MatManager.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -40,21 +41,13 @@ class Scene {
 		void MakeMaterials(string mat_location, string tag, string mat_name, int _counter);
 
 	private:
-		// Projection
-		glm::mat4 projection;
-		// Camera
-		Camera camera;
-		// Lights
-		std::vector<std::unique_ptr<Light>> lights;
-		// World Models
-		std::vector<std::unique_ptr<WorldModel>> models;
-		// Background color
-		glm::vec3 background_color;
-		// Physics enabled
-		bool physics_Toggle;
-		// Materials
-		std::vector<std::unique_ptr<Material>> materials;
-
+		glm::mat4 projection; //< Projection
+		Camera camera; //< Camera
+		std::vector<std::unique_ptr<Light>> lights; //< Lights
+		std::vector<std::unique_ptr<WorldModel>> models; //< World models
+		glm::vec3 background_color; //< Background colors
+		bool physics_Toggle; //< Physics enabled
+		MatManager* matManager = new MatManager(); //< Material manager
 };
 
 #endif

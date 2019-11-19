@@ -11,39 +11,33 @@
 
 class WorldModel{
 	public:
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Constructor
+    /// @param ifs Stream to read in model data
+    ///
+    /// Constructor to make world model and maintain orginization 
 		WorldModel(std::ifstream& ifs);
 
-		void Initialize();
 		#ifdef GL_WITH_SHADERS
-			void Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
+			void meshDraw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
 		#elif defined(GL_WITHOUT_SHADERS)
-			void Draw();	
+			void meshDraw();	
 		#endif
+
 		void Print_Data();
-		float getAngle() const;
+    float getAngle() const;
+
 	private:
-		// Location
-		glm::vec3 translation;
-		// Size
-		glm::vec3 scale;
-		// Rotation Angle
-		float angle;
-		// Rotation along xyz
-		glm::vec3 rotation_axis;
-		// Model Color
-		glm::vec3 color;
-		// Model Data
-		std::unique_ptr<Model> model; 
-		// Physics on or off
-		bool physics_toggle;
-		// Calculates physics
-		void Physics(bool physics_Toggle);
-		// Physics mass
-		int mass;
-		// Physics force
-		glm::vec3 force;
-		// Material usded
-		string mat_used;
+		glm::vec3 translation; //< Location in 3d space
+		glm::vec3 scale; //< Scale of object
+		float angle; //< Rotation angle
+		glm::vec3 rotation_axis; //< Rotation Axis
+		glm::vec3 color; //< World colo
+		bool physics_toggle; //< Physics on or off
+		void Physics(); //< Calculates physics
+		int mass; //< Mass of object
+		glm::vec3 force; //< Physics force
+		string mat_used; //< Material used
 
 };
 
