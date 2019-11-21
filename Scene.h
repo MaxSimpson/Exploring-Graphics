@@ -37,9 +37,6 @@ class Scene {
 
 		void SetProjection(const glm::mat4& _p) {projection = _p;}
 
-		// Make multiple materials
-		void MakeMaterials(string mat_location, string tag, string mat_name, int _counter);
-
 	private:
 		glm::mat4 projection; //< Projection
 		Camera camera; //< Camera
@@ -47,7 +44,7 @@ class Scene {
 		std::vector<std::unique_ptr<WorldModel>> models; //< World models
 		glm::vec3 background_color; //< Background colors
 		bool physics_Toggle; //< Physics enabled
-		MatManager* matManager = new MatManager(); //< Material manager
+		unique_ptr<MatManager> matManager; //< Material manager
 };
 
 #endif
