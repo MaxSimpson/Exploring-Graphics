@@ -135,8 +135,26 @@ meshDraw(){
 	//End
 	glPopMatrix();
 }
-
 #endif
+
+string
+WorldModel::
+getMat(){
+  return mat_used;
+}
+
+void
+WorldModel::
+setMat(Material* newMatPtr){
+  mat_ptr = newMatPtr;
+}
+
+void
+WorldModel::
+matDraw(GLuint _program){
+  mat_ptr->Draw(_program);
+}
+
 
 float
 WorldModel::

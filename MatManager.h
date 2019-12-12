@@ -17,17 +17,20 @@ class MatManager{
     MatManager();
 
     ////////////////////////////////////////////////////////////////////////////
-    /// @brief Returns material to draw
-    Material* getMaterial();
+    /// @brief Intialization for materials
+    void initialize();
 
-		// Make multiple materials
-		void makeMaterials(std::string mat_location,
-                       std::string tag,
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Returns material to draw
+    Material* getMaterial(std::string name);
+
+    ////////////////////////////////////////////////////////////////////////////
+		/// @brief Make multiple materials
+		void makeMaterials(std::string mat_location, std::string tag,
                        std::string mat_name, int _counter);
 
   private:
     std::vector<std::unique_ptr<Material>> materials; //< Materials
-
 };
 
 #endif

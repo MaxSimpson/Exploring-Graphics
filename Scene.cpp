@@ -11,8 +11,11 @@ using namespace std;
 void
 Scene::
 Initialize() {
-	for(auto& material : materials)
-		material->Initialize();
+	matManager->initialize();
+  for(int i = 0; i < models.size(); i++){
+		string mat_name = models[i]->getMat();
+    // Material* matRef = matManager->getMaterial(mat_name);
+	}
 }
 
 Scene::
@@ -97,9 +100,6 @@ Scene(const string& location){
 	for(int i = 0; i < models.size(); i++){
 		models[i]->Print_Data();
 	}
-  // Print # of materials
-  cout << "Number of Materials: " << materials.size() << endl;
-
 }
 
 
@@ -111,16 +111,15 @@ Draw(GLuint _program){
   glm::mat4 view = camera.getViewMatrix();
 	GLuint viewIndex = glGetUniformLocation(_program, "view");
   glUniformMatrix4fv(viewIndex, 1, GL_FALSE, &view[0][0]);
-	// Materials
-	for (auto& m : materials){
-		m->Draw(_program);
-	}
 	// Light
 	for(auto& l : lights)
 		l->Draw(_program);
-	// Models
+	// Models & Materials
+  for(int i = 0; i < models.size(); i++){
+    models[i]->matDraw(_program);
+  }
 	for(int i = 0; i < models.size(); i++){
-			models[i]->meshDraw(_program, projection, view);
+		models[i]->meshDraw(_program, projection, view);
 	}
   // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);

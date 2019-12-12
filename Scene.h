@@ -17,7 +17,6 @@
 
 class Scene {
 	public:
-
 		// Initialize
 		void Initialize();
 

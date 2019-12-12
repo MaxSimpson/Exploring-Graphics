@@ -1,59 +1,59 @@
 #Camera
 start_camera
-    theta_value 90
-    phi_value 0
+  theta_value 90
+  phi_value 0
 end_camera
 
 #Background
-background_rgb 100 100 100
+background_rgb 255 255 255
 
 
 #Dragon
 #start_object
-#    file_location ModelFiles/dragon.obj
-#    world_location 0 0 0
-#    color_rgb 255 255 255
-#    world_scale 0.5 0.5 0.5
-#    world_rotation 180 0 1 0
-#    material mat1;
+#  file_location ModelFiles/dragon.obj
+#  world_location 0 0 0
+#  color_rgb 255 255 255
+#  world_scale 0.5 0.5 0.5
+#  world_rotation 180 0 1 0
+#  material mat1;
 #end_object
 
 start_object
-    file_location ModelFiles/cube.obj
-    world_location 0 0 0
-    color_rgb 255 255 255
-    world_scale 0.5 0.5 0.5
-    world_rotation 0 0 0 1
-    material cube;
+  file_location ModelFiles/cube.obj
+  world_location 0 0 0
+  color_rgb 255 255 255
+  world_scale 0.5 0.5 0.5
+  world_rotation 0 0 0 1
+  material cube;
 end_object
 
 start_object
-    file_location ModelFiles/sphere.obj
-    world_location 2 0 0
-    color_rgb 255 255 255
-    world_scale 0.5 0.5 0.5
-    world_rotation 0 0 0 1
-    material sphere;
+  file_location ModelFiles/sphere.obj
+  world_location 2 0 0
+  color_rgb 255 255 255
+  world_scale 0.5 0.5 0.5
+  world_rotation 0 0 0 1
+  material sphere;
 end_object
 
 #Light
 start_light
-    position 0 5 0
-    direction 0 0 0
-    ambient_color 100 100 100
-    diffuse_color 0 0 0
-    specular_color 0 0 0
-    positional_light true
+  position 0 5 0
+  direction 0 0 0
+  ambient_color 100 100 100
+  diffuse_color 0 0 0
+  specular_color 0 0 0
+  positional_light true
 end_light
 
 #Material
 start_material
-    file_location ModelFiles/cube.mtl
-    mat_name cube
+  file_location ModelFiles/cube.mtl
+  mat_name cube
 end_material
 
 
 start_material
-   file_location ModelFiles/sphere.mtl
-   mat_name sphere
+  file_location ModelFiles/sphere.mtl
+  mat_name sphere
 end_material

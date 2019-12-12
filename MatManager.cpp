@@ -4,9 +4,14 @@
 using namespace std;
 
 // Constructor
-MatManager::
-MatManager(){
+MatManager::MatManager(){}
 
+// Initialize
+void
+MatManager::
+initialize(){
+  for(auto& material : materials)
+		material->Initialize();
 }
 
 void
