@@ -3,7 +3,6 @@
 
 // My libraries
 #include "Model.h"
-#include "MatManager.h"
 
 #include <memory>
 
@@ -18,40 +17,29 @@ class WorldModel{
     /// @brief Constructor
     /// @param ifs Stream to read in model data
     ///
-    /// Constructor to make world model and maintain organization 
+    /// Constructor to make world model and maintain organization
 		WorldModel(std::ifstream& ifs);
 
+    void Initialize();
+
 		#ifdef GL_WITH_SHADERS
-			void meshDraw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
+			void Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
 		#elif defined(GL_WITHOUT_SHADERS)
-			void meshDraw();	
+			void Draw();
 		#endif
-
-    ////////////////////////////////////////////////////////////////////////////
-    /// @brief Returns name of material to draw
-    string getMat();
-
-    ////////////////////////////////////////////////////////////////////////////
-    /// @brief Sets reference of material
-    void setMat(Material* newMatPtr);
-
-    ////////////////////////////////////////////////////////////////////////////
-    /// @brief Draws material
-    void matDraw(GLuint _program);
 
 		void Print_Data();
     float getAngle() const;
 
 	private:
+
+    unique_ptr<Model> model;
+
 		glm::vec3 translation; //< Location in 3d space
 		glm::vec3 scale; //< Scale of object
 		float angle; //< Rotation angle
 		glm::vec3 rotation_axis; //< Rotation Axis
 		glm::vec3 color; //< World color
-    
-    // Materials
-		string mat_used; //< Material used
-    Material* mat_ptr; //< Material reference
 
     // Physics
 		bool physics_toggle; //< Physics on or off

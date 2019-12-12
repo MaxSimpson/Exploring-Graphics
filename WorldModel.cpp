@@ -28,6 +28,7 @@ WorldModel(ifstream& ifs){
 			string location;
 			iss >> location;
 			important_data = important_data + 1;
+      model = make_unique<Model>(location);
 		}else if(tag == "world_location") {
 			// cout << "Reading World Location" << endl;
 			iss >> translation.x;
@@ -59,14 +60,6 @@ WorldModel(ifstream& ifs){
 			important_data += 1;
 		}else if (tag[0] == '#'){
 			// Comment
-		}else if (tag == "material"){
-			if(material == 0){
-			iss >> mat_used;
-			material = 1;
-			}else{
-				cerr << "Two materials, ERROR" << endl;
-				exit(1);
-			}
 		}else if(tag == "end_object") {
 			if(important_data < 3){
 				cout << important_data << endl;
@@ -82,11 +75,17 @@ WorldModel(ifstream& ifs){
 	}
 }
 
+void
+WorldModel::
+Initialize() {
+  model->Initialize();
+}
+
 #ifdef GL_WITH_SHADERS
 
 void
 WorldModel::
-meshDraw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
+Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 
 	glm::mat4 t = glm::translate(glm::mat4(1.f), translation);
 	glm::mat4 r = glm::rotate(glm::mat4(1.f), angle, rotation_axis);
@@ -109,13 +108,14 @@ meshDraw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) 
 	GLuint colorIndex = glGetUniformLocation(_program, "color");
     glUniform3fv(colorIndex, 1, &color[0]);
 
+  model->Draw(_program);
 }
 
 #elif defined(GL_WITHOUT_SHADERS)
 
 void
 WorldModel::
-meshDraw(){
+Draw(){
 
 	//Start
 	glPushMatrix();
@@ -137,25 +137,6 @@ meshDraw(){
 }
 #endif
 
-string
-WorldModel::
-getMat(){
-  return mat_used;
-}
-
-void
-WorldModel::
-setMat(Material* newMatPtr){
-  mat_ptr = newMatPtr;
-}
-
-void
-WorldModel::
-matDraw(GLuint _program){
-  mat_ptr->Draw(_program);
-}
-
-
 float
 WorldModel::
 getAngle()const { return angle;}
@@ -165,7 +146,7 @@ WorldModel::
 Print_Data(){
 }
 
-void 
+void
 WorldModel::
 Physics(){
 	// If physics on

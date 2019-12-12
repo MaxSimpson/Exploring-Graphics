@@ -11,10 +11,8 @@
 using namespace std;
 
 Material::
-Material(int _counter, string _name, 
+Material(string _name,
          glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, string image_tag){
-  cout << "Counter for material is: " << _counter << endl;
-  mat_place = _counter;
   mat_name = _name;
   kd = _kd;
   ka = _ka;
@@ -32,30 +30,30 @@ Initialize() {
 void
 Material::
 Draw(GLuint _program){
-  
+
   //"materials[" + id + "].ka"
   // Ambient
   GLuint kaIndex = glGetUniformLocation(_program, "ka");
   glUniform3fv(kaIndex, 1, &ka[0]);
-  
+
   // Diffuse
   GLuint kdIndex = glGetUniformLocation(_program, "kd");
   glUniform3fv(kdIndex, 1, &kd[0]);
-  
+
 
   // Specular
   GLuint ksIndex = glGetUniformLocation(_program, "ks");
   glUniform3fv(ksIndex, 1, &ks[0]);
   if(image != nullptr) {
     cout << "Drawing" << endl;
-    cout << "Uniform Locations: materials[" + ::to_string(mat_place) + "].tex"<< endl;
+    cout << "Uniform Locations: materials[" + ::to_string(0) + "].tex"<< endl;
     GLuint samplerIndex =
-    glGetUniformLocation(_program, ("materials[" + ::to_string(mat_place) + "].tex").c_str());
+    glGetUniformLocation(_program, ("materials[" + ::to_string(0) + "].tex").c_str());
 
     glUniform1i(samplerIndex, 0);
     //glUniform1f(samplerIndex, m_sampler);
     glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture); 
+    glBindTexture(GL_TEXTURE_2D, texture);
   }
 }
 

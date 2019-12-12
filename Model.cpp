@@ -16,6 +16,8 @@ using namespace std;
 //GLM
 #include "GLInclude.h"
 
+#include "MatManager.h"
+
 Model::
 Model(const std::string& filename) {
   Parse(filename);
@@ -42,7 +44,7 @@ Print_Data() const {
     cout << "\t" << m_textures.size() << " textures:" << endl;
     for(auto& t : m_textures)
     cout << "\t\tTexture: " << t << endl;
-    cout << "\t" << m_faces.size() << " faces" << endl; 
+    cout << "\t" << m_faces.size() << " faces" << endl;
   */
 
 }
@@ -51,9 +53,11 @@ constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
 
 void
 Model::
-Draw() const {
+Draw(GLuint _program) const {
 
 #ifdef GL_WITH_SHADERS
+  mat_ptr->Draw(_program);
+
   glBindVertexArray(m_vertexArrayObject);
   glDrawElements(GL_TRIANGLES, GLsizei(m_indices.size()),
                  GL_UNSIGNED_INT, bufferOffset(0));
@@ -192,20 +196,29 @@ Parse(const std::string& filename) {
         }
         else if(std::sscanf(vert.c_str(), "%zu//%zu", &get<0>(v), &get<1>(v)) == 2) {
           --get<0>(v); --get<1>(v);
-    } else {
-      cerr << "Error: Unknown face format with OBJ." << endl;
-      exit(1);
-    }
+        } else {
+          cerr << "Error: Unknown face format with OBJ." << endl;
+          exit(1);
+        }
         f.m_v[i] = v;
       }
       m_faces.emplace_back(f);
-    }
-    else {
+    } else if(tag == "mtllib") {
+      string filename;
+      iss >> filename;
+      string dir = "ModelFiles";
+      string mtlfilename = dir + "/" + filename;
+      getMatManager().makeMaterials(mtlfilename);
+    } else if(tag == "usemtl") {
+      string mat_name;
+      iss >> mat_name;
+      mat_ptr = getMatManager().getMaterial(mat_name);
+    } else {
     }
   }
   if(m_textures.empty())
     m_textures.emplace_back(0, 0);
-  }
+}
 
 
 void

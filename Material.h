@@ -13,15 +13,13 @@
 class Material{
   public:
     // Constructor
-    Material(int _counter, std::string _name, glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, std::string image_tag);
+    Material(std::string _name, glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, std::string image_tag);
     // Initialization
     void Initialize();
     // Send material data
     void Draw(GLuint _program);
 
   private:
-    // Which material
-    int mat_place;
     // Ambient factor
     glm::vec3 ka;
     // Specular factor

@@ -15,6 +15,9 @@ using namespace std;
 // Boost
 #include <boost/functional/hash.hpp>
 
+// Engine
+class Material;
+
 // First is index of point, second is index of normal, third is index of texture
 using ObjVertex  = std::tuple<size_t, size_t, size_t>;
 
@@ -34,7 +37,7 @@ class Model {
     Model(const std::string& filename); // Constructor
 
     void Print_Data() const; // Debug file info
-    void Draw() const; // Draw
+    void Draw(GLuint _program) const; // Draw
     void Initialize(); // Setup
 
   private:
@@ -57,6 +60,9 @@ class Model {
 #endif
     GLuint m_vertexBuffer;  // VBO object
     GLuint m_elementBuffer; // EBO object
+
+    // Materials
+    Material* mat_ptr; //< Material reference
 };
 
 #endif

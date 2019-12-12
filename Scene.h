@@ -43,7 +43,6 @@ class Scene {
 		std::vector<std::unique_ptr<WorldModel>> models; //< World models
 		glm::vec3 background_color; //< Background colors
 		bool physics_Toggle; //< Physics enabled
-		unique_ptr<MatManager> matManager; //< Material manager
 };
 
 #endif

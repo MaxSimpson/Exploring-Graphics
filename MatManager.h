@@ -2,10 +2,13 @@
 #define _MATMANAGER_H_
 
 // STL
-#include <vector>
+#include <unordered_map>
 
 // My files
 #include "Material.h"
+
+class MatManager;
+MatManager& getMatManager();
 
 ////////////////////////////////////////////////////////////////////////////////
 /// @brief Class for managing materials
@@ -22,15 +25,16 @@ class MatManager{
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Returns material to draw
-    Material* getMaterial(std::string name);
+    Material* getMaterial(std::string name) {
+      return materials[name].get();
+    }
 
     ////////////////////////////////////////////////////////////////////////////
 		/// @brief Make multiple materials
-		void makeMaterials(std::string mat_location, std::string tag,
-                       std::string mat_name, int _counter);
+		void makeMaterials(std::string mat_location);
 
   private:
-    std::vector<std::unique_ptr<Material>> materials; //< Materials
+    std::unordered_map<std::string, std::unique_ptr<Material>> materials; //< Materials
 };
 
 #endif
