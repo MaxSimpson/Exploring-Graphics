@@ -54,54 +54,18 @@ constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
 void
 Model::
 Draw(GLuint _program) const {
-
-#ifdef GL_WITH_SHADERS
   mat_ptr->Draw(_program);
 
   glBindVertexArray(m_vertexArrayObject);
   glDrawElements(GL_TRIANGLES, GLsizei(m_indices.size()),
                  GL_UNSIGNED_INT, bufferOffset(0));
   glBindVertexArray(0);
-#elif defined(GL_WITHOUT_SHADERS)
-  glEnable(GL_NORMALIZE);
-
-  // VBO
-  glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
-
-  glEnableClientState(GL_VERTEX_ARRAY);
-  glVertexPointer(3, GL_FLOAT, sizeof(Vertex), bufferOffset(0));
-
-  glEnableClientState(GL_NORMAL_ARRAY);
-  glNormalPointer(GL_FLOAT, sizeof(Vertex), bufferOffset(12));
-
-  glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-  glTexCoordPointer(2, GL_FLOAT, sizeof(Vertex), bufferOffset(24));
-
-  // EBO + draw
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer);
-
-  glDrawRangeElements(GL_TRIANGLES, 0, GLuint(m_vertices.size()),
-    GLsizei(m_indices.size()), GL_UNSIGNED_INT, bufferOffset(0));
-
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-
-  glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-  glDisableClientState(GL_NORMAL_ARRAY);
-  glDisableClientState(GL_VERTEX_ARRAY);
-
-  glBindBuffer(GL_ARRAY_BUFFER, 0);
-
-  glDisable(GL_NORMALIZE);
-#else
-#error ERROR
-#endif
 }
 
 
 void
 Model::
 Initialize() {
-#ifdef GL_WITH_SHADERS
   // Vertex buffer object on vertices
   glGenBuffers(1, &m_vertexBuffer);
   glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer);
@@ -132,24 +96,6 @@ Initialize() {
   glBindVertexArray(0);
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
-#elif defined(GL_WITHOUT_SHADERS)
-  // Create VBO on the GPU and send CPU data to the GPU for vertices
-  glGenBuffers(1, &m_vertexBuffer);        // Create VBO name on the GPU
-  glBindBuffer(GL_ARRAY_BUFFER, m_vertexBuffer); // Make our new VBO the active ARRAY_BUFFER
-  glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex)*m_vertices.size(),
-    m_vertices.data(), GL_STATIC_DRAW);    // Send vertex data to VBO on the GPU
-
-
-  // Create EBO on the GPU and send CPU data to the GPU for triangle indices
-  glGenBuffers(1, &m_elementBuffer);               // Create EBO name on the GPU
-  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_elementBuffer); // Make our new EBO the active ELEMENT_ARRAY_BUFFER
-  glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint)*m_indices.size(),
-    m_indices.data(), GL_STATIC_DRAW);             // Send index data to EBO on the GPU
-
-  cout << "VBO EBO setup" << endl;
-#else
-#error Error
-#endif
 }
 
 void

@@ -10,7 +10,7 @@ using namespace std;
 // GL
 #include "GLInclude.h"
 
-// Contstructer
+// Constructer
 WorldModel::
 WorldModel(ifstream& ifs){
 	// cout << "Constructor" << endl;
@@ -58,6 +58,8 @@ WorldModel(ifstream& ifs){
 			// cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y
 				 								// << " " << rotation_axis.z << endl;
 			important_data += 1;
+    }else if (tag == "physicsOn"){
+      physicsOn = true;
 		}else if (tag[0] == '#'){
 			// Comment
 		}else if(tag == "end_object") {
@@ -81,7 +83,13 @@ Initialize() {
   model->Initialize();
 }
 
-#ifdef GL_WITH_SHADERS
+void
+WorldModel::
+Update(){
+  // Do physics
+  Physics();
+}
+
 
 void
 WorldModel::
@@ -111,32 +119,6 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
   model->Draw(_program);
 }
 
-#elif defined(GL_WITHOUT_SHADERS)
-
-void
-WorldModel::
-Draw(){
-
-	//Start
-	glPushMatrix();
-	//Color
-	glColor3f(color.x, color.y, color.z);
-
-	//Translate
-	glTranslatef(translation.x, translation.y, translation.z);
-
-    //Rotate
-	//glRotatef(getAngle(), rotation_axis.getX(), rotation_axis.getY(), rotation_axis.getZ());
-
-	//Scale
-	glScalef(scale.z, scale.y, scale.z);
-
-	model->Draw();
-	//End
-	glPopMatrix();
-}
-#endif
-
 float
 WorldModel::
 getAngle()const { return angle;}
@@ -149,9 +131,20 @@ Print_Data(){
 void
 WorldModel::
 Physics(){
-	// If physics on
-		// If physics exempt (ex: level floor)
-			// If hit
-				//Add acceleration
-			// Calculate movement
+	if(physicsOn){
+    // Apply forces
+    velocity.y = -gravity * 0.01;
+    // Update positions
+    translation += velocity;
+    // Detect collision
+    if (translation.y < -5){
+      translation.y = -5;
+      framesFalling = 0;
+    }else{
+      framesFalling += 1;
+    }
+    // Solve constraints
+    
+
+  }
 }

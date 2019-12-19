@@ -34,7 +34,6 @@ initialize() {
   QImage texture = QGLWidget::convertToGLFormat(*m_textureData);
 
   //Bring into GLContext
-//#ifdef GL_WITHOUT_SHADERS
   GLuint texID = 0;
   glGenTextures(1, &texID);
   glBindTexture(GL_TEXTURE_2D, texID);
@@ -42,21 +41,6 @@ initialize() {
       GL_RGBA, GL_UNSIGNED_BYTE, texture.bits());
 
   glBindTexture(GL_TEXTURE_2D, 0);
-
-//#elif defined(GL_WITH_SHADERS)
-  //glCreateTextures(GL_TEXTURE_2D, 1, &texID);
-  //glTextureStorage2D(
-  //  texID,
-  //  glm::ceil(glm::log2(max(texture.width(), texture.height()))),
-  //  GL_RGBA, texture.width(), texture.height());
-  //glTextureSubImage2D(
-  //  texID, 0, 0, 0, texture.width(), texture.height(),
-  //  GL_RGBA, GL_UNSIGNED_BYTE, texture.bits());
-  //glGenerateTextureMipmap(texID);
-
-  //glCreateSamplers(1, &m_sampler);
-  //glBindSampler(texID, m_sampler);
-//#endif
 
   // TODO Adapt for more recent open gl.
   //GLuint samplerIndex =

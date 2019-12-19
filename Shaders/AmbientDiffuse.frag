@@ -39,7 +39,7 @@ main() {
     // Diffuse intensity
     vec4 I_d = vec4(diffuse, 1);
     // Diffuse material
-    // I_d = I_d * vec4(materials[0].kd, 1);
+    // I_d = I_d * vec4(materials[0].tex, 1);
 
     // Light direction
     vec4 lightTransformed = view * light;

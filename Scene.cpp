@@ -67,8 +67,14 @@ Scene(const string& location){
 	}
 }
 
+void
+Scene::
+Update(){
+  for(auto& m : models){
+    m->Update();
+  }
+}
 
-#ifdef GL_WITH_SHADERS
 void
 Scene::
 Draw(GLuint _program){
@@ -86,23 +92,6 @@ Draw(GLuint _program){
   // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
 }
-#elif defined(GL_WITHOUT_SHADERS)
-void
-Scene::
-Draw(){
-	// Camera
-  camera.Draw();
-  // Light
-  for(auto& l : lights)
-    l->Draw();
-
-  // Models
-  for(auto& m : models)
-  	m->Draw();
-  // Background
-	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
-}
-#endif
 
 bool
 Scene::

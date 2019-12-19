@@ -45,8 +45,6 @@ Draw(GLuint _program){
   GLuint ksIndex = glGetUniformLocation(_program, "ks");
   glUniform3fv(ksIndex, 1, &ks[0]);
   if(image != nullptr) {
-    cout << "Drawing" << endl;
-    cout << "Uniform Locations: materials[" + ::to_string(0) + "].tex"<< endl;
     GLuint samplerIndex =
     glGetUniformLocation(_program, ("materials[" + ::to_string(0) + "].tex").c_str());
 

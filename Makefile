@@ -2,13 +2,12 @@
 ## GCC
 ################################################################################
 CXX = g++ -std=c++14
-OPT = -O0 -ggdb # Debug mode
-#OPT = -O3
+#OPT = -O0 -ggdb # Debug mode
+OPT = -O3
 
 ################################################################################
 # Open gl
 ################################################################################
-#DEFS += -DGL_WITHOUT_SHADERS
 GL_DEFS += -DGL_WITH_SHADERS
 GL_LIBS = -lGL -lGLU -lglut
 
@@ -29,7 +28,9 @@ LIBS = $(GL_LIBS) $(QT_LIBS)
 
 OBJS = \
 			 Camera.o \
+			 Collider.o \
 			 CompileShaders.o \
+			 BoxCollider.o \
 			 GLUtility.o \
 			 Image.o \
 			 Light.o \
@@ -37,6 +38,7 @@ OBJS = \
 			 MatManager.o \
 			 Model.o \
 			 Scene.o \
+			 SphereCollider.o \
 			 WorldModel.o \
 			 main.o
 

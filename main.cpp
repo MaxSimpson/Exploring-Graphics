@@ -78,14 +78,8 @@ resize(GLint _w, GLint _h) {
   glViewport(0, 0, g_width, g_height);
 
   // Projection
-#ifdef GL_WITH_SHADERS
   glm::mat4 proj = glm::perspective(45.f, GLfloat(g_width)/g_height, 0.01f, 100.f);
   scene->SetProjection(proj);
-#elif defined(GL_WITHOUT_SHADERS)
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluPerspective(45.f, GLfloat(g_width)/g_height, 0.01f, 100.f);
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -114,14 +108,14 @@ draw() {
   //////////////////////////////////////////////////////////////////////////////
   // Clear
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  
+  //////////////////////////////////////////////////////////////////////////////
+  // Update
+  scene->Update();
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
-#ifdef GL_WITH_SHADERS
   scene->Draw(program);
-#elif defined(GL_WITHOUT_SHADERS)
-  scene->Draw();
-#endif
   //////////////////////////////////////////////////////////////////////////////
   // Show
   glutSwapBuffers();
@@ -191,14 +185,12 @@ main(int _argc, char** _argv) {
   std::cout << "Initializing GLUTWindow" << std::endl;
   // GLUT
   glutInit(&_argc, _argv);
-#ifdef GL_WITH_SHADERS
   glutInitContextVersion(4, 0);
   glutInitContextProfile(GLUT_CORE_PROFILE);
-#endif
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutInitWindowPosition(50, 100);
   glutInitWindowSize(g_width, g_height); // HD size
-  g_window = glutCreateWindow("Max Wuz Here");
+  g_window = glutCreateWindow("Xploring Graphics");
 
   // GL
   initialize();
