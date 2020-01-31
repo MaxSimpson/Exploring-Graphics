@@ -3,6 +3,9 @@
 
 // My libraries
 #include "Model.h"
+#include "Collider.h"
+#include "SphereCollider.h"
+#include "BoxCollider.h"
 
 // STL
 #include <memory>
@@ -48,6 +51,16 @@ class WorldModel{
     /// @brief Gets rotation angle
     float getAngle() const;
 
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Gets physicsOn
+    bool getPhysicsOn();
+
+    ////////////////////////////////////////////////////////////////////////////
+    
+
+    // Collider (Public FOR NOW)
+    Collider collider; //< Collider
+
 	private:
     unique_ptr<Model> model; //< Model
 		glm::vec3 translation; //< Location in 3d space
@@ -60,13 +73,12 @@ class WorldModel{
     void Physics(); //< Calculates physics
 		bool physicsOn = false; //< Physics on or off
 		int mass = 0; //< Mass of object
-		glm::vec3 velocity; //< Physics velocity
+		glm::vec3 velocity = glm::vec3(0, 0, 0); //< Physics velocity
 
     // Constants
     //
     // Note: all data is in metric system ex: 9.8m/s^2 = gravity
     const float gravity = 9.8; //< Force of gravity
-    int framesFalling = 0; //< Total of frames it has been falling for
 
 };
 

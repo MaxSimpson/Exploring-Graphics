@@ -50,6 +50,7 @@ class Scene {
 		Camera camera; //< Camera
 		std::vector<std::unique_ptr<Light>> lights; //< Lights
 		std::vector<std::unique_ptr<WorldModel>> models; //< World models
+    std::vector<int> physicsModels; //< List of models by physics type
 		glm::vec3 background_color; //< Background colors
 		bool physics_Toggle; //< Physics enabled
 };

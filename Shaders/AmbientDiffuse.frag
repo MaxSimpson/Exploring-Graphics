@@ -30,7 +30,6 @@ out vec4 fragColor; // Fragment color
 
 void
 main() {
-
     // Ambient intensity
     vec4 I_a = vec4(ambient, 1);
     // Ambient material

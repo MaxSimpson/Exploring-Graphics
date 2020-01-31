@@ -14,6 +14,7 @@ using namespace std;
 WorldModel::
 WorldModel(ifstream& ifs){
 	// cout << "Constructor" << endl;
+  // Read data  
 	int important_data = 0;
 	int material = 0;
 	while(ifs) {
@@ -60,6 +61,13 @@ WorldModel(ifstream& ifs){
 			important_data += 1;
     }else if (tag == "physicsOn"){
       physicsOn = true;
+    }else if(tag == "sphereCollider"){
+      float _radius;
+      iss >> _radius;
+      cout << "Adding sphere collider with radius of " << _radius << endl;
+      collider = SphereCollider(_radius);
+    }else if(tag == "boxCollider"){
+      collider = BoxCollider();
 		}else if (tag[0] == '#'){
 			// Comment
 		}else if(tag == "end_object") {
@@ -86,6 +94,8 @@ Initialize() {
 void
 WorldModel::
 Update(){
+  // Set collider translation
+  collider.Update(translation);
   // Do physics
   Physics();
 }
@@ -139,12 +149,13 @@ Physics(){
     // Detect collision
     if (translation.y < -5){
       translation.y = -5;
-      framesFalling = 0;
-    }else{
-      framesFalling += 1;
     }
     // Solve constraints
     
 
   }
 }
+
+bool
+WorldModel::
+getPhysicsOn(){return physicsOn;}

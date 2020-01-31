@@ -65,13 +65,27 @@ Scene(const string& location){
 	for(int i = 0; i < models.size(); i++){
 		models[i]->Print_Data();
 	}
+  // Setup list of objects with physics on
+  for(int i = 0; i < models.size(); i++){
+    if(models[i]->getPhysicsOn()){
+      physicsModels.emplace_back(i);
+    }
+  }
 }
 
 void
 Scene::
 Update(){
+  // Update models
   for(auto& m : models){
     m->Update();
+  }
+  // Check collision
+  for(int i = 0; i < physicsModels.size(); i++){
+    for(int j = 1; j < physicsModels.size(); j++){
+      // glm::vec3 difference = 
+        // models[physicsModels[j]]->collider.checkCollision(models[physicsModels[i]]->collider);
+    }
   }
 }
 
