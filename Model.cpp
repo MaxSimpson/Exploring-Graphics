@@ -46,7 +46,6 @@ Print_Data() const {
     cout << "\t\tTexture: " << t << endl;
     cout << "\t" << m_faces.size() << " faces" << endl;
   */
-
 }
 
 constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}

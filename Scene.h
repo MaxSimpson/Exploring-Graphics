@@ -11,6 +11,7 @@
 #include "WorldModel.h"
 #include "Material.h"
 #include "MatManager.h"
+#include "BoxCollider.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -50,6 +51,7 @@ class Scene {
 		Camera camera; //< Camera
 		std::vector<std::unique_ptr<Light>> lights; //< Lights
 		std::vector<std::unique_ptr<WorldModel>> models; //< World models
+    BoxCollider collider;
     std::vector<int> physicsModels; //< List of models by physics type
 		glm::vec3 background_color; //< Background colors
 		bool physics_Toggle; //< Physics enabled

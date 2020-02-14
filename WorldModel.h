@@ -59,7 +59,7 @@ class WorldModel{
     
 
     // Collider (Public FOR NOW)
-    Collider collider; //< Collider
+    // Collider collider; //< Collider
 
 	private:
     unique_ptr<Model> model; //< Model

@@ -65,9 +65,9 @@ WorldModel(ifstream& ifs){
       float _radius;
       iss >> _radius;
       cout << "Adding sphere collider with radius of " << _radius << endl;
-      collider = SphereCollider(_radius);
+      // collider = SphereCollider(_radius);
     }else if(tag == "boxCollider"){
-      collider = BoxCollider();
+      // collider = BoxCollider();
 		}else if (tag[0] == '#'){
 			// Comment
 		}else if(tag == "end_object") {
@@ -95,7 +95,7 @@ void
 WorldModel::
 Update(){
   // Set collider translation
-  collider.Update(translation);
+  // collider.Update(translation);
   // Do physics
   Physics();
 }

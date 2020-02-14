@@ -14,6 +14,8 @@ void
 Scene::
 Initialize() {
 	getMatManager().initialize();
+  // Collider init for now
+  collider.Initialize();
   for(auto& m : models)
 		m->Initialize();
 }
@@ -103,6 +105,9 @@ Draw(GLuint _program){
 	for(auto& m : models){
 		m->Draw(_program, projection, view);
 	}
+  // Collider wireframe
+  collider.Draw();
+
   // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
 }

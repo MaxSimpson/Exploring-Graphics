@@ -7,27 +7,28 @@
 #include <fstream>
 #include <sstream>
 
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Light for scene
+////////////////////////////////////////////////////////////////////////////////
 class Light{
 	public:
-		// Constructer
+    ////////////////////////////////////////////////////////////////////////////
+		/// @brief Constructor for light
+    /// @param ifs Input stream for reading file data
 		Light(std::ifstream& ifs);
 
-		// Draw light
+    ////////////////////////////////////////////////////////////////////////////
+		/// @brief Draws lighting
+    /// @param _program Shader program for shading
 		void Draw(GLuint _program);
 
 	private:
-		// Type of light 1 = position 0 = directional
-		bool positional;
-		// Location in space
-		glm::vec3 position;
-		// Unit vector for direction facing
-		glm::vec3 direction;
-		// Base Color
-		glm::vec3 ambientColor;
-		//Diffuse Color
-		glm::vec3 diffuseColor;
-		//Specular Color
-		glm::vec3 specularColor;
+		bool positional; //< Type of light (1 = pos, 0 = dirc)
+		glm::vec3 position; //< Location in space
+		glm::vec3 direction; //< Direction of light
+		glm::vec3 ambientColor; //< Ambient color
+		glm::vec3 diffuseColor; //< Diffuse color
+		glm::vec3 specularColor; //< Specular color
 
 };
 #endif

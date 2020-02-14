@@ -32,36 +32,54 @@ struct Vertex {
   Vertex(const glm::vec3& p, const glm::vec3& n, const glm::vec2& t) : m_point{p}, m_normal{n}, m_texture{t} {}
 };
 
+////////////////////////////////////////////////////////////////////////////////
+/// @brief Class for model data
+////////////////////////////////////////////////////////////////////////////////
 class Model {
   public:
-    Model(const std::string& filename); // Constructor
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Constructor
+    /// @param filename Filename of model data
+    Model(const std::string& filename);
 
-    void Print_Data() const; // Debug file info
-    void Draw(GLuint _program) const; // Draw
-    void Initialize(); // Setup
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Prints model data
+    void Print_Data() const;
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Draws the model
+    /// @param _program Shader program for drawing
+    void Draw(GLuint _program) const;
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Setups 
+    void Initialize();
 
   private:
 
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Parses model data
+    /// @param filename Location of model data
     void Parse(const std::string& filename);
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Constructs VBO data
     void ConstructVBOData();
 
-    std::vector<glm::vec3> m_points;   // Obj point data
-    std::vector<glm::vec3> m_normals;  // Obj normal data
-    std::vector<glm::vec2> m_textures; // Obj texture coordinate data
-    std::vector<ObjFace> m_faces;    // Obj face data
+    std::vector<glm::vec3> m_points;   //< Obj point data
+    std::vector<glm::vec3> m_normals;  //< Obj normal data
+    std::vector<glm::vec2> m_textures; //< Obj texture coordinate data
+    std::vector<ObjFace> m_faces;    //< Obj face data
 
-    std::vector<Vertex> m_vertices; // VBO data
+    std::vector<Vertex> m_vertices; //< VBO data
     std::unordered_map<ObjVertex, size_t, boost::hash<ObjVertex>>
-      m_vertexMap;                  // Vertex to Index mapping
-    std::vector<GLuint> m_indices;  // EBO data
+      m_vertexMap;                  //< Vertex to Index mapping
+    std::vector<GLuint> m_indices;  //< EBO data
 
-#ifdef GL_WITH_SHADERS
-    GLuint m_vertexArrayObject; // VAO
-#endif
-    GLuint m_vertexBuffer;  // VBO object
-    GLuint m_elementBuffer; // EBO object
+    GLuint m_vertexArrayObject; //< VAO
+    GLuint m_vertexBuffer;  //< VBO object
+    GLuint m_elementBuffer; //< EBO object
 
-    // Materials
     Material* mat_ptr; //< Material reference
 };
 
