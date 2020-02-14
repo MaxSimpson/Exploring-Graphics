@@ -12,20 +12,32 @@ using namespace std;
 
 BoxCollider::
 BoxCollider(){
-  
+
 }
 
 void
 BoxCollider::
-Draw(){
-  // mat_ptr->Draw(_program); <-- How should I implement this?
+Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view){
+	glm::mat4 mv = _view;
+	glm::mat4 itmv = glm::transpose(glm::inverse(mv));
+	glm::mat4 mvp = _projection * mv;
+
+	GLuint mvIndex = glGetUniformLocation(_program, "mv");
+    glUniformMatrix4fv(mvIndex, 1, GL_FALSE, &mv[0][0]);
+
+	GLuint itmvIndex = glGetUniformLocation(_program, "itmv");
+    glUniformMatrix4fv(itmvIndex, 1, GL_FALSE, &itmv[0][0]);
+
+	GLuint mvpIndex = glGetUniformLocation(_program, "mvp");
+    glUniformMatrix4fv(mvpIndex, 1, GL_FALSE, &mvp[0][0]);
+
   glBindVertexArray(m_vertexArrayObject);
   glDrawElements(GL_LINES, GLsizei(m_indices.size()),
                  GL_UNSIGNED_INT, bufferOffset(0));
   glBindVertexArray(0);
 }
 
-void 
+void
 BoxCollider::
 Initialize(){
   // Generate data
@@ -33,10 +45,10 @@ Initialize(){
   m_vertices.emplace_back(glm::vec3( 1,  1,  1)); // 0
   m_vertices.emplace_back(glm::vec3( 1,  1, -1)); // 1
   m_vertices.emplace_back(glm::vec3(-1,  1,  1)); // 2
-  m_vertices.emplace_back(glm::vec3(-1,  1, -1)); // 3 
+  m_vertices.emplace_back(glm::vec3(-1,  1, -1)); // 3
   m_vertices.emplace_back(glm::vec3( 1, -1,  1)); // 4
   m_vertices.emplace_back(glm::vec3( 1, -1, -1)); // 5
-  m_vertices.emplace_back(glm::vec3(-1, -1,  1)); // 6 
+  m_vertices.emplace_back(glm::vec3(-1, -1,  1)); // 6
   m_vertices.emplace_back(glm::vec3(-1, -1, -1)); // 7
   // Top 1
   m_indices.emplace_back(0);
@@ -77,7 +89,7 @@ Initialize(){
   //  1 -1 -1
   // -1 -1  1
   // -1 -1  1
-  //  1 -1 -1 
+  //  1 -1 -1
 
   // Vertex buffer object on vertices
   glGenBuffers(1, &m_vertexBuffer);
@@ -101,7 +113,7 @@ Initialize(){
   glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE,
                         sizeof(glm::vec3), bufferOffset(0));
   glBindVertexArray(0);
-  
+
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }

@@ -23,10 +23,10 @@ class BoxCollider{
   //////////////////////////////////////////////////////////////////////////////
   /// @brief Constructor
   BoxCollider();
-  
+
   //////////////////////////////////////////////////////////////////////////////
   /// @brief Draws wireframe box collider
-  void Draw();
+  void Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
 
   /// Buffer offset
   constexpr GLvoid* bufferOffset(size_t _off) {return (char*)NULL + _off;}
@@ -39,7 +39,7 @@ class BoxCollider{
 
   std::vector<glm::vec3> m_vertices; //< VBO data
   std::vector<GLuint> m_indices;  //< EBO data
-  
+
   glm::vec3 Color = glm::vec3(0, 0, 0); //< Color for shader
 
   GLuint m_vertexArrayObject; //< VAO

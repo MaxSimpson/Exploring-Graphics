@@ -85,7 +85,7 @@ Update(){
   // Check collision
   for(int i = 0; i < physicsModels.size(); i++){
     for(int j = 1; j < physicsModels.size(); j++){
-      // glm::vec3 difference = 
+      // glm::vec3 difference =
         // models[physicsModels[j]]->collider.checkCollision(models[physicsModels[i]]->collider);
     }
   }
@@ -106,7 +106,7 @@ Draw(GLuint _program){
 		m->Draw(_program, projection, view);
 	}
   // Collider wireframe
-  collider.Draw();
+  collider.Draw(_program, projection, view);
 
   // Background
 	glClearColor(background_color.x, background_color.y, background_color.z, 0.0f);
