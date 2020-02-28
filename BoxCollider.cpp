@@ -1,6 +1,7 @@
 #include "BoxCollider.h"
 
 // Includes
+#include <iostream>
 using namespace std;
 
 // GL
@@ -16,14 +17,22 @@ BoxCollider(){
 }
 
 void
-BoxCollider:: 
-Update(glm::vec3 _translation, glm::vec3 _rotation, float rotation_axis, 
+BoxCollider::
+Update(glm::vec3 _translation, glm::vec3 _rotation, float rotation_axis,
        glm::vec3 _scale){
   Translation = _translation;
   Rotation = _rotation;
   Angle = rotation_axis;
   Scale = _scale;
 
+  glm::mat4 t = glm::translate(glm::mat4(1.f), Translation);
+	glm::mat4 r = glm::rotate(glm::mat4(1.f), Angle, Rotation);
+	glm::mat4 s = glm::scale(glm::mat4(1.f), Scale);
+	glm::mat4 m = t*r*s;
+
+  glm::vec3 minP{(m*glm::vec4(MaxPoint, 1))};
+  glm::vec3 maxP{(m*glm::vec4(MaxPoint, 1))};
+  MinPoint = minP;
 }
 
 void
@@ -148,4 +157,13 @@ Initialize(){
 
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
   glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+bool
+BoxCollider::
+CollidesWith(const BoxCollider& _other) {
+  // Compute the locations of each box extent
+  // Determine overlap
+  return !(MaxPoint.x < _other.MinPoint.x || MaxPoint.y < _other.MinPoint.y ||
+    MinPoint.x > _other.MaxPoint.x || MinPoint.y > _other.MaxPoint.y);
 }

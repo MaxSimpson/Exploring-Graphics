@@ -26,7 +26,7 @@ class BoxCollider{
 
   //////////////////////////////////////////////////////////////////////////////
   /// @brief Updates transforms
-  void Update(glm::vec3 _translation, glm::vec3 _rotation, float rotation_axis, 
+  void Update(glm::vec3 _translation, glm::vec3 _rotation, float rotation_axis,
               glm::vec3 _scale);
 
   //////////////////////////////////////////////////////////////////////////////
@@ -44,6 +44,8 @@ class BoxCollider{
   /// @brief Sets outer bounds for collision
   void SetBounds();
 
+  bool CollidesWith(const BoxCollider& _other);
+
   private:
 
   std::vector<glm::vec3> m_vertices; //< VBO data
@@ -51,8 +53,8 @@ class BoxCollider{
 
   glm::vec3 Color = glm::vec3(0, 0, 0); //< Color for shader
 
-  glm::vec2 MinPoint = glm::vec2(-1, -1); //< Min bounds
-  glm::vec2 MaxPoint = glm::vec2(1, 1); //< Max bounds
+  glm::vec3 MinPoint = glm::vec3(-1, -1, -1); //< Min bounds
+  glm::vec3 MaxPoint = glm::vec3(1, 1, 1); //< Max bounds
 
   // Parent data
   glm::vec3 Translation;

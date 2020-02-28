@@ -14,7 +14,7 @@ using namespace std;
 WorldModel::
 WorldModel(ifstream& ifs){
 	// cout << "Constructor" << endl;
-  // Read data  
+  // Read data
 	int important_data = 0;
 	int material = 0;
 	while(ifs) {
@@ -59,8 +59,8 @@ WorldModel(ifstream& ifs){
 			// cout << "Rotation Axis: " << rotation_axis.x << " " << rotation_axis.y
 				 								// << " " << rotation_axis.z << endl;
 			important_data += 1;
-    }else if (tag == "physicsOn"){
-      physicsOn = true;
+    }else if (tag == "physics"){
+      iss >> physicsOn;
     }else if(tag == "sphereCollider"){
       float _radius;
       iss >> _radius;
@@ -94,11 +94,23 @@ Initialize() {
 
 void
 WorldModel::
-Update(){
+Update(float _dt,
+       const std::vector<std::unique_ptr<WorldModel>>& _models) {
   // Set collider translation
   collider.Update(translation, rotation_axis, angle, scale);
+
+  // Save old values
+  glm::vec3 old_translation = translation;
+  glm::vec3 old_velocity = velocity;
+
   // Do physics
-  Physics();
+  Physics(_dt);
+
+  // Check collision
+  if(CollidesWith(_models)) {
+    translation = old_translation;
+    velocity = old_velocity;
+  }
 }
 
 
@@ -142,20 +154,33 @@ Print_Data(){
 
 void
 WorldModel::
-Physics(){
+Physics(float _dt) {
 	if(physicsOn){
     // Apply forces
-    velocity.y = -gravity * 0.01;
-    // Update positions
-    translation += velocity;
-    // Detect collision
-    if (translation.y < -5){
-      translation.y = -5;
-    }
-    // Solve constraints
-    
+    // F = ma  --> a = F/m
+    glm::vec3 force = -glm::vec3(0, gravity, 0)/* * mass */;
+    glm::vec3 acceleration = force /* / mass */;
 
+    // Update positions
+    velocity += _dt * acceleration;
+    translation += _dt * velocity; // Should really use old velocity
   }
+}
+
+bool
+WorldModel::
+CollidesWith(const std::vector<std::unique_ptr<WorldModel>>& _models) {
+  for(auto& m : _models) {
+    if(this != m.get()) {
+      // check box to box collision
+      if(collider.CollidesWith(m->collider))
+        return true;
+    }
+  }
+  if (translation.y < -5){
+    return true;
+  }
+  return false;
 }
 
 bool

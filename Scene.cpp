@@ -77,13 +77,11 @@ Scene(const string& location){
 
 void
 Scene::
-Update(){
+Update(float _dt){
   // Update models
   for(auto& m : models){
-    m->Update();
+    m->Update(_dt, models);
   }
-  // Check collision
-  
 }
 
 void

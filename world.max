@@ -28,21 +28,21 @@ background_rgb 255 255 255
 
 start_object
   file_location ModelFiles/sphere.obj
-  world_location 0 -5 0
+  world_location 0 10 0
   color_rgb 255 255 255
   world_scale 0.5 0.5 0.5
   world_rotation 0 0 0 1
-  physicsOn
+  physics 1
   sphereCollider 1
 end_object
 
 start_object
   file_location ModelFiles/sphere.obj
-  world_location 5 -5 0
+  world_location 0 0 0
   color_rgb 255 255 255
   world_scale 0.5 0.5 0.5
   world_rotation 0 0 0 1
-  physicsOn
+  physics 0
   sphereCollider 1
 end_object
 
