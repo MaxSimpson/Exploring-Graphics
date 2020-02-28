@@ -64,7 +64,7 @@ WorldModel(ifstream& ifs){
     }else if(tag == "sphereCollider"){
       float _radius;
       iss >> _radius;
-      cout << "Adding sphere collider with radius of " << _radius << endl;
+      // cout << "Adding sphere collider with radius of " << _radius << endl;
       // collider = SphereCollider(_radius);
     }else if(tag == "boxCollider"){
       // collider = BoxCollider();
@@ -89,13 +89,14 @@ void
 WorldModel::
 Initialize() {
   model->Initialize();
+  collider.Initialize();
 }
 
 void
 WorldModel::
 Update(){
   // Set collider translation
-  // collider.Update(translation);
+  collider.Update(translation, rotation_axis, angle, scale);
   // Do physics
   Physics();
 }
@@ -105,7 +106,7 @@ void
 WorldModel::
 Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 
-	glm::mat4 t = glm::translate(glm::mat4(1.f), translation);
+  glm::mat4 t = glm::translate(glm::mat4(1.f), translation);
 	glm::mat4 r = glm::rotate(glm::mat4(1.f), angle, rotation_axis);
 	glm::mat4 s = glm::scale(glm::mat4(1.f), scale);
 	glm::mat4 m = t*r*s;
@@ -127,6 +128,7 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
     glUniform3fv(colorIndex, 1, &color[0]);
 
   model->Draw(_program);
+  collider.Draw(_program, _projection, _view);
 }
 
 float

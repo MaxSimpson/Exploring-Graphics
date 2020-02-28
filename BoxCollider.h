@@ -25,6 +25,11 @@ class BoxCollider{
   BoxCollider();
 
   //////////////////////////////////////////////////////////////////////////////
+  /// @brief Updates transforms
+  void Update(glm::vec3 _translation, glm::vec3 _rotation, float rotation_axis, 
+              glm::vec3 _scale);
+
+  //////////////////////////////////////////////////////////////////////////////
   /// @brief Draws wireframe box collider
   void Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view);
 
@@ -35,12 +40,25 @@ class BoxCollider{
   /// @brief Setup for cube
   void Initialize();
 
+  //////////////////////////////////////////////////////////////////////////////
+  /// @brief Sets outer bounds for collision
+  void SetBounds();
+
   private:
 
   std::vector<glm::vec3> m_vertices; //< VBO data
   std::vector<GLuint> m_indices;  //< EBO data
 
   glm::vec3 Color = glm::vec3(0, 0, 0); //< Color for shader
+
+  glm::vec2 MinPoint = glm::vec2(-1, -1); //< Min bounds
+  glm::vec2 MaxPoint = glm::vec2(1, 1); //< Max bounds
+
+  // Parent data
+  glm::vec3 Translation;
+  glm::vec3 Rotation;
+  float Angle;
+  glm::vec3 Scale;
 
   GLuint m_vertexArrayObject; //< VAO
   GLuint m_vertexBuffer;  //< VBO object

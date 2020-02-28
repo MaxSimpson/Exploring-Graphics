@@ -74,6 +74,7 @@ class WorldModel{
 		bool physicsOn = false; //< Physics on or off
 		int mass = 0; //< Mass of object
 		glm::vec3 velocity = glm::vec3(0, 0, 0); //< Physics velocity
+    BoxCollider collider = BoxCollider();
 
     // Constants
     //

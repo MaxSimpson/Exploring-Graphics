@@ -83,12 +83,7 @@ Update(){
     m->Update();
   }
   // Check collision
-  for(int i = 0; i < physicsModels.size(); i++){
-    for(int j = 1; j < physicsModels.size(); j++){
-      // glm::vec3 difference =
-        // models[physicsModels[j]]->collider.checkCollision(models[physicsModels[i]]->collider);
-    }
-  }
+  
 }
 
 void

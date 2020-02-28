@@ -16,9 +16,25 @@ BoxCollider(){
 }
 
 void
+BoxCollider:: 
+Update(glm::vec3 _translation, glm::vec3 _rotation, float rotation_axis, 
+       glm::vec3 _scale){
+  Translation = _translation;
+  Rotation = _rotation;
+  Angle = rotation_axis;
+  Scale = _scale;
+
+}
+
+void
 BoxCollider::
 Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view){
-	glm::mat4 mv = _view;
+  glm::mat4 t = glm::translate(glm::mat4(1.f), Translation);
+	glm::mat4 r = glm::rotate(glm::mat4(1.f), Angle, Rotation);
+	glm::mat4 s = glm::scale(glm::mat4(1.f), Scale);
+	glm::mat4 m = t*r*s;
+
+	glm::mat4 mv = _view * m;
 	glm::mat4 itmv = glm::transpose(glm::inverse(mv));
 	glm::mat4 mvp = _projection * mv;
 
@@ -35,6 +51,22 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view){
   glDrawElements(GL_LINES, GLsizei(m_indices.size()),
                  GL_UNSIGNED_INT, bufferOffset(0));
   glBindVertexArray(0);
+}
+
+void
+BoxCollider::
+SetBounds(){
+  for(int i = 0; i < m_vertices.size(); i++){
+    if(m_vertices[i].x > MaxPoint.x){
+      MaxPoint.x = m_vertices[i].x;
+    }else if(m_vertices[i].x < MinPoint.x){
+      MinPoint.x = m_vertices[i].x;
+    }else if(m_vertices[i].y > MaxPoint.y){
+      MaxPoint.y = m_vertices[i].y;
+    }else if(m_vertices[i].y < MinPoint.y){
+      MinPoint.y = m_vertices[i].y;
+    }
+  }
 }
 
 void
