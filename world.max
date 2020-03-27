@@ -7,30 +7,11 @@ end_camera
 #Background
 background_rgb 255 255 255
 
-#Dragon
-#start_object
-#  file_location ModelFiles/dragon.obj
-#  world_location 0 0 0
-#  color_rgb 255 255 255
-#  world_scale 0.5 0.5 0.5
-#  world_rotation 180 0 1 0
-#  material mat1;
-#end_object
-
-#start_object
-#  file_location ModelFiles/cube.obj
-#  world_location 0 0 0
-#  color_rgb 255 255 255
-#  world_scale 0.5 0.5 0.5
-#  world_rotation 0 0 0 1
-#  physicsOn
-#end_object
-
 start_object
   file_location ModelFiles/sphere.obj
-  world_location 0 -5 0
+  world_location 0 0 0
   color_rgb 255 255 255
-  world_scale 0.5 0.5 0.5
+  world_scale 2 2 2
   world_rotation 0 0 0 1
   physicsOn
   sphereCollider 1
@@ -38,21 +19,13 @@ end_object
 
 start_object
   file_location ModelFiles/sphere.obj
-  world_location 5 -5 0
+  world_location 5 0 0
   color_rgb 255 255 255
-  world_scale 0.5 0.5 0.5
+  world_scale 1 1 1
   world_rotation 0 0 0 1
   physicsOn
   sphereCollider 1
 end_object
-
-#start_object
-#  file_location ModelFiles/floor.obj
-#  world_location 0 -5.7 0
-#  color_rgb 255 255 255
-#  world_scale 1 1 1
-#  world_rotation 0 0 0 1
-#end_object
 
 #Light
 start_light

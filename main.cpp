@@ -42,7 +42,7 @@ unique_ptr<Scene> scene;
 
 // Frame rate
 const unsigned int FPS = 60;
-float g_frameRate{0.f};
+float deltaTime{0.f};
 std::chrono::high_resolution_clock::time_point g_frameTime{
   std::chrono::high_resolution_clock::now()};
 float g_delay{0.f};
@@ -92,7 +92,7 @@ timer(int _v) {
   if(g_window != 0) {
     glutPostRedisplay();
 
-    g_delay = std::max(0.f, 1.f/FPS - g_frameRate);
+    g_delay = std::max(0.f, 1.f/FPS - deltaTime);
     glutTimerFunc((unsigned int)(1000.f*g_delay), timer, 0);
   }
   else
@@ -111,7 +111,7 @@ draw() {
   
   //////////////////////////////////////////////////////////////////////////////
   // Update
-  scene->Update();
+  scene->Update(deltaTime);
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
@@ -122,11 +122,16 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Record frame time
-  // high_resolution_clock::time_point time = high_resolution_clock::now();
-  // g_frameRate = duration_cast<duration<float>>(time - g_frameTime).count();
-  // g_frameTime = time;
-  // g_framesPerSecond = 1.f/(g_delay + g_frameRate);
-  //printf("FPS: %6.2f\n", g_framesPerSecond);
+  high_resolution_clock::time_point time = high_resolution_clock::now();
+  deltaTime = duration_cast<duration<float>>(time - g_frameTime).count();
+  g_frameTime = time;
+  
+  // cout << "Frame time: " << deltaTime << endl;
+  // g_framesPerSecond = 1.f/(g_delay + deltaTime);
+  // if(g_framesPerSecond > 59){
+  //   g_framesPerSecond = 60;
+  // }
+  // cout << "FPS: " << g_framesPerSecond << endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

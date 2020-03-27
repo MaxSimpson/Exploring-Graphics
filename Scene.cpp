@@ -77,7 +77,7 @@ Scene(const string& location){
 
 void
 Scene::
-Update(){
+Update(float deltaTime){
   // Update models
   for(auto& m : models){
     m->Update();

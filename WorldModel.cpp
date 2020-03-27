@@ -101,7 +101,6 @@ Update(){
   Physics();
 }
 
-
 void
 WorldModel::
 Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
@@ -133,7 +132,7 @@ Draw(GLuint _program, const glm::mat4& _projection, const glm::mat4& _view) {
 
 float
 WorldModel::
-getAngle()const { return angle;}
+getAngle()const {return angle;}
 
 void
 WorldModel::
@@ -143,19 +142,6 @@ Print_Data(){
 void
 WorldModel::
 Physics(){
-	if(physicsOn){
-    // Apply forces
-    velocity.y = -gravity * 0.01;
-    // Update positions
-    translation += velocity;
-    // Detect collision
-    if (translation.y < -5){
-      translation.y = -5;
-    }
-    // Solve constraints
-    
-
-  }
 }
 
 bool

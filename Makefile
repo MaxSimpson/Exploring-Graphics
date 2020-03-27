@@ -37,6 +37,7 @@ OBJS = \
 			 Material.o \
 			 MatManager.o \
 			 Model.o \
+			 Prefab.o \
 			 Scene.o \
 			 SphereCollider.o \
 			 WorldModel.o \
