@@ -111,11 +111,7 @@ draw() {
 
   //////////////////////////////////////////////////////////////////////////////
   // Update
-<<<<<<< HEAD
-  scene->Update(deltaTime);
-=======
-  scene->Update(0.016);
->>>>>>> db98d9eea21feed3218ebda7a6f886fd58834551
+  scene->Update(1.f/FPS);
 
   //////////////////////////////////////////////////////////////////////////////
   // Draw
@@ -129,7 +125,7 @@ draw() {
   high_resolution_clock::time_point time = high_resolution_clock::now();
   deltaTime = duration_cast<duration<float>>(time - g_frameTime).count();
   g_frameTime = time;
-  
+
   // cout << "Frame time: " << deltaTime << endl;
   // g_framesPerSecond = 1.f/(g_delay + deltaTime);
   // if(g_framesPerSecond > 59){
@@ -194,7 +190,7 @@ main(int _argc, char** _argv) {
   std::cout << "Initializing GLUTWindow" << std::endl;
   // GLUT
   glutInit(&_argc, _argv);
-  glutInitContextVersion(4, 0);
+  glutInitContextVersion(3, 3);
   glutInitContextProfile(GLUT_CORE_PROFILE);
   glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH);
   glutInitWindowPosition(50, 100);

@@ -31,12 +31,8 @@ class Scene {
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Update current scene
-<<<<<<< HEAD
-    void Update(float deltaTime);
-=======
     /// @param _dt Delta time
     void Update(float _dt);
->>>>>>> db98d9eea21feed3218ebda7a6f886fd58834551
 
     ////////////////////////////////////////////////////////////////////////////
 		/// @brief Draw scene

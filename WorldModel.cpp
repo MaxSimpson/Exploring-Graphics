@@ -153,9 +153,6 @@ Print_Data(){
 
 void
 WorldModel::
-<<<<<<< HEAD
-Physics(){
-=======
 Physics(float _dt) {
 	if(physicsOn){
     // Apply forces
@@ -183,7 +180,6 @@ CollidesWith(const std::vector<std::unique_ptr<WorldModel>>& _models) {
     return true;
   }
   return false;
->>>>>>> db98d9eea21feed3218ebda7a6f886fd58834551
 }
 
 bool
