@@ -33,20 +33,23 @@ class WorldModel{
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Update model
-    void Update();
+    /// @param _dt Delta time
+    /// @param _models Models
+    void Update(float _dt,
+                const std::vector<std::unique_ptr<WorldModel>>& _models);
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Drawing for models
     /// @param _program Shader program id
     /// @param _projection Camera projection
     /// @param _view Camera view matrix
-		void Draw(GLuint _program, const glm::mat4& _projection, 
+		void Draw(GLuint _program, const glm::mat4& _projection,
               const glm::mat4& _view);
-		
+
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Output data for debugging
     void Print_Data();
-    
+
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Gets rotation angle
     float getAngle() const;
@@ -56,7 +59,7 @@ class WorldModel{
     bool getPhysicsOn();
 
     ////////////////////////////////////////////////////////////////////////////
-    
+
 
     // Collider (Public FOR NOW)
     // Collider collider; //< Collider
@@ -70,7 +73,9 @@ class WorldModel{
 		glm::vec3 color; //< World color
 
     // Dedicated physics
-    void Physics(); //< Calculates physics
+    void Physics(float _dt); //< Calculates physics
+    bool CollidesWith(const std::vector<std::unique_ptr<WorldModel>>& _models);
+
 		bool physicsOn = false; //< Physics on or off
 		int mass = 0; //< Mass of object
 		glm::vec3 velocity = glm::vec3(0, 0, 0); //< Physics velocity
