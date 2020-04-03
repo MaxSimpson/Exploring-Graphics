@@ -7,13 +7,11 @@ end_camera
 #Background
 background_rgb 255 255 255
 
+prefab_location PrefabFiles
+
 start_object
   file_location ModelFiles/sphere.obj
-<<<<<<< HEAD
-  world_location 0 0 0
-=======
   world_location 0 10 0
->>>>>>> db98d9eea21feed3218ebda7a6f886fd58834551
   color_rgb 255 255 255
   world_scale 2 2 2
   world_rotation 0 0 0 1
@@ -23,11 +21,7 @@ end_object
 
 start_object
   file_location ModelFiles/sphere.obj
-<<<<<<< HEAD
-  world_location 5 0 0
-=======
   world_location 0 0 0
->>>>>>> db98d9eea21feed3218ebda7a6f886fd58834551
   color_rgb 255 255 255
   world_scale 1 1 1
   world_rotation 0 0 0 1

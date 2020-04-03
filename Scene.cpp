@@ -57,7 +57,12 @@ Scene(const string& location){
 		}else if (tag == "start_light"){
 			// Create new light
       lights.emplace_back(make_unique<Light>(ifs));
-		}else {
+    }else if(tag == "prefab_location"){
+      // Read prefab location
+      string location;
+      iss >> location;
+      prefabs.Initialize(location);
+    }else {
 			// Error
       cerr << "Unknown tag from creating Scene: '" << tag << "'" << endl;
 			exit(1);

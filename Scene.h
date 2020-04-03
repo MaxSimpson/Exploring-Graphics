@@ -12,6 +12,7 @@
 #include "Material.h"
 #include "MatManager.h"
 #include "BoxCollider.h"
+#include "Prefab.h"
 
 // GLM
 #include <glm/glm.hpp>
@@ -56,6 +57,7 @@ class Scene {
     std::vector<int> physicsModels; //< List of models by physics type
 		glm::vec3 background_color; //< Background colors
 		bool physics_Toggle; //< Physics enabled
+    Prefab prefabs; //< Stores possible prefab data for making objects
 };
 
 #endif
