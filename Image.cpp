@@ -15,10 +15,10 @@ using namespace std;
 Image::
 Image(const std::string& _filename) {
   // Load image from file
-  cout << "Texture filename: " << _filename << endl;
+  // cout << "        Texture filename: " << _filename << endl;
   m_textureData = new QImage(_filename.c_str());
   if(m_textureData->isNull()) {
-    cerr << "Cannot load texture '" << _filename << "'." << endl;
+    cerr << "        Cannot load texture '" << _filename << "'." << endl;
     exit(1);
   }
 }

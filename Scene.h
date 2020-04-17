@@ -28,6 +28,7 @@ class Scene {
 
     ////////////////////////////////////////////////////////////////////////////
 		/// @brief Construct scened data
+    /// @brief location Location of world file for reading in data
 		Scene(const std::string& location);
 
     ////////////////////////////////////////////////////////////////////////////
@@ -37,16 +38,29 @@ class Scene {
 
     ////////////////////////////////////////////////////////////////////////////
 		/// @brief Draw scene
+    /// @param _program Link to shader program
 		void Draw(GLuint _program);
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Handle keys being pressed
+    /// @param _key Key ID
+    /// @param _x X cordinate of mouse when key clicked
+    /// @param _y Y cordinate of mouse when key clicked
 		bool specialKeyPressed(GLint _key, GLint _x, GLint _y);
 		bool keyPressed(GLubyte _key, GLint _x, GLint _y);
 
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Set scene projection
 		void SetProjection(const glm::mat4& _p) {projection = _p;}
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Generates models and materials at random points in a given area
+    /// @param minCords The minimum xyz range for a planet to be created at
+    /// @param maxCords The maximum xyz range for a planet to be created at
+    /// @param totalPrefabs The total number of prefabs to be placed in the range
+    /// @param spawn Chance Percentage chance that a planet spawns at any given point
+    void generatePrefabs (glm::vec3 minCords, glm::vec3 maxCords,
+                          int totalPrefabs, float spawnChance);
 
 	private:
 		glm::mat4 projection; //< Projection

@@ -12,12 +12,24 @@ using namespace std;
 
 Material::
 Material(string _name,
-         glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, string image_tag){
+         glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, string _image_tag){
   mat_name = _name;
   kd = _kd;
   ka = _ka;
   ks = _ks;
-  image = make_unique<Image>(image_tag);
+  image_tag = _image_tag;
+  image = make_unique<Image>(_image_tag);
+}
+
+Material::
+Material(const Material& _oldMat){
+ ka = _oldMat.ka;
+ ks = _oldMat.ks;
+ kd = _oldMat.kd;
+ mat_name = _oldMat.mat_name;
+ image_tag = _oldMat.image_tag;
+ image = make_unique<Image>(image_tag);
+ texture = _oldMat.texture;
 }
 
 void

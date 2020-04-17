@@ -24,6 +24,11 @@ class Material{
     /// @param image_tag Image tag for diffuse map
     Material(std::string _name, glm::vec3 _kd, glm::vec3 _ka, glm::vec3 _ks, 
              std::string image_tag);
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief 2nd constructor for material
+    Material(const Material &_oldMat); 
+
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Initialization
     void Initialize();
@@ -37,6 +42,7 @@ class Material{
     glm::vec3 ks; //< Specular factor
     glm::vec3 kd; //< Diffuse factor
     std::string mat_name; //< Material 
+    std::string image_tag; //< Texture location
     std::unique_ptr<Image> image; //< Texture
     GLuint texture{0}; //< GL Image storage
     ////////////////////////////////////////////////////////////////////////////

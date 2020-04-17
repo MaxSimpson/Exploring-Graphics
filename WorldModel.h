@@ -61,7 +61,7 @@ class WorldModel{
     ////////////////////////////////////////////////////////////////////////////
 
 
-    // Collider (Public FOR NOW)
+    // Collider
     // Collider collider; //< Collider
 
 	private:

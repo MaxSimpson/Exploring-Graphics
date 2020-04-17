@@ -165,7 +165,6 @@ Parse(const std::string& filename) {
     m_textures.emplace_back(0, 0);
 }
 
-
 void
 Model::
 ConstructVBOData() {
@@ -187,6 +186,7 @@ ConstructVBOData() {
     }
   }
 
-  cout << "Vertex size: " << m_vertices.size() << endl;
-  cout << "Element size: " << m_indices.size() << endl;
+  cout << "    Vertex size: " << m_vertices.size() << endl;
+  cout << "    Element size: " << m_indices.size() << endl;
+  cout << endl;
 }

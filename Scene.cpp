@@ -6,6 +6,11 @@
 #include <iostream>
 using namespace std;
 
+// Model generation
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
 #include "GLInclude.h"
 
 #include "MatManager.h"
@@ -18,6 +23,8 @@ Initialize() {
   collider.Initialize();
   for(auto& m : models)
 		m->Initialize();
+
+
 }
 
 Scene::
@@ -120,4 +127,13 @@ bool
 Scene::
 keyPressed(GLubyte _key, GLint _x, GLint _y){
 	return camera.keyPressed(_key, _x, _y);
+}
+
+void
+Scene::
+generatePrefabs(glm::vec3 minCords, glm::vec3 maxCords, int totalPrefabs, float spawnChance){
+  // while # of prefabs is less than total prefabs
+  // for each point in the domain
+  // if random number is lower than spawn chance
+  // get and emplace prefab 
 }

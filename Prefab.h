@@ -17,9 +17,14 @@ class Prefab {
     ////////////////////////////////////////////////////////////////////////////
     /// @brief Setup and read in data
     void Initialize(const string location);
+
+    ////////////////////////////////////////////////////////////////////////////
+    /// @brief Returns random model for prefab
+    Model getModel();
+
   private:
-    std::vector<Model> models; //< Models for possible planets
-    std::vector<Material> materials; //< List for materials
+    std::vector<unique_ptr<Model>> models; //< Models for possible planets
+    std::vector<unique_ptr<Material>> materials; //< List for materials
     //< File for weights of different models and materials
     string location; //< Folder with prefab data
 

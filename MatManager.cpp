@@ -1,6 +1,7 @@
 #include "MatManager.h"
 
 #include <iostream>
+#include <vector>
 using namespace std;
 
 MatManager& getMatManager() {
@@ -25,7 +26,7 @@ makeMaterials(string mat_location) {
   // Open location
 	ifstream mat_ifs (mat_location);
 	// Parse material
-	cout << "Parsing materials: " << mat_location << endl;
+	cout << "    Parsing materials: " << mat_location << endl;
 	// Material Data pre-contsruction
   string mat_name;
 	glm::vec3 kd;
@@ -33,13 +34,13 @@ makeMaterials(string mat_location) {
 	glm::vec3 ks;
 	string image_tag;
   int mat_counter = 0;
+  vector<string> matTags;
 	while(mat_ifs){
 		string mat_line;
 		getline(mat_ifs, mat_line);
 		istringstream mat_iss(mat_line);
 		string mat_tag = "";
 		mat_iss >> mat_tag;
-
 
 		if(mat_tag == "newmtl"){
       // Save last material
@@ -70,14 +71,19 @@ makeMaterials(string mat_location) {
       mat_iss >> filename;
       string dir = "ModelFiles";
       image_tag = dir + "/" + filename;
-      cout << "New image: " << image_tag << endl;
+      cout << "        New image: " << image_tag << endl;
     }else if ((mat_tag == "")||(mat_tag == "#")){
 			//Ignore
    	}else{
-			// cout << "Unknown tag: " << mat_tag << endl;
+       matTags.emplace_back(mat_tag);
 		}
   }
-  cout << "Adding last mtl: " << mat_name << endl;
+  cout << "        Adding mtl: " << mat_name << endl;
   materials.emplace(mat_name, make_unique<Material>(mat_name, kd, ka, ks, image_tag));
+  cout << "        Materials: " << materials.size() << endl;
+  cout << "        Unknown tags: ";
+  for(string& matTag : matTags){
+    cout << matTag + ", " ;
+  }
+  cout << endl;
 }
-
